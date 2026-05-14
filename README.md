@@ -12,14 +12,16 @@
 
 ## Links And Resources
 
-| Service       | Link                                            | Source Code                                             |
-| ------------- | ----------------------------------------------- | ------------------------------------------------------- |
-| P-Stream Docs | [docs](https://p-stream.github.io/docs/)                | [source code](https://github.com/p-stream/docs)         |
-| Extension     | [extension](https://p-stream.github.io/docs/extension) | [source code](https://github.com/p-stream/browser-ext)  |
-| Proxy         | [simple-proxy](https://p-stream.github.io/docs/proxy)  | [source code](https://github.com/p-stream/simple-proxy) |
-| Backend       | [backend](https://github.com/p-stream/backend)          | [source code](https://github.com/p-stream/backend)      |
-| Frontend      | [P-Stream](https://p-stream.github.io/docs/instances)  | [source code](https://github.com/p-stream/p-stream)     |
-| Weblate       | [weblate](https://p-stream.github.io/docs/weblate)          |                                                         |
+| Service       | Link                                            | Source Code                                            |
+| ------------- | ----------------------------------------------- | ------------------------------------------------------ |
+| P-Stream Docs | [docs](https://docs.pstream.mov)                | [source code](https://github.com/p-stream/docs)        |
+| Extension     | [extension](https://docs.pstream.mov/extension) | [source code](https://github.com/p-stream/browser-ext) |
+| Proxy         | [simple-proxy](https://docs.pstream.mov/proxy)  | [source code](https://github.com/p-stream/sudo-proxy)  |
+| Backend       | [backend](https://server.fifthwit.net)          | [source code](https://github.com/p-stream/backend)     |
+| Frontend      | [P-Stream](https://docs.pstream.mov/instances)  | [source code](https://github.com/p-stream/p-stream)    |
+| Weblate       | [weblate](https://weblate.pstream.mov)          |                                                        |
+
+**_I provide these if you are not able to host yourself, though I do encourage hosting the frontend._**
 
 ## Referrers
 
@@ -54,8 +56,6 @@ git commit -m "Update p-stream instance (merge upstream/production)"
 git push  # Push to YOUR repository
 ```
 
-## Contact Me / Fluxer
+## Contact Me / Discord
 
-[Fluxer](https://fluxer.gg/rEBQ3B8E)
-
-(Fluxer is an OSS Discord alternative platform)
+[Discord](https://fluxer.gg/VLEQLVSM)
