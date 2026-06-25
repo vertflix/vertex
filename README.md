@@ -16,8 +16,8 @@ Type the following commands into your terminal / command line to run Vertex loca
 git clone https://github.com/vertflix/vertex.git
 cd vertex
 git pull
-pnpm install
-pnpm run dev
+bun i
+bun dev
 ```
 
 Then you can visit the local instance [here](http://localhost:5173) or, at local host on port 5173.
