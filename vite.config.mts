@@ -127,7 +127,11 @@ export default defineConfig(({ mode }) => {
             if (id.includes("locales") && !id.includes("en.json")) {
               return "locales";
             }
-            if (id.includes("react-dom")) {
+            if (
+              id.includes("node_modules/react-dom") ||
+              id.includes("node_modules/react/") ||
+              id.includes("node_modules/scheduler/")
+            ) {
               return "react-dom";
             }
             if (id.includes("Icon.tsx")) {
