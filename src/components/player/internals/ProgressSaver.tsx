@@ -3,9 +3,9 @@ import { useInterval } from "react-use";
 
 import { playerStatus } from "@/stores/player/slices/source";
 import { usePlayerStore } from "@/stores/player/store";
-import { ProgressItem, useProgressStore } from "@/stores/progress";
+import { type ProgressItem, useProgressStore } from "@/stores/progress";
 
-function progressIsNotStarted(duration: number, watched: number): boolean {
+function progressIsNotStarted(_duration: number, watched: number): boolean {
   // too short watch time
   if (watched < 20) return true;
   return false;
@@ -21,7 +21,7 @@ function progressIsCompleted(duration: number, watched: number): boolean {
 function shouldSaveProgress(
   meta: any,
   progress: ProgressItem,
-  existingItems: Record<string, any>,
+  existingItems: Record<string, any>
 ): boolean {
   const { duration, watched } = progress;
 
@@ -43,7 +43,7 @@ function shouldSaveProgress(
   if (!showItem || !meta.season) return false;
 
   const seasonEpisodes = Object.values(showItem.episodes).filter(
-    (episode: any) => episode.seasonId === meta.season.tmdbId,
+    (episode: any) => episode.seasonId === meta.season.tmdbId
   );
 
   // Check if any other episode in this season has acceptable progress

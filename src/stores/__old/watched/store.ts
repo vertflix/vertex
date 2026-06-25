@@ -1,10 +1,10 @@
 import { useProgressStore } from "@/stores/progress";
 
 import { createVersionedStore } from "../migrations";
-import { OldData, migrateV2Videos } from "./migrations/v2";
+import { migrateV2Videos, type OldData } from "./migrations/v2";
 import { migrateV3Videos } from "./migrations/v3";
 import { migrateV4Videos } from "./migrations/v4";
-import { WatchedStoreData } from "./types";
+import type { WatchedStoreData } from "./types";
 
 export const VideoProgressStore = createVersionedStore<WatchedStoreData>()
   .setKey("video-progress")

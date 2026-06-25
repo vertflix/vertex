@@ -13,8 +13,11 @@ import { TextInputControl } from "@/components/text-inputs/TextInputControl";
 import { Divider } from "@/components/utils/Divider";
 import { PlaybackErrorPart } from "@/pages/parts/player/PlaybackErrorPart";
 import { PlayerPart } from "@/pages/parts/player/PlayerPart";
-import { PlayerMeta, playerStatus } from "@/stores/player/slices/source";
-import { SourceSliceSource, StreamType } from "@/stores/player/utils/qualities";
+import { type PlayerMeta, playerStatus } from "@/stores/player/slices/source";
+import type {
+  SourceSliceSource,
+  StreamType,
+} from "@/stores/player/utils/qualities";
 import { type ExtensionStatus, getExtensionState } from "@/utils/extension";
 
 const testMeta: PlayerMeta = {
@@ -43,7 +46,7 @@ export default function VideoTesterView() {
     useState<ExtensionStatus>("unknown");
   const [headersEnabled, setHeadersEnabled] = useState(false);
   const [headers, setHeaders] = useState<Array<{ key: string; value: string }>>(
-    [{ key: "", value: "" }],
+    [{ key: "", value: "" }]
   );
 
   // Check extension state on mount
@@ -60,11 +63,11 @@ export default function VideoTesterView() {
     (index: number, field: "key" | "value", value: string) => {
       setHeaders((prev) =>
         prev.map((header, i) =>
-          i === index ? { ...header, [field]: value } : header,
-        ),
+          i === index ? { ...header, [field]: value } : header
+        )
       );
     },
-    [],
+    []
   );
 
   const removeHeader = useCallback((index: number) => {
@@ -138,7 +141,7 @@ export default function VideoTesterView() {
       setMeta(testMeta);
       playMedia(source, [], null);
     },
-    [playMedia, setMeta, headersEnabled, headers, extensionState],
+    [playMedia, setMeta, headersEnabled, headers, extensionState]
   );
 
   const startFromCli = useCallback(async () => {
@@ -146,7 +149,7 @@ export default function VideoTesterView() {
       const clipboardText = await navigator.clipboard.readText();
 
       // Parse JavaScript object notation by evaluating it safely
-      let cliData;
+      let cliData: any;
       try {
         // Try to parse as JSON first (in case it's already valid JSON)
         cliData = JSON.parse(clipboardText);
@@ -158,7 +161,7 @@ export default function VideoTesterView() {
           cliData = new Function(`return (${clipboardText})`)();
         } catch {
           throw new Error(
-            "Invalid JavaScript object format. Please ensure the CLI output is properly formatted.",
+            "Invalid JavaScript object format. Please ensure the CLI output is properly formatted."
           );
         }
       }

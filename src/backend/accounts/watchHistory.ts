@@ -1,8 +1,8 @@
 import { ofetch } from "ofetch";
 
 import { getAuthHeaders } from "@/backend/accounts/auth";
-import { AccountWithToken } from "@/stores/auth";
-import {
+import type { AccountWithToken } from "@/stores/auth";
+import type {
   WatchHistoryItem,
   WatchHistoryUpdateItem,
 } from "@/stores/watchHistory";
@@ -30,7 +30,7 @@ export interface WatchHistoryResponse {
 }
 
 export function watchHistoryUpdateItemToInput(
-  item: WatchHistoryUpdateItem,
+  item: WatchHistoryUpdateItem
 ): WatchHistoryInput {
   return {
     duration: item.progress?.duration ?? 0,
@@ -55,7 +55,7 @@ export function watchHistoryUpdateItemToInput(
 
 export function watchHistoryItemToInputs(
   id: string,
-  item: WatchHistoryItem,
+  item: WatchHistoryItem
 ): WatchHistoryInput {
   return {
     duration: item.progress.duration,
@@ -77,17 +77,17 @@ export function watchHistoryItemToInputs(
 }
 
 export function watchHistoryItemsToInputs(
-  watchHistoryItems: Record<string, WatchHistoryItem>,
+  watchHistoryItems: Record<string, WatchHistoryItem>
 ): WatchHistoryInput[] {
   return Object.entries(watchHistoryItems).map(([id, item]) =>
-    watchHistoryItemToInputs(id, item),
+    watchHistoryItemToInputs(id, item)
   );
 }
 
 export async function setWatchHistory(
   url: string,
   account: AccountWithToken,
-  input: WatchHistoryInput,
+  input: WatchHistoryInput
 ) {
   return ofetch<WatchHistoryResponse>(
     `/users/${account.userId}/watch-history/${input.tmdbId}`,
@@ -96,7 +96,7 @@ export async function setWatchHistory(
       headers: getAuthHeaders(account.token),
       baseURL: url,
       body: input,
-    },
+    }
   );
 }
 
@@ -105,7 +105,7 @@ export async function removeWatchHistory(
   account: AccountWithToken,
   id: string,
   episodeId?: string,
-  seasonId?: string,
+  seasonId?: string
 ) {
   await ofetch(`/users/${account.userId}/watch-history/${id}`, {
     method: "DELETE",

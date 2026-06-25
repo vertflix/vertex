@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 import { Link as LinkRouter } from "react-router-dom";
 
 export function MwLink(props: {
@@ -22,7 +22,5 @@ export function MwLink(props: {
       </a>
     );
   if (isInternal) return <LinkRouter to={props.to ?? ""}>{content}</LinkRouter>;
-  return (
-    <span onClick={() => props.onClick && props.onClick()}>{content}</span>
-  );
+  return <span onClick={() => props.onClick?.()}>{content}</span>;
 }

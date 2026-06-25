@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
@@ -7,10 +7,10 @@ import { Heading2 } from "@/components/utils/Text";
 import { usePreferencesStore } from "@/stores/preferences";
 import {
   DEFAULT_KEYBOARD_SHORTCUTS,
-  KeyboardShortcutConfig,
-  ShortcutId,
   getKeyDisplayName,
   getModifierSymbol,
+  type KeyboardShortcutConfig,
+  ShortcutId,
 } from "@/utils/keyboardShortcuts";
 
 interface KeyboardShortcut {
@@ -48,7 +48,7 @@ function KeyBadge({
 
 const getShortcutGroups = (
   t: (key: string) => string,
-  shortcuts: Record<string, KeyboardShortcutConfig>,
+  shortcuts: Record<string, KeyboardShortcutConfig>
 ): ShortcutGroup[] => {
   // Merge user shortcuts with defaults (user shortcuts take precedence)
   const mergedShortcuts = {
@@ -63,7 +63,7 @@ const getShortcutGroups = (
   };
 
   const getConfig = (
-    shortcutId: ShortcutId,
+    shortcutId: ShortcutId
   ): KeyboardShortcutConfig | undefined => {
     return mergedShortcuts[shortcutId];
   };
@@ -178,21 +178,21 @@ const getShortcutGroups = (
         {
           key: getDisplayKey(ShortcutId.SYNC_SUBTITLES_EARLIER) || "[",
           description: t(
-            "global.keyboardShortcuts.shortcuts.syncSubtitlesEarlier",
+            "global.keyboardShortcuts.shortcuts.syncSubtitlesEarlier"
           ),
           config: getConfig(ShortcutId.SYNC_SUBTITLES_EARLIER),
         },
         {
           key: getDisplayKey(ShortcutId.SYNC_SUBTITLES_LATER) || "]",
           description: t(
-            "global.keyboardShortcuts.shortcuts.syncSubtitlesLater",
+            "global.keyboardShortcuts.shortcuts.syncSubtitlesLater"
           ),
           config: getConfig(ShortcutId.SYNC_SUBTITLES_LATER),
         },
         {
           key: getDisplayKey(ShortcutId.TOGGLE_NATIVE_SUBTITLES) || "S",
           description: t(
-            "global.keyboardShortcuts.shortcuts.toggleNativeSubtitles",
+            "global.keyboardShortcuts.shortcuts.toggleNativeSubtitles"
           ),
           config: getConfig(ShortcutId.TOGGLE_NATIVE_SUBTITLES),
         },

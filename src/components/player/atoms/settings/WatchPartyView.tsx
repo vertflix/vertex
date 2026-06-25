@@ -101,13 +101,13 @@ export function WatchPartyView({ id }: { id: string }) {
 
     window.addEventListener(
       "watchparty:validation",
-      handleValidation as EventListener,
+      handleValidation as EventListener
     );
 
     return () => {
       window.removeEventListener(
         "watchparty:validation",
-        handleValidation as EventListener,
+        handleValidation as EventListener
       );
     };
   }, []);
@@ -122,7 +122,7 @@ export function WatchPartyView({ id }: { id: string }) {
   const handlelegacyWatchPartyClick = () => {
     if (downloadUrl) {
       const watchPartyUrl = `https://www.watchparty.me/create?video=${encodeURIComponent(
-        downloadUrl,
+        downloadUrl
       )}`;
       window.open(watchPartyUrl);
     }

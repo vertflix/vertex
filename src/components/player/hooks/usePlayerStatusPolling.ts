@@ -33,7 +33,7 @@ interface PlayerStatusPollingResult {
  * @param maxHistory Maximum number of history entries to keep (default: 10)
  */
 export function usePlayerStatusPolling(
-  maxHistory: number = 10,
+  maxHistory: number = 10
 ): PlayerStatusPollingResult {
   const [statusHistory, setStatusHistory] = useState<PlayerStatusData[]>([]);
   const previousStateRef = useRef<PlayerStatusData | null>(null);

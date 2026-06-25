@@ -6,10 +6,10 @@ import {
   watchHistoryUpdateItemToInput,
 } from "@/backend/accounts/watchHistory";
 import { useBackendUrl } from "@/hooks/auth/useBackendUrl";
-import { AccountWithToken, useAuthStore } from "@/stores/auth";
+import { type AccountWithToken, useAuthStore } from "@/stores/auth";
 import {
-  WatchHistoryUpdateItem,
   useWatchHistoryStore,
+  type WatchHistoryUpdateItem,
 } from "@/stores/watchHistory";
 
 const syncIntervalMs = 1 * 60 * 1000; // 1 minute intervals
@@ -18,7 +18,7 @@ async function syncWatchHistory(
   items: WatchHistoryUpdateItem[],
   finish: (id: string) => void,
   url: string,
-  account: AccountWithToken | null,
+  account: AccountWithToken | null
 ) {
   for (const item of items) {
     // complete it beforehand so it doesn't get handled while in progress
@@ -33,7 +33,7 @@ async function syncWatchHistory(
           account,
           item.tmdbId,
           item.episodeId,
-          item.seasonId,
+          item.seasonId
         );
         continue;
       }
@@ -42,14 +42,13 @@ async function syncWatchHistory(
         await setWatchHistory(
           url,
           account,
-          watchHistoryUpdateItemToInput(item),
+          watchHistoryUpdateItemToInput(item)
         );
-        continue;
       }
     } catch (err) {
       console.error(
         `Failed to sync watch history: ${item.tmdbId} - ${item.action}`,
-        err,
+        err
       );
     }
   }
@@ -80,7 +79,7 @@ export function WatchHistorySyncer() {
           state.updateQueue,
           removeUpdateItem,
           url,
-          user.account,
+          user.account
         );
       }
     };
@@ -130,7 +129,7 @@ export function WatchHistorySyncer() {
           state.updateQueue,
           removeUpdateItem,
           url,
-          user.account,
+          user.account
         );
       })();
     }, syncIntervalMs);

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { get } from "@/backend/metadata/tmdb";
-import { Movie } from "@/pages/discover/common";
+import type { Movie } from "@/pages/discover/common";
 import { conf } from "@/setup/config";
 import { useLanguageStore } from "@/stores/language";
 import { getTmdbLanguageCode } from "@/utils/language";
@@ -56,7 +56,7 @@ export function RandomMovieButton() {
     const uniqueTitlesArray = Array.from(uniqueTitles);
     const randomIndex = Math.floor(Math.random() * uniqueTitlesArray.length);
     const selectedMovie = movies.find(
-      (movie) => movie.title === uniqueTitlesArray[randomIndex],
+      (movie) => movie.title === uniqueTitlesArray[randomIndex]
     );
 
     if (selectedMovie) {

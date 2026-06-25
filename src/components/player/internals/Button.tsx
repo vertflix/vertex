@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import { forwardRef } from "react";
 
-import { Icon, Icons } from "@/components/Icon";
+import { Icon, type Icons } from "@/components/Icon";
 
 export interface VideoPlayerButtonProps {
   children?: React.ReactNode;

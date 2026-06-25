@@ -3,7 +3,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { Icon, Icons } from "@/components/Icon";
-import { SegmentData } from "@/components/player/hooks/useSkipTime";
+import type { SegmentData } from "@/components/player/hooks/useSkipTime";
 import { TIDBSubmissionForm } from "@/components/player/TIDBSubmissionForm";
 import { Transition } from "@/components/utils/Transition";
 import { useOverlayStack } from "@/stores/interface/overlayStack";
@@ -116,7 +116,7 @@ export function ThumbsFeedback({
           <div
             className={classNames(
               "absolute bottom-0 right-0 transition-[bottom] duration-200 flex flex-col items-end space-y-2",
-              bottom,
+              bottom
             )}
           >
             <div className="text-sm font-medium text-white whitespace-nowrap">
@@ -129,7 +129,7 @@ export function ThumbsFeedback({
                 className={classNames(
                   "h-10 w-10 rounded-full flex items-center justify-center pointer-events-auto",
                   "bg-buttons-primary hover:bg-buttons-primaryHover text-buttons-primaryText",
-                  "scale-95 hover:scale-100 transition-all duration-200",
+                  "scale-95 hover:scale-100 transition-all duration-200"
                 )}
                 aria-label="Thumbs up"
               >
@@ -141,7 +141,7 @@ export function ThumbsFeedback({
                 className={classNames(
                   "h-10 w-10 rounded-full flex items-center justify-center pointer-events-auto",
                   "bg-buttons-primary hover:bg-buttons-primaryHover text-buttons-primaryText",
-                  "scale-95 hover:scale-100 transition-all duration-200",
+                  "scale-95 hover:scale-100 transition-all duration-200"
                 )}
                 aria-label="Thumbs down"
               >

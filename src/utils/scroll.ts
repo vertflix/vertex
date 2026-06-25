@@ -12,7 +12,7 @@ export function scrollToElement(
     inline?: ScrollLogicalPosition;
     offset?: number; // Additional offset in pixels (positive = scroll down more)
     delay?: number; // Delay in milliseconds before scrolling (useful when element needs to render)
-  },
+  }
 ): void {
   const {
     behavior = "smooth",
@@ -80,7 +80,7 @@ export function scrollToHash(
     inline?: ScrollLogicalPosition;
     offset?: number;
     delay?: number;
-  },
+  }
 ): void {
   const normalizedHash = hash.startsWith("#") ? hash : `#${hash}`;
   scrollToElement(normalizedHash, options);

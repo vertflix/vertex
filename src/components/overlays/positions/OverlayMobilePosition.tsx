@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import { ReactNode, useState } from "react";
+import { type ReactNode, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { Icon, Icons } from "@/components/Icon";
@@ -20,7 +20,7 @@ export function OverlayMobilePosition(props: MobilePositionProps) {
   };
 
   const isCaptionsSettings = window.location.href.endsWith(
-    "settings%2Fcaptions%2Fsettings",
+    "settings%2Fcaptions%2Fsettings"
   );
 
   return (

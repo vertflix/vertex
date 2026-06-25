@@ -29,7 +29,7 @@ export function SkipSegmentsView({ id }: { id: string }) {
       confidence: null,
       submission_count: 0,
     }),
-    [],
+    []
   );
 
   const handleSeek = (seconds: number) => {
@@ -37,7 +37,7 @@ export function SkipSegmentsView({ id }: { id: string }) {
   };
 
   const getSegmentTypeLabel = (
-    type: "intro" | "recap" | "credits" | "preview",
+    type: "intro" | "recap" | "credits" | "preview"
   ) => {
     switch (type) {
       case "intro":

@@ -12,7 +12,7 @@ export function SkipForward(props: {
   const display = usePlayerStore((s) => s.display);
   const time = usePlayerStore((s) => s.progress.time);
   const enableDoubleClickToSeek = usePreferencesStore(
-    (s) => s.enableDoubleClickToSeek,
+    (s) => s.enableDoubleClickToSeek
   );
   const commit = useCallback(() => {
     display?.setTime(time + 10);
@@ -34,7 +34,7 @@ export function SkipBackward(props: {
   const display = usePlayerStore((s) => s.display);
   const time = usePlayerStore((s) => s.progress.time);
   const enableDoubleClickToSeek = usePreferencesStore(
-    (s) => s.enableDoubleClickToSeek,
+    (s) => s.enableDoubleClickToSeek
   );
   const commit = useCallback(() => {
     display?.setTime(time - 10);

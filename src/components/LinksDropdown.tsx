@@ -72,7 +72,7 @@ function DropdownLink(props: {
         props.highlight
           ? "text-dropdown-highlight hover:text-dropdown-highlightHover"
           : "text-dropdown-text hover:text-white",
-        props.className,
+        props.className
       )}
     >
       {props.icon ? <Icon icon={props.icon} className="text-xl" /> : null}
@@ -114,7 +114,7 @@ function WatchPartyInputLink() {
       const response = await getRoomStatuses(
         backendUrl,
         account,
-        code.trim().toUpperCase(),
+        code.trim().toUpperCase()
       );
       const users = Object.values(response.users);
 
@@ -161,7 +161,7 @@ function WatchPartyInputLink() {
       className={classNames(
         "m-3 p-1 rounded font-medium transition-colors duration-100 group",
         "text-dropdown-text hover:text-white",
-        isFocused ? "bg-dropdown-contentBackground" : "",
+        isFocused ? "bg-dropdown-contentBackground" : ""
       )}
     >
       <div className="flex flex-col gap-1">
@@ -186,7 +186,7 @@ function WatchPartyInputLink() {
             className={classNames(
               "p-1 rounded hover:bg-dropdown-contentBackground transition-colors",
               isLoading && "opacity-50 cursor-not-allowed",
-              !code.trim() && "opacity-0 pointer-events-none",
+              !code.trim() && "opacity-0 pointer-events-none"
             )}
             disabled={!code.trim() || isLoading}
           >
@@ -213,7 +213,7 @@ export function LinksDropdown(props: { children: React.ReactNode }) {
   const seed = useAuthStore((s) => s.account?.seed);
   const bufferSeed = useMemo(
     () => (seed ? base64ToBuffer(seed) : null),
-    [seed],
+    [seed]
   );
   const { logout } = useAuth();
   const backendUrl = useBackendUrl();
@@ -243,7 +243,7 @@ export function LinksDropdown(props: { children: React.ReactNode }) {
   }, []);
 
   const enableLowPerformanceMode = usePreferencesStore(
-    (s) => s.enableLowPerformanceMode,
+    (s) => s.enableLowPerformanceMode
   );
   const isDesktopApp = useIsDesktopApp();
 
@@ -252,7 +252,7 @@ export function LinksDropdown(props: { children: React.ReactNode }) {
       <div
         className={classNames(
           "cursor-pointer tabbable rounded-full flex gap-2 text-white items-center py-2 px-3 bg-pill-background hover:bg-pill-backgroundHover backdrop-blur-lg transition-all duration-100 hover:scale-105",
-          open ? "bg-opacity-100" : "bg-opacity-50",
+          open ? "bg-opacity-100" : "bg-opacity-50"
         )}
         tabIndex={0}
         onClick={toggleOpen}
@@ -262,7 +262,7 @@ export function LinksDropdown(props: { children: React.ReactNode }) {
         <Icon
           className={classNames(
             "text-xl transition-transform duration-100",
-            open ? "rotate-180" : "",
+            open ? "rotate-180" : ""
           )}
           icon={Icons.CHEVRON_DOWN}
         />
@@ -278,7 +278,7 @@ export function LinksDropdown(props: { children: React.ReactNode }) {
                 } catch (error) {
                   console.warn(
                     "Failed to decrypt device name in LinksDropdown, using fallback:",
-                    error,
+                    error
                   );
                   return t("settings.account.unknownDevice");
                 }
@@ -298,7 +298,7 @@ export function LinksDropdown(props: { children: React.ReactNode }) {
               <DropdownLink
                 onClick={() =>
                   window.dispatchEvent(
-                    new CustomEvent("pstream-desktop-settings"),
+                    new CustomEvent("pstream-desktop-settings")
                   )
                 }
                 icon={Icons.GEAR}

@@ -27,6 +27,6 @@ export const useDiscoverStore = create<DiscoverState>()(
     }),
     {
       name: "__MW::discover",
-    },
-  ),
+    }
+  )
 );

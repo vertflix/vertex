@@ -1,9 +1,15 @@
-import { MediaPlaylist } from "hls.js";
+import type { MediaPlaylist } from "hls.js";
 
-import { MWMediaType } from "@/backend/metadata/types/mw";
-import { AudioTrack, CaptionListItem } from "@/stores/player/slices/source";
-import { LoadableSource, SourceQuality } from "@/stores/player/utils/qualities";
-import { Listener } from "@/utils/events";
+import type { MWMediaType } from "@/backend/metadata/types/mw";
+import type {
+  AudioTrack,
+  CaptionListItem,
+} from "@/stores/player/slices/source";
+import type {
+  LoadableSource,
+  SourceQuality,
+} from "@/stores/player/utils/qualities";
+import type { Listener } from "@/utils/events";
 
 export type DisplayErrorType = "hls" | "htmlvideo" | "global";
 export type DisplayError = {
@@ -35,8 +41,8 @@ export type DisplayError = {
 };
 
 export type DisplayInterfaceEvents = {
-  play: void;
-  pause: void;
+  play: undefined;
+  pause: undefined;
   fullscreen: boolean;
   volumechange: number;
   time: number;
@@ -80,7 +86,7 @@ export interface DisplayInterface extends Listener<DisplayInterfaceEvents> {
   load(ops: qualityChangeOptions): void;
   changeQuality(
     automaticQuality: boolean,
-    preferredQuality: SourceQuality | null,
+    preferredQuality: SourceQuality | null
   ): void;
   changeAudioTrack(audioTrack: AudioTrack): void;
   processVideoElement(video: HTMLVideoElement): void;

@@ -66,7 +66,7 @@ export const useBannerStore = create(
         if (found) found.height = height;
       });
     },
-  })),
+  }))
 );
 
 export function useBannerSize(location?: string) {

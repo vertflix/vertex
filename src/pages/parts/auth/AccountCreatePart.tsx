@@ -11,7 +11,7 @@ import {
   LargeCardText,
 } from "@/components/layout/LargeCard";
 import { AuthInputBox } from "@/components/text-inputs/AuthInputBox";
-import { UserIcons } from "@/components/UserIcon";
+import type { UserIcons } from "@/components/UserIcon";
 
 export interface AccountProfile {
   device: string;

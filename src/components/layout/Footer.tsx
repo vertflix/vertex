@@ -105,7 +105,7 @@ export function FooterView(props: {
   return (
     <div
       className={["flex min-h-screen flex-col", props.className || ""].join(
-        " ",
+        " "
       )}
     >
       <div style={{ flex: "1 0 auto" }}>{props.children}</div>

@@ -1,5 +1,11 @@
 import classNames from "classnames";
-import { ReactNode, useCallback, useEffect, useRef, useState } from "react";
+import {
+  type ReactNode,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 
 import { useOverlayStore } from "@/stores/overlay/store";
 
@@ -25,11 +31,11 @@ function useCalculatePositions() {
       setLeft(
         Math.min(
           buttonCenter - card.width / 2,
-          window.innerWidth - card.width - 30,
-        ),
+          window.innerWidth - card.width - 30
+        )
       );
     },
-    [],
+    []
   );
 
   useEffect(() => {

@@ -22,7 +22,7 @@ export function CategoryButtons({
         className="flex items-center rounded-full px-4 text-white py-3"
         onClick={() => {
           const element = document.getElementById(
-            `button-carousel-${categoryType}`,
+            `button-carousel-${categoryType}`
           );
           if (element) {
             element.scrollBy({

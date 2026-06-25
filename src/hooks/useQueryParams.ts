@@ -6,7 +6,7 @@ export function useQueryParams() {
 
   const queryParams = useMemo(() => {
     const obj: Record<string, string> = Object.fromEntries(
-      new URLSearchParams(loc.search).entries(),
+      new URLSearchParams(loc.search).entries()
     );
 
     return obj;
@@ -16,7 +16,7 @@ export function useQueryParams() {
 }
 
 export function useQueryParam(
-  param: string,
+  param: string
 ): [string | null, (a: string | null) => void] {
   const params = useQueryParams();
   const location = useLocation();
@@ -32,7 +32,7 @@ export function useQueryParam(
         search: parsed.toString(),
       });
     },
-    [param, location.search, navigate],
+    [param, location.search, navigate]
   );
 
   return [currentValue, set];

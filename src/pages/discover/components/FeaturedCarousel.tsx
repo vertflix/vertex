@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import { t } from "i18next";
-import { ReactNode, useEffect, useRef, useState } from "react";
+import { type ReactNode, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useWindowSize } from "react-use";
 
@@ -14,19 +14,18 @@ import { TMDBContentTypes } from "@/backend/metadata/types/tmdb";
 import type { TraktReleaseResponse } from "@/backend/metadata/types/trakt";
 import { Button } from "@/components/buttons/Button";
 import { Icon, Icons } from "@/components/Icon";
-import { Movie, TVShow } from "@/pages/discover/common";
+import type { Movie, TVShow } from "@/pages/discover/common";
 import { conf } from "@/setup/config";
 import { useDiscoverStore } from "@/stores/discover";
 import { useLanguageStore } from "@/stores/language";
 import { usePreferencesStore } from "@/stores/preferences";
 import { scrapeIMDb } from "@/utils/imdbScraper";
 import { getTmdbLanguageCode } from "@/utils/language";
-
-import { RandomMovieButton } from "./RandomMovieButton";
 import {
   EDITOR_PICKS_MOVIES,
   EDITOR_PICKS_TV_SHOWS,
 } from "../hooks/useDiscoverMedia";
+import { RandomMovieButton } from "./RandomMovieButton";
 
 export interface FeaturedMedia extends Partial<Movie & TVShow> {
   children?: ReactNode;
@@ -63,7 +62,7 @@ function FeaturedCarouselSkeleton({ shorter }: { shorter?: boolean }) {
     <div
       className={classNames(
         "relative w-full transition-[height] duration-300 ease-in-out",
-        shorter ? "h-[75vh]" : "h-[75vh] md:h-[100vh]",
+        shorter ? "h-[75vh]" : "h-[75vh] md:h-[100vh]"
       )}
     >
       <div className="relative w-full h-full overflow-hidden">
@@ -140,13 +139,13 @@ export function FeaturedCarousel({
   const autoPlayInterval = useRef<NodeJS.Timeout | null>(null);
   const navigate = useNavigate();
   const enableImageLogos = usePreferencesStore(
-    (state) => state.enableImageLogos,
+    (state) => state.enableImageLogos
   );
   const userLanguage = useLanguageStore((s) => s.language);
   const formattedLanguage = getTmdbLanguageCode(userLanguage);
   const { width: windowWidth, height: windowHeight } = useWindowSize();
   const [releaseInfo, setReleaseInfo] = useState<TraktReleaseResponse | null>(
-    null,
+    null
   );
   const [contentOpacity, setContentOpacity] = useState(1);
 
@@ -176,7 +175,7 @@ export function FeaturedCarousel({
           undefined,
           undefined,
           undefined,
-          currentMedia.type,
+          currentMedia.type
         );
         // Only update if we have both rating and votes as non-null numbers
         if (
@@ -235,8 +234,8 @@ export function FeaturedCarousel({
                   api_key: conf().TMDB_READ_API_KEY,
                   language: formattedLanguage,
                   append_to_response: "external_ids",
-                },
-              ),
+                }
+              )
             );
 
             const details = await Promise.all(detailPromises);
@@ -252,7 +251,7 @@ export function FeaturedCarousel({
             console.error(
               "Falling back to TMDB method",
               "Error fetching from Trakt discover:",
-              traktError,
+              traktError
             );
 
             // Fallback to TMDB method
@@ -271,7 +270,7 @@ export function FeaturedCarousel({
                     api_key: conf().TMDB_READ_API_KEY,
                     language: formattedLanguage,
                     append_to_response: "external_ids",
-                  }),
+                  })
                 );
 
               const movieDetails = await Promise.all(moviePromises);
@@ -282,7 +281,7 @@ export function FeaturedCarousel({
 
               // Shuffle
               const shuffledMovies = [...allMovies].sort(
-                () => 0.5 - Math.random(),
+                () => 0.5 - Math.random()
               );
               setMedia(shuffledMovies.slice(0, SLIDE_QUANTITY));
             } else if (effectiveCategory === "tvshows") {
@@ -300,7 +299,7 @@ export function FeaturedCarousel({
                     api_key: conf().TMDB_READ_API_KEY,
                     language: formattedLanguage,
                     append_to_response: "external_ids",
-                  }),
+                  })
                 );
 
               const showDetails = await Promise.all(showPromises);
@@ -311,7 +310,7 @@ export function FeaturedCarousel({
 
               // Shuffle
               const shuffledShows = [...allShows].sort(
-                () => 0.5 - Math.random(),
+                () => 0.5 - Math.random()
               );
               setMedia(shuffledShows.slice(0, SLIDE_QUANTITY));
             }
@@ -329,7 +328,7 @@ export function FeaturedCarousel({
 
           // Combine and shuffle
           const combinedIds = [...allMovieIds, ...allShowIds].sort(
-            () => 0.5 - Math.random(),
+            () => 0.5 - Math.random()
           );
 
           // Select the quantity
@@ -346,7 +345,7 @@ export function FeaturedCarousel({
               api_key: conf().TMDB_READ_API_KEY,
               language: formattedLanguage,
               append_to_response: "external_ids",
-            }),
+            })
           );
 
           const showPromises = selectedShowIds.map(({ id }) =>
@@ -354,7 +353,7 @@ export function FeaturedCarousel({
               api_key: conf().TMDB_READ_API_KEY,
               language: formattedLanguage,
               append_to_response: "external_ids",
-            }),
+            })
           );
 
           const [movieResults, showResults] = await Promise.all([
@@ -479,7 +478,7 @@ export function FeaturedCarousel({
           currentMediaId.toString(),
           media[currentIndex].type === "movie"
             ? TMDBContentTypes.MOVIE
-            : TMDBContentTypes.TV,
+            : TMDBContentTypes.TV
         );
         // Only update if this is still the current media
         if (media[currentIndex]?.id === currentMediaId) {
@@ -581,7 +580,7 @@ export function FeaturedCarousel({
 
     if (hasTheatricalRelease) {
       const theatricalReleaseDate = new Date(
-        releaseInfo.theatrical_release_date!,
+        releaseInfo.theatrical_release_date!
       );
 
       if (new Date() >= theatricalReleaseDate) {
@@ -612,7 +611,7 @@ export function FeaturedCarousel({
             ? windowHeight > 600
               ? "h-[40rem] md:h-[85vh]"
               : "h-[100vh]"
-            : "h-[40rem] md:h-[100vh]",
+            : "h-[40rem] md:h-[100vh]"
       )}
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
@@ -621,7 +620,7 @@ export function FeaturedCarousel({
       <div
         className={classNames(
           "relative w-full h-full overflow-hidden",
-          searchClasses,
+          searchClasses
         )}
       >
         {media.map((item, index) => (
@@ -649,7 +648,7 @@ export function FeaturedCarousel({
         onClick={handlePrevSlide}
         className={classNames(
           "absolute left-4 top-1/2 -translate-y-1/2 z-20 p-2 rounded-full bg-black/30 hover:bg-black/50 transition-colors",
-          searchClasses,
+          searchClasses
         )}
         aria-label="Previous slide"
       >
@@ -660,7 +659,7 @@ export function FeaturedCarousel({
         onClick={handleNextSlide}
         className={classNames(
           "absolute right-4 top-1/2 -translate-y-1/2 z-20 p-2 rounded-full bg-black/30 hover:bg-black/50 transition-colors",
-          searchClasses,
+          searchClasses
         )}
         aria-label="Next slide"
       >
@@ -671,7 +670,7 @@ export function FeaturedCarousel({
       <div
         className={classNames(
           "absolute bottom-8 left-1/2 -translate-x-1/2 z-[19] flex gap-2",
-          searchClasses,
+          searchClasses
         )}
       >
         {media.map((item, index) => (
@@ -715,7 +714,7 @@ export function FeaturedCarousel({
       <div
         className={classNames(
           "absolute inset-0 flex items-end pb-20 z-10 transition-opacity duration-150",
-          searchClasses,
+          searchClasses
         )}
         style={{ opacity: contentOpacity }}
       >
@@ -803,7 +802,7 @@ export function FeaturedCarousel({
               <Button
                 onClick={() =>
                   navigate(
-                    `/media/tmdb-${currentMedia.type}-${currentMedia.id}-${mediaTitle?.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`,
+                    `/media/tmdb-${currentMedia.type}-${currentMedia.id}-${mediaTitle?.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`
                   )
                 }
                 theme="secondary"
@@ -838,7 +837,7 @@ export function FeaturedCarousel({
         <div
           className={classNames(
             "absolute inset-0 pointer-events-none",
-            windowWidth > 1280 ? "pt-0" : "pt-14",
+            windowWidth > 1280 ? "pt-0" : "pt-14"
           )}
         >
           <div className="pointer-events-auto z-50">{children}</div>

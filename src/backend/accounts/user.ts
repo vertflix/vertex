@@ -1,10 +1,10 @@
 import { ofetch } from "ofetch";
 
-import { SessionResponse, getAuthHeaders } from "@/backend/accounts/auth";
-import { AccountWithToken } from "@/stores/auth";
-import { BookmarkMediaItem } from "@/stores/bookmarks";
-import { ProgressMediaItem } from "@/stores/progress";
-import { WatchHistoryItem } from "@/stores/watchHistory";
+import { getAuthHeaders, type SessionResponse } from "@/backend/accounts/auth";
+import type { AccountWithToken } from "@/stores/auth";
+import type { BookmarkMediaItem } from "@/stores/bookmarks";
+import type { ProgressMediaItem } from "@/stores/progress";
+import type { WatchHistoryItem } from "@/stores/watchHistory";
 
 export interface UserResponse {
   id: string;
@@ -152,7 +152,7 @@ export function progressResponsesToEntries(responses: ProgressResponse[]) {
 }
 
 export function watchHistoryResponsesToEntries(
-  responses: WatchHistoryResponse[],
+  responses: WatchHistoryResponse[]
 ) {
   const items: Record<string, WatchHistoryItem> = {};
 
@@ -182,21 +182,21 @@ export function watchHistoryResponsesToEntries(
 
 export async function getUser(
   url: string,
-  token: string,
+  token: string
 ): Promise<{ user: UserResponse; session: SessionResponse }> {
   return ofetch<{ user: UserResponse; session: SessionResponse }>(
     "/users/@me",
     {
       headers: getAuthHeaders(token),
       baseURL: url,
-    },
+    }
   );
 }
 
 export async function editUser(
   url: string,
   account: AccountWithToken,
-  object: UserEdit,
+  object: UserEdit
 ): Promise<{ user: UserResponse; session: SessionResponse }> {
   return ofetch<{ user: UserResponse; session: SessionResponse }>(
     `/users/${account.userId}`,
@@ -205,13 +205,13 @@ export async function editUser(
       headers: getAuthHeaders(account.token),
       body: object,
       baseURL: url,
-    },
+    }
   );
 }
 
 export async function deleteUser(
   url: string,
-  account: AccountWithToken,
+  account: AccountWithToken
 ): Promise<UserResponse> {
   return ofetch<UserResponse>(`/users/${account.userId}`, {
     method: "DELETE",
@@ -240,6 +240,6 @@ export async function getWatchHistory(url: string, account: AccountWithToken) {
     {
       headers: getAuthHeaders(account.token),
       baseURL: url,
-    },
+    }
   );
 }

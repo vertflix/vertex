@@ -1,5 +1,5 @@
 import {
-  Fetcher,
+  type Fetcher,
   makeSimpleProxyFetcher,
   setM3U8ProxyUrl,
 } from "@p-stream/providers";
@@ -35,7 +35,7 @@ function getEnabledM3U8ProxyUrls() {
   try {
     const enabled = JSON.parse(enabledProxies);
     return allM3U8ProxyUrls.filter(
-      (_url, index) => enabled[index.toString()] !== false,
+      (_url, index) => enabled[index.toString()] !== false
     );
   } catch {
     return allM3U8ProxyUrls;
@@ -43,12 +43,12 @@ function getEnabledM3U8ProxyUrls() {
 }
 
 export const getLoadbalancedM3U8ProxyUrl = makeLoadbalancedList(
-  getEnabledM3U8ProxyUrls,
+  getEnabledM3U8ProxyUrls
 );
 
 async function fetchButWithApiTokens(
   input: RequestInfo | URL,
-  init?: RequestInit | undefined,
+  init?: RequestInit | undefined
 ): Promise<Response> {
   const apiToken = await getApiToken();
   const headers = new Headers(init?.headers);
@@ -60,7 +60,7 @@ async function fetchButWithApiTokens(
           ...init,
           headers,
         }
-      : undefined,
+      : undefined
   );
   const newApiToken = response.headers.get("X-Token");
   if (newApiToken) setApiToken(newApiToken);
@@ -78,7 +78,7 @@ export function makeLoadBalancedSimpleProxyFetcher() {
   const fetcher: Fetcher = async (a, b) => {
     const currentFetcher = makeSimpleProxyFetcher(
       getLoadbalancedProxyUrl(),
-      fetchButWithApiTokens,
+      fetchButWithApiTokens
     );
     return currentFetcher(a, b);
   };
@@ -87,13 +87,13 @@ export function makeLoadBalancedSimpleProxyFetcher() {
 
 function makeFinalHeaders(
   readHeaders: string[],
-  headers: Record<string, string>,
+  headers: Record<string, string>
 ): Headers {
   const lowercasedHeaders = readHeaders.map((v) => v.toLowerCase());
   return new Headers(
     Object.entries(headers).filter((entry) =>
-      lowercasedHeaders.includes(entry[0].toLowerCase()),
-    ),
+      lowercasedHeaders.includes(entry[0].toLowerCase())
+    )
   );
 }
 

@@ -1,4 +1,4 @@
-import { ChangeEvent, useCallback, useRef, useState } from "react";
+import { type ChangeEvent, useCallback, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
@@ -23,14 +23,17 @@ import { useBackendUrl } from "@/hooks/auth/useBackendUrl";
 import { MinimalPageLayout } from "@/pages/layouts/MinimalPageLayout";
 import { PageTitle } from "@/pages/parts/util/PageTitle";
 import { useAuthStore } from "@/stores/auth";
-import { BookmarkMediaItem, useBookmarkStore } from "@/stores/bookmarks";
+import { type BookmarkMediaItem, useBookmarkStore } from "@/stores/bookmarks";
 import { useGroupOrderStore } from "@/stores/groupOrder";
 import { useLanguageStore } from "@/stores/language";
 import { usePreferencesStore } from "@/stores/preferences";
-import { ProgressMediaItem, useProgressStore } from "@/stores/progress";
+import { type ProgressMediaItem, useProgressStore } from "@/stores/progress";
 import { useSubtitleStore } from "@/stores/subtitles";
 import { useThemeStore } from "@/stores/theme";
-import { WatchHistoryItem, useWatchHistoryStore } from "@/stores/watchHistory";
+import {
+  useWatchHistoryStore,
+  type WatchHistoryItem,
+} from "@/stores/watchHistory";
 
 interface UploadedData {
   account?: {
@@ -107,7 +110,7 @@ export function MigrationUploadPage() {
                 }
                 return acc;
               },
-              {} as Record<string, BookmarkMediaItem>,
+              {} as Record<string, BookmarkMediaItem>
             )
           : undefined,
 
@@ -135,7 +138,7 @@ export function MigrationUploadPage() {
                 }
                 return acc;
               },
-              {} as Record<string, ProgressMediaItem>,
+              {} as Record<string, ProgressMediaItem>
             )
           : undefined,
 
@@ -169,7 +172,7 @@ export function MigrationUploadPage() {
                 }
                 return acc;
               },
-              {} as Record<string, WatchHistoryItem>,
+              {} as Record<string, WatchHistoryItem>
             )
           : undefined,
       };
@@ -205,10 +208,10 @@ export function MigrationUploadPage() {
       Object.keys(uploadedData.progress).length > 0
     ) {
       const progressInputs = Object.entries(uploadedData.progress).flatMap(
-        ([tmdbId, item]) => progressMediaItemToInputs(tmdbId, item),
+        ([tmdbId, item]) => progressMediaItemToInputs(tmdbId, item)
       );
       importPromises.push(
-        importProgress(backendUrl, user.account, progressInputs),
+        importProgress(backendUrl, user.account, progressInputs)
       );
     }
 
@@ -218,10 +221,10 @@ export function MigrationUploadPage() {
       Object.keys(uploadedData.watchHistory).length > 0
     ) {
       const watchHistoryInputs = watchHistoryItemsToInputs(
-        uploadedData.watchHistory,
+        uploadedData.watchHistory
       );
       importPromises.push(
-        importWatchHistory(backendUrl, user.account, watchHistoryInputs),
+        importWatchHistory(backendUrl, user.account, watchHistoryInputs)
       );
     }
 
@@ -231,10 +234,10 @@ export function MigrationUploadPage() {
       Object.keys(uploadedData.bookmarks).length > 0
     ) {
       const bookmarkInputs = Object.entries(uploadedData.bookmarks).map(
-        ([tmdbId, item]) => bookmarkMediaToInput(tmdbId, item),
+        ([tmdbId, item]) => bookmarkMediaToInput(tmdbId, item)
       );
       importPromises.push(
-        importBookmarks(backendUrl, user.account, bookmarkInputs),
+        importBookmarks(backendUrl, user.account, bookmarkInputs)
       );
     }
 
@@ -255,14 +258,14 @@ export function MigrationUploadPage() {
 
     if (groupOrderToImport && groupOrderToImport.length > 0) {
       importPromises.push(
-        importGroupOrder(backendUrl, user.account, groupOrderToImport),
+        importGroupOrder(backendUrl, user.account, groupOrderToImport)
       );
     }
 
     // Import settings
     if (uploadedData.settings) {
       importPromises.push(
-        importSettings(backendUrl, user.account, uploadedData.settings),
+        importSettings(backendUrl, user.account, uploadedData.settings)
       );
     }
 
@@ -315,28 +318,28 @@ export function MigrationUploadPage() {
       if (uploadedData.bookmarks) {
         localStorage.setItem(
           "__MW::bookmarks",
-          JSON.stringify({ state: { bookmarks: uploadedData.bookmarks } }),
+          JSON.stringify({ state: { bookmarks: uploadedData.bookmarks } })
         );
         replaceBookmarks(uploadedData.bookmarks);
       }
       if (uploadedData.progress) {
         localStorage.setItem(
           "__MW::progress",
-          JSON.stringify({ state: { items: uploadedData.progress } }),
+          JSON.stringify({ state: { items: uploadedData.progress } })
         );
         replaceProgress(uploadedData.progress);
       }
       if (uploadedData.watchHistory) {
         localStorage.setItem(
           "__MW::watchHistory",
-          JSON.stringify({ state: { items: uploadedData.watchHistory } }),
+          JSON.stringify({ state: { items: uploadedData.watchHistory } })
         );
         replaceWatchHistory(uploadedData.watchHistory);
       }
       if (uploadedData.groupOrder) {
         localStorage.setItem(
           "__MW::groupOrder",
-          JSON.stringify({ state: { groupOrder: uploadedData.groupOrder } }),
+          JSON.stringify({ state: { groupOrder: uploadedData.groupOrder } })
         );
         setGroupOrder(uploadedData.groupOrder);
       } else {
@@ -353,7 +356,7 @@ export function MigrationUploadPage() {
         if (groupOrderArray.length > 0) {
           localStorage.setItem(
             "__MW::groupOrder",
-            JSON.stringify({ state: { groupOrder: groupOrderArray } }),
+            JSON.stringify({ state: { groupOrder: groupOrderArray } })
           );
           setGroupOrder(groupOrderArray);
         }
@@ -362,7 +365,7 @@ export function MigrationUploadPage() {
         // Apply subtitle settings
         if (uploadedData.settings.defaultSubtitleLanguage) {
           subtitleStore.importSubtitleLanguage(
-            uploadedData.settings.defaultSubtitleLanguage,
+            uploadedData.settings.defaultSubtitleLanguage
           );
         }
         if (uploadedData.settings.febboxKey !== undefined) {
@@ -373,52 +376,52 @@ export function MigrationUploadPage() {
         }
         if (uploadedData.settings.debridService !== undefined) {
           preferencesStore.setdebridService(
-            uploadedData.settings.debridService,
+            uploadedData.settings.debridService
           );
         }
         if (uploadedData.settings.enableThumbnails !== undefined) {
           preferencesStore.setEnableThumbnails(
-            uploadedData.settings.enableThumbnails,
+            uploadedData.settings.enableThumbnails
           );
         }
         if (uploadedData.settings.enableAutoplay !== undefined) {
           preferencesStore.setEnableAutoplay(
-            uploadedData.settings.enableAutoplay,
+            uploadedData.settings.enableAutoplay
           );
         }
         if (uploadedData.settings.enableSkipCredits !== undefined) {
           preferencesStore.setEnableSkipCredits(
-            uploadedData.settings.enableSkipCredits,
+            uploadedData.settings.enableSkipCredits
           );
         }
         if (uploadedData.settings.enableDiscover !== undefined) {
           preferencesStore.setEnableDiscover(
-            uploadedData.settings.enableDiscover,
+            uploadedData.settings.enableDiscover
           );
         }
         if (uploadedData.settings.enableFeatured !== undefined) {
           preferencesStore.setEnableFeatured(
-            uploadedData.settings.enableFeatured,
+            uploadedData.settings.enableFeatured
           );
         }
         if (uploadedData.settings.enableDetailsModal !== undefined) {
           preferencesStore.setEnableDetailsModal(
-            uploadedData.settings.enableDetailsModal,
+            uploadedData.settings.enableDetailsModal
           );
         }
         if (uploadedData.settings.enableImageLogos !== undefined) {
           preferencesStore.setEnableImageLogos(
-            uploadedData.settings.enableImageLogos,
+            uploadedData.settings.enableImageLogos
           );
         }
         if (uploadedData.settings.enableCarouselView !== undefined) {
           preferencesStore.setEnableCarouselView(
-            uploadedData.settings.enableCarouselView,
+            uploadedData.settings.enableCarouselView
           );
         }
         if (uploadedData.settings.forceCompactEpisodeView !== undefined) {
           preferencesStore.setForceCompactEpisodeView(
-            uploadedData.settings.forceCompactEpisodeView,
+            uploadedData.settings.forceCompactEpisodeView
           );
         }
         if (uploadedData.settings.sourceOrder !== undefined) {
@@ -426,17 +429,17 @@ export function MigrationUploadPage() {
         }
         if (uploadedData.settings.enableSourceOrder !== undefined) {
           preferencesStore.setEnableSourceOrder(
-            uploadedData.settings.enableSourceOrder,
+            uploadedData.settings.enableSourceOrder
           );
         }
         if (uploadedData.settings.lastSuccessfulSource !== undefined) {
           preferencesStore.setLastSuccessfulSource(
-            uploadedData.settings.lastSuccessfulSource,
+            uploadedData.settings.lastSuccessfulSource
           );
         }
         if (uploadedData.settings.enableLastSuccessfulSource !== undefined) {
           preferencesStore.setEnableLastSuccessfulSource(
-            uploadedData.settings.enableLastSuccessfulSource,
+            uploadedData.settings.enableLastSuccessfulSource
           );
         }
         if (uploadedData.settings.embedOrder !== undefined) {
@@ -444,7 +447,7 @@ export function MigrationUploadPage() {
         }
         if (uploadedData.settings.enableEmbedOrder !== undefined) {
           preferencesStore.setEnableEmbedOrder(
-            uploadedData.settings.enableEmbedOrder,
+            uploadedData.settings.enableEmbedOrder
           );
         }
         if (uploadedData.settings.proxyTmdb !== undefined) {
@@ -452,32 +455,32 @@ export function MigrationUploadPage() {
         }
         if (uploadedData.settings.enableLowPerformanceMode !== undefined) {
           preferencesStore.setEnableLowPerformanceMode(
-            uploadedData.settings.enableLowPerformanceMode,
+            uploadedData.settings.enableLowPerformanceMode
           );
         }
         if (uploadedData.settings.enableNativeSubtitles !== undefined) {
           preferencesStore.setEnableNativeSubtitles(
-            uploadedData.settings.enableNativeSubtitles,
+            uploadedData.settings.enableNativeSubtitles
           );
         }
         if (uploadedData.settings.enableHoldToBoost !== undefined) {
           preferencesStore.setEnableHoldToBoost(
-            uploadedData.settings.enableHoldToBoost,
+            uploadedData.settings.enableHoldToBoost
           );
         }
         if (uploadedData.settings.homeSectionOrder !== undefined) {
           preferencesStore.setHomeSectionOrder(
-            uploadedData.settings.homeSectionOrder,
+            uploadedData.settings.homeSectionOrder
           );
         }
         if (uploadedData.settings.manualSourceSelection !== undefined) {
           preferencesStore.setManualSourceSelection(
-            uploadedData.settings.manualSourceSelection,
+            uploadedData.settings.manualSourceSelection
           );
         }
         if (uploadedData.settings.enableDoubleClickToSeek !== undefined) {
           preferencesStore.setEnableDoubleClickToSeek(
-            uploadedData.settings.enableDoubleClickToSeek,
+            uploadedData.settings.enableDoubleClickToSeek
           );
         }
       }
@@ -493,7 +496,7 @@ export function MigrationUploadPage() {
       }
 
       setStatus("success");
-    } catch (e) {
+    } catch (_e) {
       setStatus("error");
     }
   }, [
@@ -584,7 +587,7 @@ export function MigrationUploadPage() {
                       <div className="text-sm pb-2">
                         {t("migration.upload.exportedOn")}:{" "}
                         {new Date(
-                          uploadedData?.exportDate || "",
+                          uploadedData?.exportDate || ""
                         ).toLocaleDateString()}
                       </div>
                     )}

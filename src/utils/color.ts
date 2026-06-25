@@ -12,12 +12,12 @@ export function hexToRgb(hex: string): string | null {
 
   // Parse hex
   const result = /^([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})?$/i.exec(
-    hex,
+    hex
   );
   return result
     ? `${parseInt(result[1], 16)} ${parseInt(result[2], 16)} ${parseInt(
         result[3],
-        16,
+        16
       )}`
     : null;
 }
@@ -34,7 +34,7 @@ function hslToRgb(h: number, s: number, l: number): string {
     l - a * Math.max(-1, Math.min(k(n) - 3, Math.min(9 - k(n), 1)));
 
   return `${Math.round(255 * f(0))} ${Math.round(255 * f(8))} ${Math.round(
-    255 * f(4),
+    255 * f(4)
   )}`;
 }
 
@@ -46,7 +46,7 @@ function parseHsla(hsla: string): string | null {
     return hslToRgb(
       parseInt(match[1], 10),
       parseInt(match[2], 10),
-      parseInt(match[3], 10),
+      parseInt(match[3], 10)
     );
   }
   return null;

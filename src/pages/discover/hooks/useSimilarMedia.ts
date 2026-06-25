@@ -1,13 +1,13 @@
 import { useCallback, useEffect, useState } from "react";
 
 import { getMediaDetails, getRelatedMedia } from "@/backend/metadata/tmdb";
-import { TMDBContentTypes } from "@/backend/metadata/types/tmdb";
 import type {
   TMDBMovieData,
   TMDBMovieSearchResult,
   TMDBShowData,
   TMDBShowSearchResult,
 } from "@/backend/metadata/types/tmdb";
+import { TMDBContentTypes } from "@/backend/metadata/types/tmdb";
 
 import { fetchFedSimilarItems } from "../lib/personalRecommendations";
 
@@ -48,7 +48,7 @@ export function useSimilarMedia({
           .map((tmdbId) => getMediaDetails(tmdbId, type));
 
         const fedSimilarDetails = await Promise.allSettled(
-          fedSimilarDetailPromises,
+          fedSimilarDetailPromises
         );
 
         const results: (TMDBMovieSearchResult | TMDBShowSearchResult)[] = [];
@@ -106,7 +106,7 @@ export function useSimilarMedia({
           setMedia(
             results.slice(0, limit) as
               | TMDBMovieSearchResult[]
-              | TMDBShowSearchResult[],
+              | TMDBShowSearchResult[]
           );
           return;
         }
@@ -114,7 +114,7 @@ export function useSimilarMedia({
 
       // Fall back to TMDB recommendations
       console.info(
-        "Fed-similar API returned insufficient or no results, falling back to TMDB",
+        "Fed-similar API returned insufficient or no results, falling back to TMDB"
       );
       const tmdbResults = await getRelatedMedia(mediaId, type, limit);
       setMedia(tmdbResults);

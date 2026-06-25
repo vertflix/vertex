@@ -1,7 +1,7 @@
 import { ofetch } from "ofetch";
 
-import { SessionResponse } from "@/backend/accounts/auth";
-import { UserResponse } from "@/backend/accounts/user";
+import type { SessionResponse } from "@/backend/accounts/auth";
+import type { UserResponse } from "@/backend/accounts/user";
 
 export interface ChallengeTokenResponse {
   challenge: string;
@@ -9,7 +9,7 @@ export interface ChallengeTokenResponse {
 
 export async function getRegisterChallengeToken(
   url: string,
-  captchaToken?: string,
+  captchaToken?: string
 ): Promise<ChallengeTokenResponse> {
   return ofetch<ChallengeTokenResponse>("/auth/register/start", {
     method: "POST",
@@ -42,7 +42,7 @@ export interface RegisterInput {
 
 export async function registerAccount(
   url: string,
-  data: RegisterInput,
+  data: RegisterInput
 ): Promise<RegisterResponse> {
   return ofetch<RegisterResponse>("/auth/register/complete", {
     method: "POST",

@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 
 import { EditButton } from "@/components/buttons/EditButton";
 import { EditButtonWithText } from "@/components/buttons/EditButtonWithText";
-import { Dropdown, OptionItem } from "@/components/form/Dropdown";
+import { Dropdown, type OptionItem } from "@/components/form/Dropdown";
 import { Icon, Icons } from "@/components/Icon";
 import { SectionHeading } from "@/components/layout/SectionHeading";
 import { MediaGrid } from "@/components/media/MediaGrid";
@@ -17,8 +17,8 @@ import { UserIcon, UserIcons } from "@/components/UserIcon";
 import { useBookmarkStore } from "@/stores/bookmarks";
 import { useGroupOrderStore } from "@/stores/groupOrder";
 import { useProgressStore } from "@/stores/progress";
-import { SortOption, sortMediaItems } from "@/utils/mediaSorting";
-import { MediaItem } from "@/utils/mediaTypes";
+import { type SortOption, sortMediaItems } from "@/utils/mediaSorting";
+import type { MediaItem } from "@/utils/mediaTypes";
 
 function parseGroupString(group: string): { icon: UserIcons; name: string } {
   const match = group.match(/^\[([a-zA-Z0-9_]+)\](.*)$/);
@@ -48,12 +48,12 @@ export function BookmarksPart({
   const editBookmarkModal = useModal("bookmark-edit");
   const editGroupModal = useModal("bookmark-edit-group");
   const [editingBookmarkId, setEditingBookmarkId] = useState<string | null>(
-    null,
+    null
   );
   const [editingGroupName, setEditingGroupName] = useState<string | null>(null);
   const modifyBookmarks = useBookmarkStore((s) => s.modifyBookmarks);
   const modifyBookmarksByGroup = useBookmarkStore(
-    (s) => s.modifyBookmarksByGroup,
+    (s) => s.modifyBookmarksByGroup
   );
   const [sortBy, setSortBy] = useState<SortOption>(() => {
     const saved = localStorage.getItem("__MW::bookmarksSort");
@@ -99,7 +99,7 @@ export function BookmarksPart({
         grouped[group],
         sortBy,
         bookmarks,
-        progressItems,
+        progressItems
       );
     });
 
@@ -108,7 +108,7 @@ export function BookmarksPart({
       regular,
       sortBy,
       bookmarks,
-      progressItems,
+      progressItems
     );
 
     return { groupedItems: grouped, regularItems: sortedRegular };
@@ -141,7 +141,7 @@ export function BookmarksPart({
       });
     } else {
       const orderMap = new Map(
-        groupOrder.map((group, index) => [group, index]),
+        groupOrder.map((group, index) => [group, index])
       );
 
       Array.from(allSections.entries())
@@ -239,7 +239,7 @@ export function BookmarksPart({
                       id="edit-group-button"
                       text={t("home.bookmarks.groups.editGroup.title")}
                       secondaryText={t(
-                        "home.bookmarks.groups.editGroup.cancel",
+                        "home.bookmarks.groups.editGroup.cancel"
                       )}
                     />
                   )}

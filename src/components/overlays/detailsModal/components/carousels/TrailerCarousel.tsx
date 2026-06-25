@@ -2,7 +2,10 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { getMediaVideos } from "@/backend/metadata/tmdb";
-import { TMDBContentTypes, TMDBVideo } from "@/backend/metadata/types/tmdb";
+import type {
+  TMDBContentTypes,
+  TMDBVideo,
+} from "@/backend/metadata/types/tmdb";
 
 interface TrailerCarouselProps {
   mediaId: string;

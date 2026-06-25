@@ -9,7 +9,7 @@ import {
 import { Transition } from "@/components/utils/Transition";
 import { usePlayerStore } from "@/stores/player/store";
 import { usePreferencesStore } from "@/stores/preferences";
-import { SubtitleStyling, useSubtitleStore } from "@/stores/subtitles";
+import { type SubtitleStyling, useSubtitleStore } from "@/stores/subtitles";
 
 export const wordOverrides: Record<string, string> = {
   // Example: i: "I", but in polish "i" is "and" so this is disabled.
@@ -62,7 +62,7 @@ export function CaptionCue({
       case "Border": {
         const thickness = Math.max(
           0.5,
-          Math.min(5, styling.borderThickness || 1),
+          Math.min(5, styling.borderThickness || 1)
         );
         const shadowColor = "rgba(0,0,0,0.8)";
         return {
@@ -80,7 +80,6 @@ export function CaptionCue({
       }
       case "dropShadow":
         return { textShadow: "2.5px 2.5px 4.5px rgba(0,0,0,0.9)" };
-      case "default":
       default:
         return { textShadow: "0 2px 4px rgba(0,0,0,0.5)" }; // Default is a light drop shadow
     }
@@ -125,15 +124,15 @@ export function SubtitleRenderer() {
 
   const parsedCaptions = useMemo(
     () => (srtData ? parseSubtitles(srtData, language) : []),
-    [srtData, language],
+    [srtData, language]
   );
 
   const visibleCaptions = useMemo(
     () =>
       parsedCaptions.filter(({ start, end }) =>
-        captionIsVisible(start, end, delay, videoTime),
+        captionIsVisible(start, end, delay, videoTime)
       ),
-    [parsedCaptions, videoTime, delay],
+    [parsedCaptions, videoTime, delay]
   );
 
   return (
@@ -157,7 +156,7 @@ export function SubtitleView(props: { controlsShown: boolean }) {
   const isCasting = display?.getType() === "casting";
   const styling = useSubtitleStore((s) => s.styling);
   const enableNativeSubtitles = usePreferencesStore(
-    (s) => s.enableNativeSubtitles,
+    (s) => s.enableNativeSubtitles
   );
 
   // Hide custom captions when native subtitles are enabled

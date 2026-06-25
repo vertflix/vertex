@@ -88,7 +88,7 @@ export function PauseOverlay() {
           const episodeData = await getEpisodeDetails(
             meta.tmdbId,
             meta.season?.number ?? 0,
-            meta.episode?.number ?? 0,
+            meta.episode?.number ?? 0
           );
           if (mounted && episodeData?.vote_average != null) {
             voteAverage = episodeData.vote_average;
@@ -98,7 +98,7 @@ export function PauseOverlay() {
         const data = await getMediaDetails(meta.tmdbId, type, false);
         if (mounted && data) {
           const genres = (data.genres ?? []).map(
-            (g: { name: string }) => g.name,
+            (g: { name: string }) => g.name
           );
           // Use episode rating for shows (never fall back to show rating)
           const finalVoteAverage = isShowWithEpisode
@@ -127,7 +127,7 @@ export function PauseOverlay() {
   const hasHours = durationExceedsHour(duration);
   const currentTime = Math.min(
     Math.max(isSeeking ? draggingTime : time, 0),
-    duration,
+    duration
   );
   const secondsRemaining = Math.abs(currentTime - duration);
   const secondsRemainingAdjusted =
@@ -135,7 +135,7 @@ export function PauseOverlay() {
 
   const timeLeft = formatSeconds(
     secondsRemaining,
-    durationExceedsHour(secondsRemaining),
+    durationExceedsHour(secondsRemaining)
   );
   const timeWatched = formatSeconds(currentTime, hasHours);
   const timeFinished = new Date(Date.now() + secondsRemainingAdjusted * 1e3);

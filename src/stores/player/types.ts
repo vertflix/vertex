@@ -1,4 +1,4 @@
-import { DetailedMeta } from "@/backend/metadata/getmeta";
+import type { DetailedMeta } from "@/backend/metadata/getmeta";
 
 export interface Thumbnail {
   from: number;

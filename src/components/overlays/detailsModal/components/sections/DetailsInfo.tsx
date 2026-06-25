@@ -3,9 +3,8 @@ import { useEffect, useState } from "react";
 import { Trans } from "react-i18next";
 
 import { Icon, Icons } from "@/components/Icon";
-
+import type { DetailsInfoProps } from "../../types";
 import { DetailsRatings } from "./DetailsRatings";
-import { DetailsInfoProps } from "../../types";
 
 export function DetailsInfo({
   data,

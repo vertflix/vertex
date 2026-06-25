@@ -3,10 +3,10 @@ import { Helmet } from "react-helmet-async";
 import { useOverlayStack } from "@/stores/interface/overlayStack";
 
 import { SubPageLayout } from "../layouts/SubPageLayout";
-import { FeaturedCarousel } from "./components/FeaturedCarousel";
-import type { FeaturedMedia } from "./components/FeaturedCarousel";
-import DiscoverContent from "./discoverContent";
 import { PageTitle } from "../parts/util/PageTitle";
+import type { FeaturedMedia } from "./components/FeaturedCarousel";
+import { FeaturedCarousel } from "./components/FeaturedCarousel";
+import DiscoverContent from "./discoverContent";
 
 export function Discover() {
   const { showModal } = useOverlayStack();

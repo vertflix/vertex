@@ -4,12 +4,12 @@ import { useTranslation } from "react-i18next";
 import { useAsync } from "react-use";
 
 import { getMetaFromId } from "@/backend/metadata/getmeta";
-import { MWMediaType, MWSeasonMeta } from "@/backend/metadata/types/mw";
+import { MWMediaType, type MWSeasonMeta } from "@/backend/metadata/types/mw";
 import { Button } from "@/components/buttons/Button";
 import { Icon, Icons } from "@/components/Icon";
 import { usePlayerMeta } from "@/components/player/hooks/usePlayerMeta";
 import { Transition } from "@/components/utils/Transition";
-import { PlayerMeta } from "@/stores/player/slices/source";
+import type { PlayerMeta } from "@/stores/player/slices/source";
 import { usePlayerStore } from "@/stores/player/store";
 import { usePreferencesStore } from "@/stores/preferences";
 import { useProgressStore } from "@/stores/progress";
@@ -19,7 +19,7 @@ import { hasAired } from "../utils/aired";
 
 function shouldShowNextEpisodeButton(
   time: number,
-  duration: number,
+  duration: number
 ): "always" | "hover" | "none" {
   const percentage = time / duration;
   const secondsFromEnd = duration - time;
@@ -37,7 +37,7 @@ function ActionButton(props: {
     <button
       className={classNames(
         "font-bold rounded h-10 w-40 scale-95 hover:scale-100 transition-all duration-200",
-        props.className,
+        props.className
       )}
       type="button"
       onClick={props.onClick}
@@ -49,7 +49,7 @@ function ActionButton(props: {
 
 function useSeasons(
   mediaId: string | undefined,
-  isLastEpisode: boolean = false,
+  isLastEpisode: boolean = false
 ) {
   const state = useAsync(async () => {
     if (isLastEpisode) {
@@ -65,7 +65,7 @@ function useSeasons(
 
 function useNextSeasonEpisode(
   nextSeason: MWSeasonMeta | undefined,
-  mediaId: string | undefined,
+  mediaId: string | undefined
 ) {
   const state = useAsync(async () => {
     if (nextSeason) {
@@ -73,7 +73,7 @@ function useNextSeasonEpisode(
       const data = await getMetaFromId(
         MWMediaType.SERIES,
         mediaId,
-        nextSeason?.id,
+        nextSeason?.id
       );
       if (data?.meta.type !== MWMediaType.SERIES) return null;
 
@@ -109,13 +109,13 @@ export function NextEpisodeButton(props: {
   const enableAutoplay = usePreferencesStore((s) => s.enableAutoplay);
   const enableSkipCredits = usePreferencesStore((s) => s.enableSkipCredits);
   const setLastSuccessfulSource = usePreferencesStore(
-    (s) => s.setLastSuccessfulSource,
+    (s) => s.setLastSuccessfulSource
   );
   const timeBasedState = shouldShowNextEpisodeButton(time, duration);
   const showingState = props.forceShow ? "always" : timeBasedState;
   const status = usePlayerStore((s) => s.status);
   const setShouldStartFromBeginning = usePlayerStore(
-    (s) => s.setShouldStartFromBeginning,
+    (s) => s.setShouldStartFromBeginning
   );
   const updateItem = useProgressStore((s) => s.updateItem);
   const sourceId = usePlayerStore((s) => s.sourceId);
@@ -128,7 +128,7 @@ export function NextEpisodeButton(props: {
   const seasons = useSeasons(meta?.tmdbId, isLastEpisode);
 
   const nextSeason = seasons.value?.find(
-    (season) => season.number === (meta?.season?.number ?? 0) + 1,
+    (season) => season.number === (meta?.season?.number ?? 0) + 1
   );
 
   const nextSeasonEpisode = useNextSeasonEpisode(nextSeason, meta?.tmdbId);
@@ -149,7 +149,7 @@ export function NextEpisodeButton(props: {
   const nextEp = isLastEpisode
     ? nextSeasonEpisode.value
     : meta?.episodes?.find(
-        (v) => v.number === (meta?.episode?.number ?? 0) + 1,
+        (v) => v.number === (meta?.episode?.number ?? 0) + 1
       );
 
   const loadNextEpisode = useCallback(() => {
@@ -191,7 +191,7 @@ export function NextEpisodeButton(props: {
   ]);
 
   const startCurrentEpisodeFromBeginning = useCallback(() => {
-    if (!meta || !meta.episode) return;
+    if (!meta?.episode) return;
     const metaCopy = { ...meta };
     setShouldStartFromBeginning(true);
     setDirectMeta(metaCopy);

@@ -1,14 +1,14 @@
 import classNames from "classnames";
-import { ReactNode, useCallback } from "react";
+import { type ReactNode, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { Icon, Icons } from "@/components/Icon";
+import { Icon, type Icons } from "@/components/Icon";
 import { Spinner } from "@/components/layout/Spinner";
 
 interface Props {
   icon?: Icons;
   onClick?: (
-    event: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement, MouseEvent>,
+    event: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement, MouseEvent>
   ) => void;
   children?: ReactNode;
   theme?: "white" | "purple" | "secondary" | "danger" | "glass";
@@ -25,10 +25,7 @@ export function Button(props: Props) {
   const { onClick, href, loading } = props;
   const cb = useCallback(
     (
-      event: React.MouseEvent<
-        HTMLAnchorElement | HTMLButtonElement,
-        MouseEvent
-      >,
+      event: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement, MouseEvent>
     ) => {
       if (loading) return;
       if (href && !onClick) {
@@ -40,7 +37,7 @@ export function Button(props: Props) {
         }
       } else onClick?.(event);
     },
-    [loading, href, onClick, navigate],
+    [loading, href, onClick, navigate]
   );
 
   let colorClasses = "bg-white hover:bg-gray-200 text-black";
@@ -59,7 +56,7 @@ export function Button(props: Props) {
     props.padding ?? "px-4 py-3",
     props.className,
     colorClasses,
-    props.disabled ? "!cursor-not-allowed bg-opacity-60 text-opacity-60" : null,
+    props.disabled ? "!cursor-not-allowed bg-opacity-60 text-opacity-60" : null
   );
 
   if (props.disabled)
@@ -67,7 +64,7 @@ export function Button(props: Props) {
       .split(" ")
       .filter(
         (className) =>
-          !className.startsWith("hover:") && !className.startsWith("active:"),
+          !className.startsWith("hover:") && !className.startsWith("active:")
       )
       .join(" ");
 
@@ -139,7 +136,7 @@ export function ButtonPlain(props: ButtonPlainProps) {
     "cursor-pointer inline-flex items-center justify-center rounded-lg font-medium transition-[transform,background-color] duration-100 active:scale-105 md:px-8",
     "px-4 py-3",
     props.className,
-    colorClasses,
+    colorClasses
   );
 
   return (

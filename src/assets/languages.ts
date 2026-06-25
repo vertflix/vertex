@@ -1,12 +1,12 @@
 import ar from "@/assets/locales/ar.json";
 import bg from "@/assets/locales/bg.json";
 import bn from "@/assets/locales/bn.json";
-import ca from "@/assets/locales/ca.json";
 import caVl from "@/assets/locales/ca@valencia.json";
+import ca from "@/assets/locales/ca.json";
 import cs from "@/assets/locales/cs.json";
 import da from "@/assets/locales/da.json";
-import deCh from "@/assets/locales/de-CH.json";
 import de from "@/assets/locales/de.json";
+import deCh from "@/assets/locales/de-CH.json";
 import el from "@/assets/locales/el.json";
 import en from "@/assets/locales/en.json";
 import es from "@/assets/locales/es.json";
@@ -51,8 +51,8 @@ import umb from "@/assets/locales/umb.json";
 import urPK from "@/assets/locales/ur_PK.json";
 import uwu from "@/assets/locales/uwu.json";
 import vi from "@/assets/locales/vi.json";
-import zhhant from "@/assets/locales/zh-Hant.json";
 import zh from "@/assets/locales/zh.json";
+import zhhant from "@/assets/locales/zh-Hant.json";
 
 export const locales = {
   en,

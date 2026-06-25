@@ -18,7 +18,7 @@ function Button(props: {
     <button
       className={classNames(
         "font-bold rounded h-10 w-40 scale-90 hover:scale-95 transition-all duration-200",
-        props.className,
+        props.className
       )}
       type="button"
       onClick={props.onClick}

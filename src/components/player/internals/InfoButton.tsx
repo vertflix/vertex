@@ -26,7 +26,7 @@ export function InfoButton() {
   };
 
   const enableLowPerformanceMode = usePreferencesStore(
-    (state) => state.enableLowPerformanceMode,
+    (state) => state.enableLowPerformanceMode
   );
 
   if (enableLowPerformanceMode) {

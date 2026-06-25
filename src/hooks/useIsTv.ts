@@ -32,7 +32,7 @@ export function useIsTV() {
       ];
 
       const isTVDetected = tvKeywords.some((keyword) =>
-        userAgent.toLowerCase().includes(keyword.toLowerCase()),
+        userAgent.toLowerCase().includes(keyword.toLowerCase())
       );
 
       if (isTVDetected) {

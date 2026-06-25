@@ -1,7 +1,11 @@
+import {
+  primaryOptions,
+  secondaryOptions,
+  tertiaryOptions,
+} from "@themes/custom";
 import classNames from "classnames";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-
 import { Button } from "@/components/buttons/Button";
 import { Toggle } from "@/components/buttons/Toggle";
 import { SortableList } from "@/components/form/SortableList";
@@ -13,11 +17,6 @@ import { useBackendUrl } from "@/hooks/auth/useBackendUrl";
 import { useAuthStore } from "@/stores/auth";
 import { useBookmarkStore } from "@/stores/bookmarks";
 import { useGroupOrderStore } from "@/stores/groupOrder";
-import {
-  primaryOptions,
-  secondaryOptions,
-  tertiaryOptions,
-} from "@themes/custom";
 
 const availableThemes = [
   {
@@ -164,7 +163,7 @@ function ThemePreview(props: {
           "tabbable scroll-mt-32 w-full h-32 relative rounded-lg border bg-gradient-to-br from-themePreview-primary/20 to-themePreview-secondary/10 bg-clip-content transition-colors duration-150",
           props.active
             ? "border-themePreview-primary"
-            : "border-transparent group-hover:border-white/20",
+            : "border-transparent group-hover:border-white/20"
         )}
       >
         {/* Dots */}
@@ -177,7 +176,7 @@ function ThemePreview(props: {
           icon={Icons.CHECKMARK}
           className={classNames(
             "absolute top-3 right-3 text-xs text-white transition-opacity duration-150",
-            props.active ? "opacity-100" : "opacity-0",
+            props.active ? "opacity-100" : "opacity-0"
           )}
         />
         {/* Mini movie-web. So Kawaiiiii! */}
@@ -225,7 +224,7 @@ function ThemePreview(props: {
         <span
           className={classNames(
             "inline-block px-3 py-1 leading-tight text-sm transition-opacity duration-150 rounded-full bg-pill-activeBackground text-white/85",
-            props.inUse ? "opacity-100" : "opacity-0 pointer-events-none",
+            props.inUse ? "opacity-100" : "opacity-0 pointer-events-none"
           )}
         >
           {t("settings.appearance.activeTheme")}
@@ -256,7 +255,7 @@ function ColorOption(props: {
         "cursor-pointer p-1 rounded-full border-2 transition-all",
         props.active
           ? "border-type-link scale-110"
-          : "border-transparent hover:border-white/20 hover:scale-105",
+          : "border-transparent hover:border-white/20 hover:scale-105"
       )}
       onClick={props.onClick}
       title={props.title}
@@ -389,8 +388,8 @@ export function AppearancePart(props: {
     setIsAtTop(container.scrollTop <= 0);
     setIsAtBottom(
       Math.abs(
-        container.scrollHeight - container.scrollTop - container.clientHeight,
-      ) < 2,
+        container.scrollHeight - container.scrollTop - container.clientHeight
+      ) < 2
     );
   };
 
@@ -472,7 +471,7 @@ export function AppearancePart(props: {
                 "bg-dropdown-background hover:bg-dropdown-hoverBackground select-none my-4 cursor-pointer space-x-3 flex items-center max-w-[25rem] py-3 px-4 rounded-lg",
                 props.enableLowPerformanceMode
                   ? "cursor-not-allowed opacity-50 pointer-events-none"
-                  : "cursor-pointer opacity-100 pointer-events-auto",
+                  : "cursor-pointer opacity-100 pointer-events-auto"
               )}
             >
               <Toggle enabled={props.enableDiscover} />
@@ -518,7 +517,7 @@ export function AppearancePart(props: {
                 "bg-dropdown-background hover:bg-dropdown-hoverBackground select-none my-4 cursor-pointer space-x-3 flex items-center max-w-[25rem] py-3 px-4 rounded-lg",
                 props.enableLowPerformanceMode
                   ? "cursor-not-allowed opacity-50 pointer-events-none"
-                  : "cursor-pointer opacity-100 pointer-events-auto",
+                  : "cursor-pointer opacity-100 pointer-events-auto"
               )}
             >
               <Toggle enabled={props.enableDetailsModal} />
@@ -549,7 +548,7 @@ export function AppearancePart(props: {
                 "bg-dropdown-background hover:bg-dropdown-hoverBackground select-none my-4 cursor-pointer space-x-3 flex items-center max-w-[25rem] py-3 px-4 rounded-lg",
                 props.enableLowPerformanceMode
                   ? "cursor-not-allowed opacity-50 pointer-events-none"
-                  : "cursor-pointer opacity-100 pointer-events-auto",
+                  : "cursor-pointer opacity-100 pointer-events-auto"
               )}
             >
               <Toggle enabled={props.enableImageLogos} />
@@ -576,7 +575,7 @@ export function AppearancePart(props: {
                 "bg-dropdown-background hover:bg-dropdown-hoverBackground select-none my-4 cursor-pointer space-x-3 flex items-center max-w-[25rem] py-3 px-4 rounded-lg",
                 props.enableLowPerformanceMode
                   ? "cursor-not-allowed opacity-50 pointer-events-none"
-                  : "cursor-pointer opacity-100 pointer-events-auto",
+                  : "cursor-pointer opacity-100 pointer-events-auto"
               )}
             >
               <Toggle enabled={props.enablePauseOverlay} />
@@ -600,7 +599,7 @@ export function AppearancePart(props: {
               }
               className={classNames(
                 "bg-dropdown-background hover:bg-dropdown-hoverBackground select-none my-4 cursor-pointer space-x-3 flex items-center max-w-[25rem] py-3 px-4 rounded-lg",
-                "cursor-pointer opacity-100 pointer-events-auto",
+                "cursor-pointer opacity-100 pointer-events-auto"
               )}
             >
               <Toggle enabled={props.enableCarouselView} />
@@ -624,7 +623,7 @@ export function AppearancePart(props: {
               }
               className={classNames(
                 "bg-dropdown-background hover:bg-dropdown-hoverBackground select-none my-4 cursor-pointer space-x-3 flex items-center max-w-[25rem] py-3 px-4 rounded-lg",
-                "cursor-pointer opacity-100 pointer-events-auto",
+                "cursor-pointer opacity-100 pointer-events-auto"
               )}
             >
               <Toggle enabled={props.enableMinimalCards} />
@@ -641,7 +640,7 @@ export function AppearancePart(props: {
             </p>
             <p className="max-w-[25rem] font-medium">
               {t(
-                "settings.appearance.options.forceCompactEpisodeViewDescription",
+                "settings.appearance.options.forceCompactEpisodeViewDescription"
               )}
             </p>
             <div
@@ -653,7 +652,7 @@ export function AppearancePart(props: {
                 "bg-dropdown-background hover:bg-dropdown-hoverBackground select-none my-4 cursor-pointer space-x-3 flex items-center max-w-[25rem] py-3 px-4 rounded-lg",
                 props.enableLowPerformanceMode
                   ? "cursor-not-allowed opacity-50 pointer-events-none"
-                  : "cursor-pointer opacity-100 pointer-events-auto",
+                  : "cursor-pointer opacity-100 pointer-events-auto"
               )}
             >
               <Toggle enabled={props.forceCompactEpisodeView} />
@@ -707,7 +706,7 @@ export function AppearancePart(props: {
               {
                 "hide-top-gradient": isAtTop,
                 "hide-bottom-gradient": isAtBottom,
-              },
+              }
             )}
           >
             {availableThemes.map((v) => (

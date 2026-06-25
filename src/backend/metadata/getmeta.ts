@@ -2,32 +2,31 @@ import { FetchError } from "ofetch";
 
 import { useLanguageStore } from "@/stores/language";
 import { getTmdbLanguageCode } from "@/utils/language";
-
+import { makeUrl, proxiedFetch } from "../helpers/fetch";
 import { formatJWMeta, mediaTypeToJW } from "./justwatch";
 import {
-  TMDBIdToUrlId,
-  TMDBMediaToMediaType,
   formatTMDBMeta,
   getEpisodes,
   getMediaDetails,
   getMediaPoster,
   getMovieFromExternalId,
   mediaTypeToTMDB,
+  TMDBIdToUrlId,
+  TMDBMediaToMediaType,
 } from "./tmdb";
 import {
-  JWDetailedMeta,
-  JWSeasonMetaResult,
   JW_API_BASE,
+  type JWDetailedMeta,
+  type JWSeasonMetaResult,
 } from "./types/justwatch";
-import { MWMediaMeta, MWMediaType } from "./types/mw";
+import { type MWMediaMeta, MWMediaType } from "./types/mw";
 import {
   TMDBContentTypes,
-  TMDBMediaResult,
-  TMDBMovieData,
-  TMDBSeasonMetaResult,
-  TMDBShowData,
+  type TMDBMediaResult,
+  type TMDBMovieData,
+  type TMDBSeasonMetaResult,
+  type TMDBShowData,
 } from "./types/tmdb";
-import { makeUrl, proxiedFetch } from "../helpers/fetch";
 
 export interface DetailedMeta {
   meta: MWMediaMeta;
@@ -37,7 +36,7 @@ export interface DetailedMeta {
 
 export function formatTMDBMetaResult(
   details: TMDBShowData | TMDBMovieData,
-  type: MWMediaType,
+  type: MWMediaType
 ): TMDBMediaResult {
   if (type === MWMediaType.MOVIE) {
     const movie = details as TMDBMovieData;
@@ -73,7 +72,7 @@ export function formatTMDBMetaResult(
 export async function getMetaFromId(
   type: MWMediaType,
   id: string,
-  seasonId?: string,
+  seasonId?: string
 ): Promise<DetailedMeta | null> {
   const details = await getMediaDetails(id, mediaTypeToTMDB(type));
 
@@ -94,7 +93,7 @@ export async function getMetaFromId(
     if (selectedSeason) {
       const episodes = await getEpisodes(
         details.id.toString(),
-        selectedSeason.season_number,
+        selectedSeason.season_number
       );
 
       seasonData = {
@@ -121,7 +120,7 @@ export async function getMetaFromId(
 export async function getLegacyMetaFromId(
   type: MWMediaType,
   id: string,
-  seasonId?: string,
+  seasonId?: string
 ): Promise<DetailedMeta | null> {
   const queryType = mediaTypeToJW(type);
   const userLanguage = useLanguageStore.getState().language;
@@ -144,13 +143,13 @@ export async function getLegacyMetaFromId(
   }
 
   let imdbId = data.external_ids.find(
-    (v) => v.provider === "imdb_latest",
+    (v) => v.provider === "imdb_latest"
   )?.external_id;
   if (!imdbId)
     imdbId = data.external_ids.find((v) => v.provider === "imdb")?.external_id;
 
   let tmdbId = data.external_ids.find(
-    (v) => v.provider === "tmdb_latest",
+    (v) => v.provider === "tmdb_latest"
   )?.external_id;
   if (!tmdbId)
     tmdbId = data.external_ids.find((v) => v.provider === "tmdb")?.external_id;
@@ -183,7 +182,7 @@ export function isLegacyMediaType(url: string): boolean {
 }
 
 export async function convertLegacyUrl(
-  url: string,
+  url: string
 ): Promise<string | undefined> {
   if (!isLegacyUrl(url)) return undefined;
 
@@ -199,7 +198,7 @@ export async function convertLegacyUrl(
     return `/media/${TMDBIdToUrlId(
       MWMediaType.SERIES,
       details.id.toString(),
-      details.name,
+      details.name
     )}${suffix}`;
   }
 

@@ -37,7 +37,7 @@ interface SkipTrackingResult {
  */
 export function useSkipTracking(
   minSkipThreshold: number = 20,
-  maxHistory: number = 50,
+  maxHistory: number = 50
 ): SkipTrackingResult {
   const [skipHistory, setSkipHistory] = useState<SkipEvent[]>([]);
   const previousTimeRef = useRef<number>(0);
@@ -73,7 +73,7 @@ export function useSkipTracking(
           : newHistory;
       });
     },
-    [maxHistory],
+    [maxHistory]
   );
 
   const detectSkip = useCallback(() => {
@@ -93,13 +93,13 @@ export function useSkipTracking(
       // Add forward movement to window and remove entries older than 6 seconds
       skipWindowRef.current.push({ time: now, delta: timeDelta });
       skipWindowRef.current = skipWindowRef.current.filter(
-        (entry) => entry.time > now - 6000,
+        (entry) => entry.time > now - 6000
       );
 
       // Calculate total forward movement in current window
       const totalForwardMovement = skipWindowRef.current.reduce(
         (sum, entry) => sum + entry.delta,
-        0,
+        0
       );
 
       // Start session when threshold exceeded
@@ -119,7 +119,7 @@ export function useSkipTracking(
 
     // End session if no forward movement in last 8 seconds
     const recentEntries = skipWindowRef.current.filter(
-      (entry) => entry.time > now - 8000,
+      (entry) => entry.time > now - 8000
     );
 
     if (isInSkipSessionRef.current && recentEntries.length === 0) {

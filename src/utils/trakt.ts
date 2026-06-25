@@ -3,7 +3,7 @@ import slugify from "slugify";
 
 import { conf } from "@/setup/config";
 import { useTraktAuthStore } from "@/stores/trakt/store";
-import {
+import type {
   TraktContentData,
   TraktHistoryItem,
   TraktList,
@@ -82,7 +82,7 @@ export class TraktService {
       const status = error?.response?.status;
       console.error(
         "[TraktService] Failed to exchange code:",
-        status ? `${status} - ${msg}` : msg,
+        status ? `${status} - ${msg}` : msg
       );
       throw new Error(msg);
     }
@@ -122,7 +122,7 @@ export class TraktService {
       const status = error?.response?.status;
       console.error(
         "[TraktService] Failed to refresh token:",
-        status ? `${status} - ${msg}` : msg,
+        status ? `${status} - ${msg}` : msg
       );
       useTraktAuthStore.getState().clear();
       throw error;
@@ -133,7 +133,7 @@ export class TraktService {
     endpoint: string,
     method: "GET" | "POST" | "PUT" | "DELETE" = "GET",
     body: any = undefined,
-    retryCount = 0,
+    retryCount = 0
   ): Promise<T> {
     const config = conf();
     const { expiresAt } = useTraktAuthStore.getState();
@@ -237,7 +237,7 @@ export class TraktService {
   // User Profile
   public async getUserProfile(): Promise<TraktUser> {
     const profile = await this.apiRequest<TraktUser>(
-      "/users/me?extended=full,images",
+      "/users/me?extended=full,images"
     );
     useTraktAuthStore.getState().setUser(profile);
     return profile;
@@ -252,7 +252,7 @@ export class TraktService {
     for (const type of ["movies", "shows"] as const) {
       for (let page = 1; ; page += 1) {
         const results = await this.apiRequest<TraktWatchlistItem[]>(
-          `/sync/watchlist/${type}/rank/asc?${q}&page=${page}&limit=${limit}`,
+          `/sync/watchlist/${type}/rank/asc?${q}&page=${page}&limit=${limit}`
         );
         allItems.push(...results);
         if (results.length < limit) break;
@@ -275,7 +275,7 @@ export class TraktService {
   // Personal Lists (for groups/collections sync)
   public async getLists(username: string): Promise<TraktList[]> {
     const results = await this.apiRequest<TraktList[]>(
-      `/users/${username}/lists`,
+      `/users/${username}/lists`
     );
     return Array.isArray(results) ? results : [];
   }
@@ -289,13 +289,13 @@ export class TraktService {
 
   public async getListItems(
     username: string,
-    listId: string,
+    listId: string
   ): Promise<TraktListItem[]> {
     const limit = 100;
     const allItems: TraktListItem[] = [];
     for (let page = 1; ; page += 1) {
       const results = await this.apiRequest<TraktListItem[]>(
-        `/users/${username}/lists/${listId}/items?page=${page}&limit=${limit}`,
+        `/users/${username}/lists/${listId}/items?page=${page}&limit=${limit}`
       );
       const arr = Array.isArray(results) ? results : [];
       allItems.push(...arr);
@@ -307,28 +307,28 @@ export class TraktService {
   public async addToList(
     username: string,
     listId: string,
-    items: TraktContentData[],
+    items: TraktContentData[]
   ): Promise<void> {
     const payload = this.buildListPayload(items);
     if (Object.keys(payload).length === 0) return;
     await this.apiRequest(
       `/users/${username}/lists/${listId}/items`,
       "POST",
-      payload,
+      payload
     );
   }
 
   public async removeFromList(
     username: string,
     listId: string,
-    items: TraktContentData[],
+    items: TraktContentData[]
   ): Promise<void> {
     const payload = this.buildListPayload(items);
     if (Object.keys(payload).length === 0) return;
     await this.apiRequest(
       `/users/${username}/lists/${listId}/items/remove`,
       "POST",
-      payload,
+      payload
     );
   }
 
@@ -367,39 +367,31 @@ export class TraktService {
   // Scrobble (report what we're watching to Trakt - shows in Trakt app)
   public async startWatching(
     item: TraktContentData,
-    progress: number,
+    progress: number
   ): Promise<TraktScrobbleResponse> {
     const payload = this.buildScrobblePayload(item, progress);
     return this.queueRequest(() =>
-      this.apiRequest<TraktScrobbleResponse>(
-        "/scrobble/start",
-        "POST",
-        payload,
-      ),
+      this.apiRequest<TraktScrobbleResponse>("/scrobble/start", "POST", payload)
     );
   }
 
   public async pauseWatching(
     item: TraktContentData,
-    progress: number,
+    progress: number
   ): Promise<TraktScrobbleResponse> {
     const payload = this.buildScrobblePayload(item, progress);
     return this.queueRequest(() =>
-      this.apiRequest<TraktScrobbleResponse>(
-        "/scrobble/pause",
-        "POST",
-        payload,
-      ),
+      this.apiRequest<TraktScrobbleResponse>("/scrobble/pause", "POST", payload)
     );
   }
 
   public async stopWatching(
     item: TraktContentData,
-    progress: number,
+    progress: number
   ): Promise<TraktScrobbleResponse> {
     const payload = this.buildScrobblePayload(item, progress);
     return this.queueRequest(() =>
-      this.apiRequest<TraktScrobbleResponse>("/scrobble/stop", "POST", payload),
+      this.apiRequest<TraktScrobbleResponse>("/scrobble/stop", "POST", payload)
     );
   }
 
@@ -436,7 +428,7 @@ export class TraktService {
       // eslint-disable-next-line no-constant-condition -- pagination loop
       while (true) {
         const results = await this.apiRequest<TraktWatchedItem[]>(
-          `${endpoint}?extended=full,images&page=${page}&limit=${limit}`,
+          `${endpoint}?extended=full,images&page=${page}&limit=${limit}`
         );
         items.push(...results);
         if (results.length < limit) break;
@@ -458,7 +450,7 @@ export class TraktService {
     for (const type of ["movies", "episodes"] as const) {
       for (let page = 1; ; page += 1) {
         const results = await this.apiRequest<TraktHistoryItem[]>(
-          `/sync/history/${type}?extended=full&page=${page}&limit=${limit}`,
+          `/sync/history/${type}?extended=full&page=${page}&limit=${limit}`
         );
         const arr = Array.isArray(results) ? results : [];
         all.push(...arr);
@@ -470,7 +462,7 @@ export class TraktService {
 
   public async addToHistory(
     item: TraktContentData,
-    watchedAt?: string,
+    watchedAt?: string
   ): Promise<void> {
     const payload = this.buildSyncPayload(item);
     if (watchedAt) {
@@ -510,7 +502,7 @@ export class TraktService {
     const ids = this.buildIds(item);
     const progressFixed = Math.min(
       100,
-      Math.max(0, parseFloat(progress.toFixed(2))),
+      Math.max(0, parseFloat(progress.toFixed(2)))
     );
 
     if (item.type === "movie") {

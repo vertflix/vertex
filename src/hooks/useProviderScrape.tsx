@@ -1,5 +1,15 @@
-import { FullScraperEvents, RunOutput, ScrapeMedia } from "@p-stream/providers";
-import { RefObject, useCallback, useEffect, useRef, useState } from "react";
+import type {
+  FullScraperEvents,
+  RunOutput,
+  ScrapeMedia,
+} from "@p-stream/providers";
+import {
+  type RefObject,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 
 import { isExtensionActiveCached } from "@/backend/extension/messaging";
 import { prepareStream } from "@/backend/extension/streams";
@@ -51,7 +61,7 @@ function useBaseScrape() {
         .reduce<Record<string, ScrapingSegment>>((a, v) => {
           a[v.id] = v;
           return a;
-        }, {}),
+        }, {})
     );
     setSourceOrder(evt.sourceIds.map((v) => ({ id: v, children: [] })));
   }, []);
@@ -85,7 +95,7 @@ function useBaseScrape() {
       setSources((s) => {
         evt.embeds.forEach((v) => {
           const source = getCachedMetadata().find(
-            (src) => src.id === v.embedScraperId,
+            (src) => src.id === v.embedScraperId
           );
           if (!source) throw new Error("invalid source id");
           const out: ScrapingSegment = {
@@ -106,7 +116,7 @@ function useBaseScrape() {
         return [...s];
       });
     },
-    [],
+    []
   );
 
   const startScrape = useCallback(() => {
@@ -153,10 +163,10 @@ export function useScrape() {
   const preferredSourceOrder = usePreferencesStore((s) => s.sourceOrder);
   const enableSourceOrder = usePreferencesStore((s) => s.enableSourceOrder);
   const lastSuccessfulSource = usePreferencesStore(
-    (s) => s.lastSuccessfulSource,
+    (s) => s.lastSuccessfulSource
   );
   const enableLastSuccessfulSource = usePreferencesStore(
-    (s) => s.enableLastSuccessfulSource,
+    (s) => s.enableLastSuccessfulSource
   );
   const preferredEmbedOrder = usePreferencesStore((s) => s.embedOrder);
   const enableEmbedOrder = usePreferencesStore((s) => s.enableEmbedOrder);
@@ -242,7 +252,7 @@ export function useScrape() {
       // Filter out failed embeds from the embed order
       const filteredEmbedOrder = enableEmbedOrder
         ? (preferredEmbedOrder || []).filter(
-            (id) => !allFailedEmbedIds.includes(id),
+            (id) => !allFailedEmbedIds.includes(id)
           )
         : undefined;
 
@@ -276,14 +286,14 @@ export function useScrape() {
       enableLastSuccessfulSource,
       preferredEmbedOrder,
       enableEmbedOrder,
-    ],
+    ]
   );
 
   const resumeScraping = useCallback(
     async (media: ScrapeMedia, startFromSourceId: string) => {
       return startScraping(media, startFromSourceId);
     },
-    [startScraping],
+    [startScraping]
   );
 
   return {
@@ -299,7 +309,7 @@ export function useListCenter(
   containerRef: RefObject<HTMLDivElement | null>,
   listRef: RefObject<HTMLDivElement | null>,
   sourceOrder: ScrapingItems[],
-  currentSource: string | undefined,
+  currentSource: string | undefined
 ) {
   const [renderedOnce, setRenderedOnce] = useState(false);
 
@@ -312,7 +322,7 @@ export function useListCenter(
     ] as HTMLDivElement[];
 
     const currentIndex = elements.findIndex(
-      (e) => e.getAttribute("data-source-id") === currentSource,
+      (e) => e.getAttribute("data-source-id") === currentSource
     );
 
     const currentElement = elements[currentIndex];

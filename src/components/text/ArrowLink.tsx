@@ -50,7 +50,5 @@ export function ArrowLink(props: ArrowLinkProps) {
         {content}
       </LinkRouter>
     );
-  return (
-    <span onClick={() => props.onClick && props.onClick()}>{content}</span>
-  );
+  return <span onClick={() => props.onClick?.()}>{content}</span>;
 }

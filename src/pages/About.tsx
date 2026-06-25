@@ -31,7 +31,7 @@ export function Button(props: {
     <button
       className={classNames(
         "font-bold rounded h-10 w-40 scale-90 hover:scale-95 transition-all duration-200",
-        props.className,
+        props.className
       )}
       type="button"
       onClick={props.onClick}
@@ -87,7 +87,7 @@ export function AboutPage() {
       sections[section].push(
         <Question title={t(`about.${key}.title`)}>
           {t(`about.${key}.body`)}
-        </Question>,
+        </Question>
       );
     }
   });
@@ -106,7 +106,7 @@ export function AboutPage() {
       const body = item?.props?.children?.toLowerCase() || "";
       const query = searchQuery.toLowerCase();
       return title.includes(query) || body.includes(query);
-    } catch (e) {
+    } catch (_e) {
       return false;
     }
   });

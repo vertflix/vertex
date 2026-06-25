@@ -16,7 +16,7 @@ export interface StatusCircleLoading extends StatusCircleProps {
 }
 
 function statusIsLoading(
-  props: StatusCircleProps | StatusCircleLoading,
+  props: StatusCircleProps | StatusCircleLoading
 ): props is StatusCircleLoading {
   return props.type === "loading";
 }
@@ -26,7 +26,7 @@ export function StatusCircle(props: StatusCircleProps | StatusCircleLoading) {
     () => ({
       percentage: statusIsLoading(props) ? props.percentage : 0,
     }),
-    [props],
+    [props]
   );
 
   return (
@@ -43,7 +43,7 @@ export function StatusCircle(props: StatusCircleProps | StatusCircleLoading) {
           "text-video-scraping-noresult bg-video-scraping-noresult":
             props.type === "noresult",
         },
-        props.className,
+        props.className
       )}
     >
       <Transition animation="fade" show={statusIsLoading(props)}>

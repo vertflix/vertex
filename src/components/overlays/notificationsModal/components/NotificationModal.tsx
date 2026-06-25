@@ -1,12 +1,12 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
 import { Icon, Icons } from "@/components/Icon";
-
-import { DetailView } from "./DetailView";
-import { ListView } from "./ListView";
-import { SettingsView } from "./SettingsView";
 import { FancyModal } from "../../Modal";
-import { ModalView, NotificationItem, NotificationModalProps } from "../types";
+import type {
+  ModalView,
+  NotificationItem,
+  NotificationModalProps,
+} from "../types";
 import {
   fetchRssFeed,
   formatDate,
@@ -15,13 +15,16 @@ import {
   getCategoryLabel,
   getSourceName,
 } from "../utils";
+import { DetailView } from "./DetailView";
+import { ListView } from "./ListView";
+import { SettingsView } from "./SettingsView";
 
 export function NotificationModal({ id }: NotificationModalProps) {
   const [notifications, setNotifications] = useState<NotificationItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [readNotifications, setReadNotifications] = useState<Set<string>>(
-    new Set(),
+    new Set()
   );
   const [currentView, setCurrentView] = useState<ModalView>("list");
   const [selectedNotification, setSelectedNotification] =
@@ -47,7 +50,7 @@ export function NotificationModal({ id }: NotificationModalProps) {
 
     // Load settings
     const savedAutoReadDays = localStorage.getItem(
-      "notification-auto-read-days",
+      "notification-auto-read-days"
     );
     if (savedAutoReadDays) {
       try {
@@ -181,14 +184,14 @@ export function NotificationModal({ id }: NotificationModalProps) {
                     // Skip malformed items
                     console.warn(
                       "Skipping malformed RSS/Atom item:",
-                      itemError,
+                      itemError
                     );
                   }
                 });
               }
             }
           }
-        } catch (customFeedError) {
+        } catch (_customFeedError) {
           // Silently fail for individual feed errors
         }
       }
@@ -204,7 +207,7 @@ export function NotificationModal({ id }: NotificationModalProps) {
           // Update localStorage
           localStorage.setItem(
             "read-notifications",
-            JSON.stringify(Array.from(newReadSet)),
+            JSON.stringify(Array.from(newReadSet))
           );
 
           return newReadSet;
@@ -213,7 +216,7 @@ export function NotificationModal({ id }: NotificationModalProps) {
     } catch (err) {
       console.error("RSS fetch error:", err);
       setError(
-        err instanceof Error ? err.message : "Failed to load notifications",
+        err instanceof Error ? err.message : "Failed to load notifications"
       );
       // Set empty notifications to prevent crashes
       setNotifications([]);
@@ -241,7 +244,7 @@ export function NotificationModal({ id }: NotificationModalProps) {
     // Save to localStorage
     localStorage.setItem(
       "read-notifications",
-      JSON.stringify(Array.from(newReadSet)),
+      JSON.stringify(Array.from(newReadSet))
     );
   };
 
@@ -252,7 +255,7 @@ export function NotificationModal({ id }: NotificationModalProps) {
     setReadNotifications(newReadSet);
     localStorage.setItem(
       "read-notifications",
-      JSON.stringify(Array.from(newReadSet)),
+      JSON.stringify(Array.from(newReadSet))
     );
   };
 
@@ -303,7 +306,7 @@ export function NotificationModal({ id }: NotificationModalProps) {
       currentView === "list"
     ) {
       const lastReadIndex = notifications.findIndex(
-        (n) => !readNotifications.has(n.guid),
+        (n) => !readNotifications.has(n.guid)
       );
       if (lastReadIndex > 0) {
         const element = containerRef.current.children[
@@ -330,7 +333,7 @@ export function NotificationModal({ id }: NotificationModalProps) {
   }, [notifications, readNotifications, currentView]);
 
   const unreadCount = notifications.filter(
-    (n) => !readNotifications.has(n.guid),
+    (n) => !readNotifications.has(n.guid)
   ).length;
 
   // Don't render if there's a critical error
@@ -401,7 +404,7 @@ export function NotificationModal({ id }: NotificationModalProps) {
               setReadNotifications(newReadSet);
               localStorage.setItem(
                 "read-notifications",
-                JSON.stringify(Array.from(newReadSet)),
+                JSON.stringify(Array.from(newReadSet))
               );
             } else {
               // Mark as read

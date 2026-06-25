@@ -62,14 +62,14 @@ export function Chromecast({ className }: ChromecastProps) {
     const handler = () => updateVisibility();
     context.addEventListener(
       castFramework.CastContextEventType.CAST_STATE_CHANGED,
-      handler,
+      handler
     );
     updateVisibility();
 
     return () => {
       context.removeEventListener(
         castFramework.CastContextEventType.CAST_STATE_CHANGED,
-        handler,
+        handler
       );
     };
   }, []);

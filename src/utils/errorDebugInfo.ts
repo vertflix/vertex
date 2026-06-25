@@ -85,7 +85,7 @@ export function gatherErrorDebugInfo(error: any): ErrorDebugInfo {
   const isMobile = window.innerWidth <= 768;
   const isTV =
     /SmartTV|Tizen|WebOS|SamsungBrowser|HbbTV|Viera|NetCast|AppleTV|Android TV|GoogleTV|Roku|PlayStation|Xbox|Opera TV|AquosBrowser|Hisense|SonyBrowser|SharpBrowser|AFT|Chromecast/i.test(
-      navigator.userAgent,
+      navigator.userAgent
     );
 
   const playerStore = usePlayerStore.getState();
@@ -98,7 +98,7 @@ export function gatherErrorDebugInfo(error: any): ErrorDebugInfo {
 
   // Get performance information
   const performanceInfo = performance.getEntriesByType(
-    "navigation",
+    "navigation"
   )[0] as PerformanceNavigationTiming;
   const memory = (performance as any).memory;
 

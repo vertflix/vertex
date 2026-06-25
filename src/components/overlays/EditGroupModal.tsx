@@ -34,7 +34,7 @@ export function EditGroupModal({
 
   const [newGroupName, setNewGroupName] = useState("");
   const [newGroupIcon, setNewGroupIcon] = useState<UserIcons>(
-    UserIcons.BOOKMARK,
+    UserIcons.BOOKMARK
   );
   const [affectedBookmarks, setAffectedBookmarks] = useState<string[]>([]);
 
@@ -162,7 +162,7 @@ export function EditGroupModal({
               !newGroupName.trim() ||
               createGroupString(
                 getIconKey(newGroupIcon),
-                newGroupName.trim(),
+                newGroupName.trim()
               ) === groupName
             }
           >

@@ -1,11 +1,17 @@
 import classNames from "classnames";
-import { ReactNode, useCallback, useEffect, useRef, useState } from "react";
+import {
+  type ReactNode,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { useTranslation } from "react-i18next";
 import { useAsync } from "react-use";
 
 import { getMetaFromId } from "@/backend/metadata/getmeta";
 import { formatTMDBEpisode, getEpisodes } from "@/backend/metadata/tmdb";
-import { MWMediaType, MWSeasonMeta } from "@/backend/metadata/types/mw";
+import { MWMediaType, type MWSeasonMeta } from "@/backend/metadata/types/mw";
 import { Icon, Icons } from "@/components/Icon";
 import { ProgressRing } from "@/components/layout/ProgressRing";
 import { OverlayAnchor } from "@/components/overlays/OverlayAnchor";
@@ -17,7 +23,7 @@ import { VideoPlayerButton } from "@/components/player/internals/Button";
 import { Menu } from "@/components/player/internals/ContextMenu";
 import { useOverlayRouter } from "@/hooks/useOverlayRouter";
 import { useBookmarkStore } from "@/stores/bookmarks";
-import { PlayerMeta } from "@/stores/player/slices/source";
+import type { PlayerMeta } from "@/stores/player/slices/source";
 import { usePlayerStore } from "@/stores/player/store";
 import { usePreferencesStore } from "@/stores/preferences";
 import { useProgressStore } from "@/stores/progress";
@@ -83,7 +89,7 @@ function EpisodeItem({
       <div
         className={classNames(
           "block w-full px-3 relative",
-          forceCompactEpisodeView ? "" : "sm:hidden",
+          forceCompactEpisodeView ? "" : "sm:hidden"
         )}
       >
         <Menu.Link
@@ -139,7 +145,7 @@ function EpisodeItem({
             <div
               className={classNames(
                 "text-left flex items-center space-x-1 text-video-context-type-main",
-                isAired || isActive ? "" : "text-opacity-25",
+                isAired || isActive ? "" : "text-opacity-25"
               )}
             >
               <span className="p-0.5 px-2 rounded inline bg-video-context-hoverColor bg-opacity-50">
@@ -162,7 +168,7 @@ function EpisodeItem({
           isActive
             ? "bg-video-context-hoverColor/50"
             : "hover:bg-video-context-hoverColor/50",
-          !isAired ? "opacity-50" : "",
+          !isAired ? "opacity-50" : ""
         )}
       >
         {/* Thumbnail */}
@@ -248,7 +254,7 @@ function EpisodeItem({
                   "text-sm text-white/80 mt-1.5 transition-all duration-200",
                   !expandedEpisodes[`medium-${episode.id}`]
                     ? "line-clamp-2"
-                    : "max-h-[200px] overflow-y-auto scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent pr-2",
+                    : "max-h-[200px] overflow-y-auto scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent pr-2"
                 )}
               >
                 {episode.overview}
@@ -304,7 +310,7 @@ function EpisodeItem({
             : "hover:bg-video-context-hoverColor/50",
           !isAired ? "opacity-50" : "hover:scale-95",
           expandedEpisodes[`large-${episode.id}`] ? "w-[32rem]" : "w-64",
-          "h-[280px]", // Fixed height for all states
+          "h-[280px]" // Fixed height for all states
         )}
       >
         {/* Thumbnail */}
@@ -381,7 +387,7 @@ function EpisodeItem({
         <div
           className={classNames(
             "p-3",
-            expandedEpisodes[`large-${episode.id}`] ? "h-full" : "h-[122px]",
+            expandedEpisodes[`large-${episode.id}`] ? "h-full" : "h-[122px]"
           )}
         >
           <div className="flex items-start justify-between">
@@ -433,7 +439,7 @@ function EpisodeItem({
                   "text-sm text-white/80 mt-1.5 transition-all duration-200",
                   !expandedEpisodes[`large-${episode.id}`]
                     ? "line-clamp-2"
-                    : "max-h-[200px] overflow-y-auto scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent pr-2",
+                    : "max-h-[200px] overflow-y-auto scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent pr-2"
                 )}
               >
                 {episode.overview}
@@ -506,12 +512,12 @@ function SeasonsView({
   const meta = usePlayerStore((s) => s.meta);
   const [loadingState, seasons] = useSeasonData(
     meta?.tmdbId ?? "",
-    selectedSeason,
+    selectedSeason
   );
   const favoriteEpisodes = useBookmarkStore((s) =>
     meta?.tmdbId
       ? (s.bookmarks[meta.tmdbId]?.favoriteEpisodes ?? EMPTY_ARRAY)
-      : EMPTY_ARRAY,
+      : EMPTY_ARRAY
   );
 
   let content: ReactNode = null;
@@ -577,14 +583,14 @@ export function EpisodesView({
   const meta = usePlayerStore((s) => s.meta);
   const [loadingState, seasons] = useSeasonData(
     meta?.tmdbId ?? "",
-    selectedSeason,
+    selectedSeason
   );
   const progress = useProgressStore();
   const updateItem = useProgressStore((s) => s.updateItem);
   const favoriteEpisodes = useBookmarkStore((s) =>
     meta?.tmdbId
       ? (s.bookmarks[meta.tmdbId]?.favoriteEpisodes ?? EMPTY_ARRAY)
-      : EMPTY_ARRAY,
+      : EMPTY_ARRAY
   );
   const bookmarks = useBookmarkStore((s) => s.bookmarks);
 
@@ -630,7 +636,7 @@ export function EpisodesView({
     [key: string]: HTMLParagraphElement | null;
   }>({});
   const forceCompactEpisodeView = usePreferencesStore(
-    (s) => s.forceCompactEpisodeView,
+    (s) => s.forceCompactEpisodeView
   );
 
   const isTextTruncated = (element: HTMLElement | null) => {
@@ -679,7 +685,7 @@ export function EpisodesView({
 
   const toggleEpisodeExpansion = (
     episodeId: string,
-    event: React.MouseEvent,
+    event: React.MouseEvent
   ) => {
     event.stopPropagation();
     setExpandedEpisodes((prev) => ({
@@ -698,7 +704,7 @@ export function EpisodesView({
       // player already switches route after meta change
       router.close(true);
     },
-    [setPlayerMeta, loadingState, router, onChange],
+    [setPlayerMeta, loadingState, router, onChange]
   );
 
   const toggleWatchStatus = useCallback(
@@ -706,7 +712,7 @@ export function EpisodesView({
       event.stopPropagation();
       if (loadingState.value && meta?.tmdbId) {
         const episode = loadingState.value.season.episodes.find(
-          (ep) => ep.id === episodeId,
+          (ep) => ep.id === episodeId
         );
         if (episode) {
           // Check if the episode is already watched
@@ -747,11 +753,11 @@ export function EpisodesView({
         }
       }
     },
-    [loadingState, meta, selectedSeason, updateItem, progress.items],
+    [loadingState, meta, selectedSeason, updateItem, progress.items]
   );
 
   const toggleFavoriteEpisode = useBookmarkStore(
-    (s) => s.toggleFavoriteEpisode,
+    (s) => s.toggleFavoriteEpisode
   );
 
   const toggleFavoriteStatus = useCallback(
@@ -771,7 +777,7 @@ export function EpisodesView({
       meta?.poster,
       meta?.releaseYear,
       toggleFavoriteEpisode,
-    ],
+    ]
   );
 
   const handleScroll = (direction: "left" | "right") => {
@@ -845,11 +851,11 @@ export function EpisodesView({
         seasonData.episodes.map((ep: any) => ({
           ...ep,
           seasonNumber: seasonData.number,
-        })),
+        }))
       );
 
       const favoriteEpisodesData = allEpisodes.filter((ep) =>
-        favoriteEpisodes.includes(ep.id),
+        favoriteEpisodes.includes(ep.id)
       );
       if (favoriteEpisodesData.length === 0) {
         content = (
@@ -869,7 +875,7 @@ export function EpisodesView({
                 },
                 forceCompactEpisodeView
                   ? "flex-col space-y-3"
-                  : "flex-col lg:flex-row lg:overflow-x-auto space-y-3 sm:space-y-4 lg:space-y-0 lg:space-x-4 lg:px-12",
+                  : "flex-col lg:flex-row lg:overflow-x-auto space-y-3 sm:space-y-4 lg:space-y-0 lg:space-x-4 lg:px-12"
               )}
               style={{
                 scrollbarWidth: "none",
@@ -889,7 +895,7 @@ export function EpisodesView({
                 const isActive = ep.id === meta?.episode?.tmdbId;
                 const isFavorited = meta?.tmdbId
                   ? (bookmarks[meta.tmdbId]?.favoriteEpisodes?.includes(
-                      ep.id,
+                      ep.id
                     ) ?? false)
                   : false;
 
@@ -927,7 +933,7 @@ export function EpisodesView({
         <div
           className={classNames(
             "absolute left-0 top-1/2 transform -translate-y-1/2 z-10 px-4",
-            forceCompactEpisodeView ? "hidden" : "hidden lg:block",
+            forceCompactEpisodeView ? "hidden" : "hidden lg:block"
           )}
         >
           <button
@@ -949,7 +955,7 @@ export function EpisodesView({
             },
             forceCompactEpisodeView
               ? "flex-col  space-y-3"
-              : "flex-col lg:flex-row lg:overflow-x-auto space-y-3 sm:space-y-4 lg:space-y-0 lg:space-x-4 lg:px-12 ",
+              : "flex-col lg:flex-row lg:overflow-x-auto space-y-3 sm:space-y-4 lg:space-y-0 lg:space-x-4 lg:px-12 "
           )}
           style={{
             scrollbarWidth: "none",
@@ -1007,7 +1013,7 @@ export function EpisodesView({
         <div
           className={classNames(
             "absolute right-0 top-1/2 transform -translate-y-1/2 z-10 px-4",
-            forceCompactEpisodeView ? "hidden" : "hidden lg:block",
+            forceCompactEpisodeView ? "hidden" : "hidden lg:block"
           )}
         >
           <button
@@ -1058,11 +1064,11 @@ function EpisodesOverlay({
       setSelectedSeason(seasonId);
       router.navigate("/episodes");
     },
-    [router],
+    [router]
   );
 
   const forceCompactEpisodeView = usePreferencesStore(
-    (s) => s.forceCompactEpisodeView,
+    (s) => s.forceCompactEpisodeView
   );
 
   return (

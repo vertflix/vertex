@@ -46,7 +46,7 @@ export function SidebarPart(props: {
         icon: Icons.LINK,
       },
     ],
-    [],
+    []
   );
 
   useEffect(() => {
@@ -105,7 +105,7 @@ export function SidebarPart(props: {
       props.setSelectedCategory(id);
       props.onCategoryChange?.(id);
     },
-    [props],
+    [props]
   );
 
   return (

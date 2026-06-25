@@ -3,7 +3,7 @@ import { SimpleCache } from "@/utils/cache";
 import { getTurnstileToken } from "@/utils/turnstile";
 
 import { getMediaDetails } from "./tmdb";
-import { TMDBContentTypes, TMDBMovieData } from "./types/tmdb";
+import { TMDBContentTypes, type TMDBMovieData } from "./types/tmdb";
 import type {
   CuratedMovieList,
   TraktListResponse,
@@ -31,7 +31,7 @@ const getFreshTurnstileToken = async (): Promise<{
   if (typeof window !== "undefined") {
     const cookies = document.cookie.split(";");
     const tokenCookie = cookies.find((cookie) =>
-      cookie.trim().startsWith(`${TOKEN_COOKIE_NAME}=`),
+      cookie.trim().startsWith(`${TOKEN_COOKIE_NAME}=`)
     );
 
     if (tokenCookie) {
@@ -130,7 +130,7 @@ traktCache.initialize();
 
 // Base function to fetch from Trakt API
 async function fetchFromTrakt<T = TraktListResponse>(
-  endpoint: string,
+  endpoint: string
 ): Promise<T> {
   if (!conf().USE_TRAKT) {
     return null as T;
@@ -175,7 +175,7 @@ async function fetchFromTrakt<T = TraktListResponse>(
           continue; // Try again
         }
         throw new Error(
-          `Failed to fetch from ${endpoint}: ${response.statusText}`,
+          `Failed to fetch from ${endpoint}: ${response.statusText}`
         );
       }
 
@@ -204,7 +204,7 @@ async function fetchFromTrakt<T = TraktListResponse>(
 export async function getReleaseDetails(
   id: string,
   season?: number,
-  episode?: number,
+  episode?: number
 ): Promise<TraktReleaseResponse> {
   let url = `/release/${id}`;
   if (season !== undefined && episode !== undefined) {
@@ -254,7 +254,7 @@ export async function getReleaseDetails(
           continue; // Try again
         }
         throw new Error(
-          `Failed to fetch release details: ${response.statusText}`,
+          `Failed to fetch release details: ${response.statusText}`
         );
       }
 
@@ -396,7 +396,7 @@ export const getCuratedMovieLists = async (): Promise<CuratedMovieList[]> => {
 // Fetch movie details for multiple TMDB IDs
 export const getMovieDetailsForIds = async (
   tmdbIds: number[],
-  limit: number = 50,
+  limit: number = 50
 ): Promise<TMDBMovieData[]> => {
   const limitedIds = tmdbIds.slice(0, limit);
   const movieDetails: TMDBMovieData[] = [];
@@ -412,16 +412,16 @@ export const getMovieDetailsForIds = async (
         try {
           const details = await getMediaDetails(
             id.toString(),
-            TMDBContentTypes.MOVIE,
+            TMDBContentTypes.MOVIE
           );
           return details as TMDBMovieData;
         } catch (error) {
           console.error(`Failed to fetch movie details for ID ${id}:`, error);
           return null;
         }
-      }),
+      })
     ).then((batchResults) =>
-      batchResults.filter((result): result is TMDBMovieData => result !== null),
+      batchResults.filter((result): result is TMDBMovieData => result !== null)
     );
     batchPromises.push(batchPromise);
   }

@@ -11,7 +11,7 @@ import { useOverlayRouter } from "@/hooks/useOverlayRouter";
 import { useProgressBar } from "@/hooks/useProgressBar";
 import { usePlayerStore } from "@/stores/player/store";
 import { usePreferencesStore } from "@/stores/preferences";
-import { SubtitleStyling, useSubtitleStore } from "@/stores/subtitles";
+import { type SubtitleStyling, useSubtitleStore } from "@/stores/subtitles";
 import { isFirefox } from "@/utils/detectFeatures";
 
 export function ColorOption(props: {
@@ -24,7 +24,7 @@ export function ColorOption(props: {
       type="button"
       className={classNames(
         "tabbable p-1.5 bg-video-context-buttonFocus rounded transition-colors duration-100",
-        props.active ? "bg-opacity-100" : "bg-opacity-0 cursor-pointer",
+        props.active ? "bg-opacity-100" : "bg-opacity-0 cursor-pointer"
       )}
       onClick={props.onClick}
     >
@@ -61,13 +61,13 @@ export function CaptionDelay(props: {
       const newPercentage = Math.min(Math.max(percentage, 0), 1);
       props.onChange?.(props.min + range * newPercentage);
     },
-    [props],
+    [props]
   );
 
   const { dragging, dragPercentage, dragMouseDown } = useProgressBar(
     ref,
     commit,
-    true,
+    true
   );
 
   const [isFocused, setIsFocused] = useState(false);
@@ -116,8 +116,8 @@ export function CaptionDelay(props: {
                       0,
                       Math.min(
                         1,
-                        dragging ? dragPercentage / 100 : currentPercentage,
-                      ),
+                        dragging ? dragPercentage / 100 : currentPercentage
+                      )
                     ) * 100
                   }%`,
                 }}
@@ -139,7 +139,7 @@ export function CaptionDelay(props: {
             type="button"
             onClick={() =>
               props.onChange?.(
-                props.value - 1 / 10 ** (props.decimalsAllowed ?? 0),
+                props.value - 1 / 10 ** (props.decimalsAllowed ?? 0)
               )
             }
             className="flex-1 flex-col tabbable py-2 h-12 hover:text-white transition-colors duration-100 flex justify-center items-center hover:bg-video-context-buttonOverInputHover rounded bg-video-context-inputBg"
@@ -164,7 +164,7 @@ export function CaptionDelay(props: {
                 const num = Number((e.target as HTMLInputElement).value);
                 if (!Number.isNaN(num))
                   props.onChange?.(
-                    (props.decimalsAllowed ?? 0) === 0 ? Math.round(num) : num,
+                    (props.decimalsAllowed ?? 0) === 0 ? Math.round(num) : num
                   );
               }}
               ref={inputRef}
@@ -185,7 +185,7 @@ export function CaptionDelay(props: {
               {textTransformer(
                 props.value.toFixed(props.decimalsAllowed ?? 0) === "-0.0"
                   ? "0.0"
-                  : props.value.toFixed(props.decimalsAllowed ?? 0),
+                  : props.value.toFixed(props.decimalsAllowed ?? 0)
               )}
             </button>
           )}
@@ -195,7 +195,7 @@ export function CaptionDelay(props: {
             type="button"
             onClick={() =>
               props.onChange?.(
-                props.value + 1 / 10 ** (props.decimalsAllowed ?? 0),
+                props.value + 1 / 10 ** (props.decimalsAllowed ?? 0)
               )
             }
             className="flex-1 flex-col tabbable py-2 h-12 hover:text-white transition-colors duration-100 flex justify-center items-center hover:bg-video-context-buttonOverInputHover rounded bg-video-context-inputBg"
@@ -231,13 +231,13 @@ export function CaptionSetting(props: {
       const newPercentage = Math.min(Math.max(percentage, 0), 1);
       props.onChange?.(props.min + range * newPercentage);
     },
-    [props],
+    [props]
   );
 
   const { dragging, dragPercentage, dragMouseDown } = useProgressBar(
     ref,
     commit,
-    true,
+    true
   );
 
   const [isFocused, setIsFocused] = useState(false);
@@ -288,8 +288,8 @@ export function CaptionSetting(props: {
                       0,
                       Math.min(
                         1,
-                        dragging ? dragPercentage / 100 : currentPercentage,
-                      ),
+                        dragging ? dragPercentage / 100 : currentPercentage
+                      )
                     ) * 100
                   }%`,
                 }}
@@ -317,7 +317,7 @@ export function CaptionSetting(props: {
                 const num = Number((e.target as HTMLInputElement).value);
                 if (!Number.isNaN(num))
                   props.onChange?.(
-                    (props.decimalsAllowed ?? 0) === 0 ? Math.round(num) : num,
+                    (props.decimalsAllowed ?? 0) === 0 ? Math.round(num) : num
                   );
               }}
               ref={inputRef}
@@ -339,13 +339,13 @@ export function CaptionSetting(props: {
               <button
                 className={classNames(
                   inputClasses,
-                  props.controlButtons ? "relative" : undefined,
+                  props.controlButtons ? "relative" : undefined
                 )}
                 type="button"
                 tabIndex={0}
               >
                 {textTransformer(
-                  props.value.toFixed(props.decimalsAllowed ?? 0),
+                  props.value.toFixed(props.decimalsAllowed ?? 0)
                 )}
               </button>
               {props.controlButtons ? (
@@ -356,8 +356,7 @@ export function CaptionSetting(props: {
                       onClick={
                         () =>
                           props.onChange?.(
-                            props.value -
-                              1 / 10 ** (props.decimalsAllowed ?? 0),
+                            props.value - 1 / 10 ** (props.decimalsAllowed ?? 0)
                           ) // Remove depending on the decimalsAllowed. If there's 1 decimal allowed, add 0.1. For 2, add 0.01, etc.
                       }
                       className={arrowButtonClasses}
@@ -371,8 +370,7 @@ export function CaptionSetting(props: {
                       onClick={
                         () =>
                           props.onChange?.(
-                            props.value +
-                              1 / 10 ** (props.decimalsAllowed ?? 0),
+                            props.value + 1 / 10 ** (props.decimalsAllowed ?? 0)
                           ) // Add depending on the decimalsAllowed. If there's 1 decimal allowed, add 0.1. For 2, add 0.01, etc.
                       }
                       className={arrowButtonClasses}
@@ -460,7 +458,7 @@ export function CaptionSettingsView({
                   enabled={enableNativeSubtitles}
                   onClick={() =>
                     preferencesStore.setEnableNativeSubtitles(
-                      !enableNativeSubtitles,
+                      !enableNativeSubtitles
                     )
                   }
                 />
@@ -648,7 +646,7 @@ export function CaptionSettingsView({
                     "px-3 py-1 rounded transition-colors duration-100",
                     styling.verticalPosition === 1
                       ? "bg-video-context-buttonFocus"
-                      : "bg-video-context-buttonFocus bg-opacity-0 hover:bg-opacity-50",
+                      : "bg-video-context-buttonFocus bg-opacity-0 hover:bg-opacity-50"
                   )}
                   onClick={() =>
                     handleStylingChange({
@@ -665,7 +663,7 @@ export function CaptionSettingsView({
                     "px-3 py-1 rounded transition-colors duration-100",
                     styling.verticalPosition === 3
                       ? "bg-video-context-buttonFocus"
-                      : "bg-video-context-buttonFocus bg-opacity-0 hover:bg-opacity-50",
+                      : "bg-video-context-buttonFocus bg-opacity-0 hover:bg-opacity-50"
                   )}
                   onClick={() =>
                     handleStylingChange({
@@ -692,7 +690,7 @@ export function CaptionSettingsView({
               <Menu.FieldTitle>
                 {t(
                   "player.menus.subtitles.settings.useNativeSubtitles",
-                  "Use native video subtitles",
+                  "Use native video subtitles"
                 )}
               </Menu.FieldTitle>
               <div className="flex justify-center items-center">
@@ -700,7 +698,7 @@ export function CaptionSettingsView({
                   enabled={enableNativeSubtitles}
                   onClick={() =>
                     preferencesStore.setEnableNativeSubtitles(
-                      !enableNativeSubtitles,
+                      !enableNativeSubtitles
                     )
                   }
                 />

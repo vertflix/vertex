@@ -35,7 +35,7 @@ export function LoginPage() {
 
   const [showBackendSelection, setShowBackendSelection] = useState(true);
   const [selectedBackendUrl, setSelectedBackendUrl] = useState<string | null>(
-    currentBackendUrl ?? null,
+    currentBackendUrl ?? null
   );
 
   const handleBackendSelect = (url: string | null) => {

@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, useState } from "react";
+import { type ReactNode, useEffect, useState } from "react";
 
 import { Divider } from "@/components/utils/Divider";
 import { Heading2 } from "@/components/utils/Text";
@@ -32,7 +32,7 @@ async function getAccountNumber() {
       return total.toString();
     }
     return "0";
-  } catch (error) {
+  } catch (_error) {
     return "N/A";
   }
 }
@@ -56,7 +56,7 @@ async function getAllAccounts() {
       return match[1];
     }
     return "0";
-  } catch (error) {
+  } catch (_error) {
     return "N/A";
   }
 }

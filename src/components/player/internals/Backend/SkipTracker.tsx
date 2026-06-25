@@ -57,7 +57,7 @@ export function SkipTracker() {
         console.error("Failed to send skip analytics:", error);
       }
     },
-    [meta, turnstileToken],
+    [meta, turnstileToken]
   );
 
   const createPendingSkip = useCallback(
@@ -66,7 +66,7 @@ export function SkipTracker() {
         // Timer expired, send analytics with final confidence
         setPendingSkips((prev) => {
           const pendingSkip = prev.find(
-            (p) => p.skip.timestamp === skip.timestamp,
+            (p) => p.skip.timestamp === skip.timestamp
           );
           if (!pendingSkip) return prev;
 
@@ -95,7 +95,7 @@ export function SkipTracker() {
         timer,
       };
     },
-    [sendSkipAnalytics, skipTimeSource],
+    [sendSkipAnalytics, skipTimeSource]
   );
 
   useEffect(() => {
@@ -133,12 +133,12 @@ export function SkipTracker() {
           if (isWithinSkipRange && !pending.hasBackwardMovement) {
             // eslint-disable-next-line no-console
             console.log(
-              `Backward adjustment detected for skip, reducing confidence`,
+              `Backward adjustment detected for skip, reducing confidence`
             );
             return { ...pending, hasBackwardMovement: true };
           }
           return pending;
-        }),
+        })
       );
     }
 

@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import { FlagIcon } from "@/components/FlagIcon";
 import { Menu } from "@/components/player/internals/ContextMenu";
 import { useOverlayRouter } from "@/hooks/useOverlayRouter";
-import { AudioTrack } from "@/stores/player/slices/source";
+import type { AudioTrack } from "@/stores/player/slices/source";
 import { usePlayerStore } from "@/stores/player/store";
 import { getPrettyLanguageNameFromLocale } from "@/utils/language";
 
@@ -43,7 +43,7 @@ export function AudioView({ id }: { id: string }) {
       changeAudioTrack?.(track);
       router.close();
     },
-    [router, changeAudioTrack],
+    [router, changeAudioTrack]
   );
 
   return (

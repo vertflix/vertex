@@ -1,9 +1,9 @@
 import Hls from "hls.js";
 import { useCallback, useEffect, useRef } from "react";
 
-import { ThumbnailImage } from "@/stores/player/slices/thumbnails";
+import type { ThumbnailImage } from "@/stores/player/slices/thumbnails";
 import { usePlayerStore } from "@/stores/player/store";
-import {
+import type {
   LoadableSource,
   SourceQuality,
   SourceSliceSource,
@@ -143,7 +143,7 @@ class ThumnbnailWorker {
       0,
       0,
       this.canvasEl.width,
-      this.canvasEl.height,
+      this.canvasEl.height
     );
     const imgUrl = this.canvasEl.toDataURL();
 

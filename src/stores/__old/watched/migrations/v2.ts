@@ -1,10 +1,10 @@
-import { DetailedMeta, getMetaFromId } from "@/backend/metadata/getmeta";
+import { type DetailedMeta, getMetaFromId } from "@/backend/metadata/getmeta";
 import { searchForMedia } from "@/backend/metadata/search";
 import { mediaItemTypeToMediaType } from "@/backend/metadata/tmdb";
-import { MWMediaMeta, MWMediaType } from "@/backend/metadata/types/mw";
+import { type MWMediaMeta, MWMediaType } from "@/backend/metadata/types/mw";
 import { compareTitle } from "@/stores/__old/utils";
 
-import { WatchedStoreData, WatchedStoreItem } from "../types";
+import type { WatchedStoreData, WatchedStoreItem } from "../types";
 
 interface OldMediaBase {
   mediaId: number;
@@ -36,7 +36,7 @@ export interface OldBookmarks {
 
 async function getMetas(
   uniqueMedias: Record<string, any>,
-  oldData?: OldData,
+  oldData?: OldData
 ): Promise<Record<string, Record<string, DetailedMeta | null>> | undefined> {
   const yearsAreClose = (a: number, b: number) => {
     return Math.abs(a - b) <= 1;
@@ -53,7 +53,7 @@ async function getMetas(
       const relevantItem = data.find(
         (res) =>
           yearsAreClose(Number(res.year), year) &&
-          compareTitle(res.title, item.title),
+          compareTitle(res.title, item.title)
       );
       if (!relevantItem) {
         console.error(`No item found for migration: ${item.title}`);
@@ -63,7 +63,7 @@ async function getMetas(
         id: item.mediaId,
         data: relevantItem,
       };
-    }),
+    })
   );
 
   for (const item of relevantItems.filter(Boolean)) {
@@ -72,14 +72,14 @@ async function getMetas(
     let keys: (string | null)[][] = [["0", "0"]];
     if (item.data.type === "show") {
       const meta = await getMetaFromId(MWMediaType.SERIES, item.data.id);
-      if (!meta || !meta?.meta.seasons) return;
+      if (!meta?.meta.seasons) return;
       const seasonNumbers = [
         ...new Set(
           oldData?.items
             ? oldData.items
                 .filter((watchedEntry: any) => watchedEntry.mediaId === item.id)
                 .map((watchedEntry: any) => watchedEntry.seasonId)
-            : ["0"],
+            : ["0"]
         ),
       ];
       const seasons = seasonNumbers.map((num) => ({
@@ -98,9 +98,9 @@ async function getMetas(
         mediaMetas[item.id][key] = await getMetaFromId(
           mediaItemTypeToMediaType(item.data.type),
           item.data.id,
-          id === "0" || id === null ? undefined : id,
+          id === "0" || id === null ? undefined : id
         );
-      }),
+      })
     );
   }
 
@@ -166,7 +166,7 @@ export async function migrateV2Videos(old: OldData) {
       };
 
       oldData.items = oldData.items.filter(
-        (item) => JSON.stringify(item) !== JSON.stringify(oldWatched),
+        (item) => JSON.stringify(item) !== JSON.stringify(oldWatched)
       );
       newData.items.push(newItem);
     } else if (oldWatched.mediaType === "series") {
@@ -201,13 +201,13 @@ export async function migrateV2Videos(old: OldData) {
         newData.items.find(
           (item) =>
             item.item.meta.id === newItem.item.meta.id &&
-            item.item.series?.episodeId === newItem.item.series?.episodeId,
+            item.item.series?.episodeId === newItem.item.series?.episodeId
         )
       )
         continue;
 
       oldData.items = oldData.items.filter(
-        (item) => JSON.stringify(item) !== JSON.stringify(oldWatched),
+        (item) => JSON.stringify(item) !== JSON.stringify(oldWatched)
       );
       newData.items.push(newItem);
     }

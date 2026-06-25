@@ -10,7 +10,7 @@ export function SectionTitle(props: {
       className={classNames(
         "uppercase font-bold text-type-secondary text-xs pl-1 pb-2.5 border-b border-type-secondary/40",
         props.children ? "pt-8" : "pt-4",
-        props.className,
+        props.className
       )}
     >
       {props.children}
@@ -27,7 +27,7 @@ export function Section(props: {
     <div
       className={classNames(
         props.grid ? "grid grid-cols-2 gap-3 pt-6" : "pt-4 space-y-1",
-        props.className,
+        props.className
       )}
     >
       {props.children}

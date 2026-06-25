@@ -17,6 +17,6 @@ export const useOnboardingStore = create(
         });
       },
     })),
-    { name: "__MW::onboarding" },
-  ),
+    { name: "__MW::onboarding" }
+  )
 );

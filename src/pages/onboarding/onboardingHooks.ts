@@ -31,7 +31,7 @@ export function useNavigateOnboarding() {
         search: loc.search,
       });
     },
-    [navigate, loc],
+    [navigate, loc]
   );
   return nav;
 }

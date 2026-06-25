@@ -1,8 +1,8 @@
 import {
   Transition as HeadlessTransition,
-  TransitionClasses,
+  type TransitionClasses,
 } from "@headlessui/react";
-import { CSSProperties, Fragment, ReactNode } from "react";
+import { type CSSProperties, Fragment, type ReactNode } from "react";
 
 export type TransitionAnimations =
   | "slide-down"
@@ -24,7 +24,7 @@ interface Props {
 
 function getClasses(
   animation: TransitionAnimations,
-  duration: string,
+  duration: string
 ): TransitionClasses {
   if (animation === "slide-down") {
     return {

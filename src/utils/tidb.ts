@@ -39,7 +39,7 @@ export class TIDBError extends Error {
   constructor(
     message: string,
     public statusCode?: number,
-    public details?: string,
+    public details?: string
   ) {
     super(message);
     this.name = "TIDBError";
@@ -51,7 +51,7 @@ export class TIDBError extends Error {
  */
 export async function submitIntro(
   submission: SubmissionRequest,
-  apiKey: string,
+  apiKey: string
 ): Promise<SubmissionResponse> {
   const response = await fetch("https://api.theintrodb.org/v1/submit", {
     method: "POST",

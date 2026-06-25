@@ -169,7 +169,7 @@ export function useSkipTime() {
         const apiUrl = `${FED_SKIPS_BASE_URL}/${meta.imdbId}/${meta.season?.number}/${meta.episode?.number}`;
 
         const turnstileToken = await getTurnstileToken(
-          "0x4AAAAAAB6ocCCpurfWRZyC",
+          "0x4AAAAAAB6ocCCpurfWRZyC"
         );
         if (!turnstileToken) return null;
 
@@ -227,7 +227,7 @@ export function useSkipTime() {
     const applySegments = (segmentsToApply: SegmentData[]) => {
       // Only update store if this fetch is still for the current media (avoid stale overwrite)
       const currentKey = getSkipSegmentsCacheKey(
-        usePlayerStore.getState().meta ?? null,
+        usePlayerStore.getState().meta ?? null
       );
       if (currentKey === cacheKey) {
         setSkipSegments(cacheKey, segmentsToApply);

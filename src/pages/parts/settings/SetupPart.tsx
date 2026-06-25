@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import classNames from "classnames";
 import { FetchError } from "ofetch";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { useAsync } from "react-use";
@@ -14,7 +14,7 @@ import { Loading } from "@/components/layout/Loading";
 import { SettingsCard } from "@/components/layout/SettingsCard";
 import {
   StatusCircle,
-  StatusCircleProps,
+  type StatusCircleProps,
 } from "@/components/player/internals/StatusCircle";
 import { Heading3 } from "@/components/utils/Text";
 import { useIsDesktopApp } from "@/hooks/useIsDesktopApp";
@@ -98,7 +98,7 @@ export async function testFebboxKey(febboxKey: string | null): Promise<Status> {
 
   while (attempts < maxAttempts) {
     console.log(
-      `Attempt ${attempts + 1} of ${maxAttempts} to check Febbox token`,
+      `Attempt ${attempts + 1} of ${maxAttempts} to check Febbox token`
     );
     try {
       const response = await fetch(febboxApiTestUrl, {
@@ -123,7 +123,7 @@ export async function testFebboxKey(febboxKey: string | null): Promise<Status> {
       }
 
       const data = (await response.json()) as any;
-      if (!data || !data.streams) {
+      if (!data?.streams) {
         console.error("Invalid response format from Febbox API:", data);
         attempts += 1;
         if (attempts === maxAttempts) {
@@ -172,7 +172,7 @@ export async function testFebboxKey(febboxKey: string | null): Promise<Status> {
 }
 
 export async function testdebridToken(
-  debridToken: string | null,
+  debridToken: string | null
 ): Promise<Status> {
   if (!debridToken) {
     return "unset";
@@ -192,7 +192,7 @@ export async function testdebridToken(
             Authorization: `Bearer ${debridToken}`,
             "Content-Type": "application/json",
           },
-        },
+        }
       );
 
       // If we have data and it indicates premium status, return success immediately
@@ -241,7 +241,7 @@ export async function testdebridToken(
 }
 
 export async function testTorboxToken(
-  torboxToken: string | null,
+  torboxToken: string | null
 ): Promise<Status> {
   if (!torboxToken) {
     return "unset";

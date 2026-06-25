@@ -1,12 +1,12 @@
 /* eslint-disable no-console */
 import { labelToLanguageCode } from "@p-stream/providers";
 
-import { CaptionListItem } from "@/stores/player/slices/source";
+import type { CaptionListItem } from "@/stores/player/slices/source";
 
 export async function scrapeVdrkCaptions(
   tmdbId: string | number,
   season?: number,
-  episode?: number,
+  episode?: number
 ): Promise<CaptionListItem[]> {
   try {
     const tmdbIdNum =

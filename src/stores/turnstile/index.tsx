@@ -55,7 +55,7 @@ export const useTurnstileStore = create(
         }
       });
     },
-  })),
+  }))
 );
 
 export function getTurnstile() {

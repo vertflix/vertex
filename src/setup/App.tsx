@@ -1,4 +1,4 @@
-import { ReactElement, Suspense, lazy, useEffect, useState } from "react";
+import { lazy, type ReactElement, Suspense, useEffect, useState } from "react";
 import { lazyWithPreload } from "react-lazy-with-preload";
 import {
   Navigate,

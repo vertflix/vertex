@@ -1,4 +1,4 @@
-import {
+import type {
   ProgressEpisodeItem,
   ProgressItem,
   ProgressMediaItem,
@@ -27,7 +27,7 @@ function progressIsCompleted(duration: number, watched: number): boolean {
   return false;
 }
 
-function progressIsNotStarted(duration: number, watched: number): boolean {
+function progressIsNotStarted(_duration: number, watched: number): boolean {
   // too short watch time
   if (watched < 20) return true;
 
@@ -48,7 +48,7 @@ function progressIsAcceptableRange(duration: number, watched: number): boolean {
 
 function isFirstEpisodeOfShow(
   item: ProgressMediaItem,
-  episode: ProgressEpisodeItem,
+  episode: ProgressEpisodeItem
 ): boolean {
   const seasonId = episode.seasonId;
   const season = item.seasons[seasonId];
@@ -57,7 +57,7 @@ function isFirstEpisodeOfShow(
 
 export function getProgressPercentage(
   watched: number,
-  duration: number,
+  duration: number
 ): number {
   // Handle edge cases to prevent infinity or invalid percentages
   if (!duration || duration <= 0) return 0;
@@ -69,14 +69,14 @@ export function getProgressPercentage(
 }
 
 export function shouldShowProgress(
-  item: ProgressMediaItem,
+  item: ProgressMediaItem
 ): ShowProgressResult {
   // non shows just hide or show depending on acceptable ranges
   if (item.type !== "show") {
     return {
       show: progressIsAcceptableRange(
         item.progress?.duration ?? 0,
-        item.progress?.watched ?? 0,
+        item.progress?.watched ?? 0
       ),
       progress: item.progress ?? defaultProgress,
     };
@@ -89,7 +89,7 @@ export function shouldShowProgress(
     .filter(
       (epi) =>
         !progressIsNotStarted(epi.progress.duration, epi.progress.watched) ||
-        !isFirstEpisodeOfShow(item, epi),
+        !isFirstEpisodeOfShow(item, epi)
     )[0];
 
   const season = item.seasons[ep?.seasonId];

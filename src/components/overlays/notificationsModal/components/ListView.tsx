@@ -1,6 +1,6 @@
 import { Icon, Icons } from "@/components/Icon";
 
-import { ListViewProps } from "../types";
+import type { ListViewProps } from "../types";
 import { formatNotificationDescription } from "../utils";
 
 export function ListView({
@@ -137,7 +137,7 @@ export function ListView({
                             {getCategoryColor(notification.category) && (
                               <span
                                 className={`inline-block w-2 h-2 rounded-full ${getCategoryColor(
-                                  notification.category,
+                                  notification.category
                                 )}`}
                               />
                             )}
@@ -167,7 +167,7 @@ export function ListView({
                               {getCategoryColor(notification.category) && (
                                 <span
                                   className={`inline-block w-2 h-2 rounded-full ${getCategoryColor(
-                                    notification.category,
+                                    notification.category
                                   )}`}
                                 />
                               )}
@@ -184,7 +184,7 @@ export function ListView({
                         dangerouslySetInnerHTML={{
                           __html:
                             formatNotificationDescription(
-                              notification.description,
+                              notification.description
                             ).substring(0, 150) +
                             (notification.description.length > 150
                               ? "..."

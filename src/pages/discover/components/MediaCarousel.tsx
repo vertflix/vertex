@@ -4,20 +4,20 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { useWindowSize } from "react-use";
 
-import { Dropdown, OptionItem } from "@/components/form/Dropdown";
+import { Dropdown, type OptionItem } from "@/components/form/Dropdown";
 import { Icon, Icons } from "@/components/Icon";
 import { MediaCard } from "@/components/media/MediaCard";
 import { Flare } from "@/components/utils/Flare";
 import { useIsMobile } from "@/hooks/useIsMobile";
 import {
-  DiscoverContentType,
-  MediaType,
+  type DiscoverContentType,
+  type MediaType,
   useDiscoverMedia,
   useDiscoverOptions,
 } from "@/pages/discover/hooks/useDiscoverMedia";
 import { useDiscoverStore } from "@/stores/discover";
 import { useProgressStore } from "@/stores/progress";
-import { MediaItem } from "@/utils/mediaTypes";
+import type { MediaItem } from "@/utils/mediaTypes";
 
 import { CarouselNavButtons } from "./CarouselNavButtons";
 
@@ -99,7 +99,7 @@ export function MediaCarousel({
   const [selectedRecommendationTitle, setSelectedRecommendationTitle] =
     useState<string>("");
   const [selectedGenre, setSelectedGenre] = React.useState<OptionItem | null>(
-    null,
+    null
   );
 
   // Get available providers and genres
@@ -212,7 +212,7 @@ export function MediaCarousel({
     return relatedButtons?.find(
       (btn) =>
         btn.name === selectedGenre?.name ||
-        btn.name === sectionTitle.split(" on ")[1],
+        btn.name === sectionTitle.split(" on ")[1]
     );
   }, [relatedButtons, selectedGenre?.name, sectionTitle]);
 
@@ -271,7 +271,7 @@ export function MediaCarousel({
         isScrollingRef.current = false;
       }
     },
-    [browser],
+    [browser]
   );
 
   const handleMoreClick = React.useCallback(() => {
@@ -328,13 +328,13 @@ export function MediaCarousel({
                   <Dropdown
                     selectedItem={
                       recommendationSources.find(
-                        (s) => s.id === selectedRecommendationId,
+                        (s) => s.id === selectedRecommendationId
                       )
                         ? {
                             id: selectedRecommendationId || "",
                             name:
                               recommendationSources.find(
-                                (s) => s.id === selectedRecommendationId,
+                                (s) => s.id === selectedRecommendationId
                               )?.title || "",
                           }
                         : {
@@ -344,7 +344,7 @@ export function MediaCarousel({
                     }
                     setSelectedItem={(item) => {
                       const source = recommendationSources.find(
-                        (s) => s.id === item.id,
+                        (s) => s.id === item.id
                       );
                       if (source) {
                         setSelectedRecommendationId(item.id);
@@ -441,7 +441,7 @@ export function MediaCarousel({
                       name:
                         activeButton &&
                         !visibleButtons.find(
-                          (btn) => btn.id === activeButton.id,
+                          (btn) => btn.id === activeButton.id
                         )
                           ? activeButton.name
                           : "...",
@@ -460,7 +460,7 @@ export function MediaCarousel({
                       <span>
                         {activeButton &&
                         !visibleButtons.find(
-                          (btn) => btn.id === activeButton.id,
+                          (btn) => btn.id === activeButton.id
                         )
                           ? activeButton.name
                           : "..."}

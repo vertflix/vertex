@@ -3,16 +3,19 @@ import { useInterval } from "react-use";
 
 import { importWatchHistory } from "@/backend/accounts/import";
 import {
-  watchHistoryItemToInputs,
   watchHistoryItemsToInputs,
+  watchHistoryItemToInputs,
 } from "@/backend/accounts/watchHistory";
 import { getPosterForMedia } from "@/backend/metadata/tmdb";
 import { useBackendUrl } from "@/hooks/auth/useBackendUrl";
 import { useAuthStore } from "@/stores/auth";
 import { useTraktAuthStore } from "@/stores/trakt/store";
-import { WatchHistoryItem, useWatchHistoryStore } from "@/stores/watchHistory";
+import {
+  useWatchHistoryStore,
+  type WatchHistoryItem,
+} from "@/stores/watchHistory";
 import { traktService } from "@/utils/trakt";
-import { TraktContentData } from "@/utils/traktTypes";
+import type { TraktContentData } from "@/utils/traktTypes";
 
 const PROGRESS_THRESHOLD = 0.25; // Sync to Trakt if watched >= 25%
 const TRAKT_HISTORY_SYNC_INTERVAL_MS = 15 * 60 * 1000; // 15 min
@@ -20,7 +23,7 @@ const INITIAL_SYNC_DELAY_MS = 2000; // Re-sync after backend restore
 
 function toTraktContentData(
   id: string,
-  item: WatchHistoryItem,
+  item: WatchHistoryItem
 ): TraktContentData | null {
   const { watched, duration } = item.progress;
   const progress = duration > 0 ? watched / duration : 0;
@@ -122,13 +125,13 @@ export function TraktHistorySyncer() {
         useWatchHistoryStore.getState().replaceItems(merged);
         if (backendUrl && account && newKeys.length > 0) {
           const newItems = Object.fromEntries(
-            newKeys.map((k) => [k, merged[k]!]),
+            newKeys.map((k) => [k, merged[k]!])
           );
           try {
             await importWatchHistory(
               backendUrl,
               account,
-              watchHistoryItemsToInputs(newItems),
+              watchHistoryItemsToInputs(newItems)
             );
           } catch (err) {
             console.error("Failed to import Trakt history to backend", err);
@@ -181,7 +184,7 @@ export function TraktHistorySyncer() {
       return;
     }
     const unsub = useTraktAuthStore.persist?.onFinishHydration?.(() =>
-      setHydrated(true),
+      setHydrated(true)
     );
     const t = setTimeout(() => setHydrated(true), 500);
     return () => {

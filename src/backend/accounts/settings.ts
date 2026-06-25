@@ -1,8 +1,8 @@
 import { ofetch } from "ofetch";
 
 import { getAuthHeaders } from "@/backend/accounts/auth";
-import { AccountWithToken } from "@/stores/auth";
-import { KeyboardShortcuts } from "@/utils/keyboardShortcuts";
+import type { AccountWithToken } from "@/stores/auth";
+import type { KeyboardShortcuts } from "@/utils/keyboardShortcuts";
 
 export interface CustomThemeSettings {
   primary: string;
@@ -93,7 +93,7 @@ export interface SettingsResponse {
 export function updateSettings(
   url: string,
   account: AccountWithToken,
-  settings: SettingsInput,
+  settings: SettingsInput
 ) {
   return ofetch<SettingsResponse>(`/users/${account.userId}/settings`, {
     method: "PUT",

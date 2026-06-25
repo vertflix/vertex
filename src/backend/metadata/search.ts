@@ -1,7 +1,7 @@
 import Fuse from "fuse.js";
 
 import { SimpleCache } from "@/utils/cache";
-import { MediaItem } from "@/utils/mediaTypes";
+import type { MediaItem } from "@/utils/mediaTypes";
 
 import {
   formatTMDBMetaToMediaItem,
@@ -12,8 +12,8 @@ import {
 } from "./tmdb";
 import {
   TMDBContentTypes,
-  TMDBMovieSearchResult,
-  TMDBShowSearchResult,
+  type TMDBMovieSearchResult,
+  type TMDBShowSearchResult,
 } from "./types/tmdb";
 
 export interface MWQuery {
@@ -55,7 +55,7 @@ function getLenientQueries(searchQuery: string): string[] {
 }
 
 function dedupeTMDBResults(
-  items: (TMDBMovieSearchResult | TMDBShowSearchResult)[],
+  items: (TMDBMovieSearchResult | TMDBShowSearchResult)[]
 ): (TMDBMovieSearchResult | TMDBShowSearchResult)[] {
   const deduped = new Map<
     string,
@@ -71,7 +71,7 @@ function dedupeTMDBResults(
 
 function rankTMDBResultsFuzzy(
   items: (TMDBMovieSearchResult | TMDBShowSearchResult)[],
-  query: string,
+  query: string
 ): (TMDBMovieSearchResult | TMDBShowSearchResult)[] {
   if (items.length <= 1) return items;
 
@@ -90,10 +90,10 @@ function rankTMDBResultsFuzzy(
 
   const ranked = fuse.search(query).map((result) => result.item);
   const rankedSet = new Set(
-    ranked.map((item) => `${item.media_type}:${item.id}`),
+    ranked.map((item) => `${item.media_type}:${item.id}`)
   );
   const remainder = items.filter(
-    (item) => !rankedSet.has(`${item.media_type}:${item.id}`),
+    (item) => !rankedSet.has(`${item.media_type}:${item.id}`)
   );
 
   return ranked.concat(remainder);
@@ -131,7 +131,7 @@ export async function searchForMedia(query: MWQuery): Promise<MediaItem[]> {
                 poster: getMediaPoster((details as any).poster_path),
                 object_type: type,
                 original_release_date: new Date(
-                  (details as any).first_air_date,
+                  (details as any).first_air_date
                 ),
               };
 
@@ -147,15 +147,15 @@ export async function searchForMedia(query: MWQuery): Promise<MediaItem[]> {
 
   const queryVariants = getLenientQueries(searchQuery);
   const settledResults = await Promise.allSettled(
-    queryVariants.map((q) => multiSearch(q)),
+    queryVariants.map((q) => multiSearch(q))
   );
   const fulfilledResults = settledResults
     .filter(
       (
-        result,
+        result
       ): result is PromiseFulfilledResult<
         (TMDBMovieSearchResult | TMDBShowSearchResult)[]
-      > => result.status === "fulfilled",
+      > => result.status === "fulfilled"
     )
     .map((result) => result.value);
 

@@ -84,6 +84,6 @@ export const useWatchPartyStore = create<WatchPartyStore>()(
     }),
     {
       name: "watch-party-storage",
-    },
-  ),
+    }
+  )
 );

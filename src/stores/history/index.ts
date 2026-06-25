@@ -24,7 +24,7 @@ export const useHistoryStore = create(
         }
       });
     },
-  })),
+  }))
 );
 
 export function useHistoryListener() {

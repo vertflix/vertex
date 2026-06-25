@@ -12,7 +12,7 @@ export function useCaptionMatchScore() {
   const matchScore = useMemo(() => {
     if (!srtData || !segments.length) return null;
     const credits = segments.find((s) => s.type === "credits");
-    if (!credits || !credits.start_ms) return null;
+    if (!credits?.start_ms) return null;
 
     const startMs = credits.start_ms;
     const endMs = credits.end_ms ?? videoDuration * 1000;
@@ -55,7 +55,7 @@ export function useCaptionMatchScore() {
 
     const overlapMs = merged.reduce(
       (acc, range) => acc + (range[1] - range[0]),
-      0,
+      0
     );
     const percentage = (overlapMs / durationMs) * 100;
     return Math.round(100 - percentage);

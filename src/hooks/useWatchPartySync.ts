@@ -54,7 +54,7 @@ interface WatchPartySyncResult {
  * Hook for syncing with other users in a watch party room
  */
 export function useWatchPartySync(
-  syncThresholdSeconds = 5,
+  syncThresholdSeconds = 5
 ): WatchPartySyncResult {
   const [roomUsers, setRoomUsers] = useState<RoomUser[]>([]);
   const [isSyncing, setIsSyncing] = useState(false);
@@ -236,7 +236,7 @@ export function useWatchPartySync(
           if (statuses.length > 0) {
             // Get the latest status (sort by timestamp DESC)
             const latestStatus = [...statuses].sort(
-              (a, b) => b.timestamp - a.timestamp,
+              (a, b) => b.timestamp - a.timestamp
             )[0];
 
             users.push({
@@ -260,7 +260,7 @@ export function useWatchPartySync(
               },
             });
           }
-        },
+        }
       );
 
       // Sort users with host first, then by lastUpdate

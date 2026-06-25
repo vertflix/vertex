@@ -1,4 +1,4 @@
-import { ProgressItem, ProgressMediaItem } from "@/stores/progress";
+import type { ProgressItem, ProgressMediaItem } from "@/stores/progress";
 
 /**
  * Options for modifying progress item properties
@@ -29,7 +29,7 @@ export interface ProgressModificationResult {
  */
 export function modifyProgressItem(
   progressItem: ProgressMediaItem,
-  options: ProgressModificationOptions,
+  options: ProgressModificationOptions
 ): ProgressMediaItem {
   const modified = { ...progressItem, updatedAt: Date.now() };
 
@@ -58,7 +58,7 @@ export function modifyProgressItem(
 export function modifyProgressItems(
   progressItems: Record<string, ProgressMediaItem>,
   progressIds: string[],
-  options: ProgressModificationOptions,
+  options: ProgressModificationOptions
 ): {
   modifiedProgressItems: Record<string, ProgressMediaItem>;
   result: ProgressModificationResult;

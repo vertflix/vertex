@@ -12,10 +12,10 @@ export function TopControls(props: {
 }) {
   const bannerSize = useBannerSize("player");
   const setHoveringAnyControls = usePlayerStore(
-    (s) => s.setHoveringAnyControls,
+    (s) => s.setHoveringAnyControls
   );
   const backgroundBlurEnabled = useSubtitleStore(
-    (s) => s.styling.backgroundBlurEnabled,
+    (s) => s.styling.backgroundBlurEnabled
   );
 
   useEffect(() => {

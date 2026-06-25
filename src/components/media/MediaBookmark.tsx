@@ -2,8 +2,8 @@ import { useCallback, useMemo } from "react";
 
 import { Icons } from "@/components/Icon";
 import { useBookmarkStore } from "@/stores/bookmarks";
-import { PlayerMeta } from "@/stores/player/slices/source";
-import { MediaItem } from "@/utils/mediaTypes";
+import type { PlayerMeta } from "@/stores/player/slices/source";
+import type { MediaItem } from "@/utils/mediaTypes";
 
 import { IconPatch } from "../buttons/IconPatch";
 
@@ -15,7 +15,7 @@ interface MediaBookmarkProps {
 export function MediaBookmarkButton({ media, group }: MediaBookmarkProps) {
   const addBookmark = useBookmarkStore((s) => s.addBookmark);
   const addBookmarkWithGroups = useBookmarkStore(
-    (s) => s.addBookmarkWithGroups,
+    (s) => s.addBookmarkWithGroups
   );
   const removeBookmark = useBookmarkStore((s) => s.removeBookmark);
   const bookmarks = useBookmarkStore((s) => s.bookmarks);

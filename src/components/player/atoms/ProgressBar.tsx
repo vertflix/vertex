@@ -1,6 +1,6 @@
 import {
-  MouseEvent,
-  RefObject,
+  type MouseEvent,
+  type RefObject,
   useCallback,
   useEffect,
   useMemo,
@@ -51,7 +51,7 @@ function ThumbnailDisplay(props: { at: number; show: boolean }) {
   // Keep time label width consistent and avoid recomputing
   const formattedTime = useMemo(
     () => formatSeconds(Math.max(props.at, 0), durationExceedsHour(props.at)),
-    [props.at],
+    [props.at]
   );
   const transformX =
     offsets.offscreenLeft > 0 ? offsets.offscreenLeft : -offsets.offscreenRight;
@@ -94,7 +94,7 @@ function useMouseHoverPosition(barRef: RefObject<HTMLDivElement>) {
       const pos = (e.pageX - rect.left) / barRef.current.offsetWidth;
       setMousePos(pos * 100);
     },
-    [setMousePos, barRef],
+    [setMousePos, barRef]
   );
 
   const mouseLeave = useCallback(() => {
@@ -135,7 +135,7 @@ export function ProgressBar() {
     (percentage: number) => {
       display?.setTime(percentage * duration);
     },
-    [duration, display],
+    [duration, display]
   );
 
   const ref = useRef<HTMLDivElement>(null);
@@ -143,7 +143,7 @@ export function ProgressBar() {
 
   const { dragging, dragPercentage, dragMouseDown } = useProgressBar(
     ref,
-    commitTime,
+    commitTime
   );
   useEffect(() => {
     setSeeking(dragging);
@@ -212,8 +212,8 @@ export function ProgressBar() {
                     0,
                     Math.min(
                       1,
-                      dragging ? dragPercentage / 100 : time / duration,
-                    ),
+                      dragging ? dragPercentage / 100 : time / duration
+                    )
                   ) * 100
                 }%`,
               }}

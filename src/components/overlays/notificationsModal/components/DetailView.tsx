@@ -1,7 +1,7 @@
 import { Icon, Icons } from "@/components/Icon";
 import { Link } from "@/pages/migration/utils";
 
-import { DetailViewProps } from "../types";
+import type { DetailViewProps } from "../types";
 import { formatNotificationDescription } from "../utils";
 
 export function DetailView({
@@ -47,7 +47,7 @@ export function DetailView({
           {getCategoryColor(selectedNotification.category) && (
             <span
               className={`inline-block w-3 h-3 rounded-full ${getCategoryColor(
-                selectedNotification.category,
+                selectedNotification.category
               )}`}
             />
           )}
@@ -93,7 +93,7 @@ export function DetailView({
             // eslint-disable-next-line react/no-danger
             dangerouslySetInnerHTML={{
               __html: formatNotificationDescription(
-                selectedNotification.description,
+                selectedNotification.description
               ),
             }}
           />

@@ -20,7 +20,7 @@ export const SearchBarInput = forwardRef<HTMLInputElement, SearchBarProps>(
   (props, ref) => {
     const [focused, setFocused] = useState(false);
     const [lightTheme, setLightTheme] = useState(
-      Boolean(props.isInFeatured) && window.scrollY < 600,
+      Boolean(props.isInFeatured) && window.scrollY < 600
     );
     const containerRef = useRef<HTMLDivElement>(null);
     const [showTooltip, setShowTooltip] = useState(false);
@@ -67,7 +67,7 @@ export const SearchBarInput = forwardRef<HTMLInputElement, SearchBarProps>(
                   ? lightTheme
                     ? "text-white/50"
                     : ""
-                  : "text-search-icon",
+                  : "text-search-icon"
               )}
               onClick={(e) => {
                 e.preventDefault();
@@ -96,7 +96,7 @@ export const SearchBarInput = forwardRef<HTMLInputElement, SearchBarProps>(
                   ? lightTheme
                     ? "text-white/50"
                     : "placeholder-search-placeholder"
-                  : "placeholder-search-placeholder",
+                  : "placeholder-search-placeholder"
               )}
               placeholder={props.placeholder}
             />
@@ -140,5 +140,5 @@ export const SearchBarInput = forwardRef<HTMLInputElement, SearchBarProps>(
         </Flare.Base>
       </div>
     );
-  },
+  }
 );

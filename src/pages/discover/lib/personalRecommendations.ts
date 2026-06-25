@@ -1,11 +1,11 @@
 import { getMediaDetails, getRelatedMedia } from "@/backend/metadata/tmdb";
-import { TMDBContentTypes } from "@/backend/metadata/types/tmdb";
 import type {
   TMDBMovieData,
   TMDBMovieSearchResult,
   TMDBShowData,
   TMDBShowSearchResult,
 } from "@/backend/metadata/types/tmdb";
+import { TMDBContentTypes } from "@/backend/metadata/types/tmdb";
 import type { DiscoverMedia } from "@/pages/discover/types/discover";
 
 // Tuning constants for the recommendation algorithm
@@ -36,7 +36,7 @@ export interface BookmarkSource {
 
 function toDiscoverMedia(
   item: TMDBMovieSearchResult | TMDBShowSearchResult,
-  isTVShow: boolean,
+  isTVShow: boolean
 ): DiscoverMedia {
   const isMovie = !isTVShow;
   return {
@@ -80,7 +80,7 @@ function bookmarkToDiscoverMedia(b: BookmarkSource): DiscoverMedia {
  */
 export async function fetchFedSimilarItems(
   tmdbId: string,
-  isTVShow: boolean,
+  isTVShow: boolean
 ): Promise<string[]> {
   try {
     const endpoint = isTVShow
@@ -90,7 +90,7 @@ export async function fetchFedSimilarItems(
     if (!response.ok) return [];
     const items = await response.json();
     return Array.isArray(items) ? items : [];
-  } catch (error) {
+  } catch (_error) {
     return [];
   }
 }
@@ -106,7 +106,7 @@ export async function fetchPersonalRecommendations(
   history: HistorySource[],
   progress: ProgressSource[],
   bookmarks: BookmarkSource[],
-  excludeIds: Set<string>,
+  excludeIds: Set<string>
 ): Promise<DiscoverMedia[]> {
   const type = isTVShow ? TMDBContentTypes.TV : TMDBContentTypes.MOVIE;
 
@@ -120,7 +120,7 @@ export async function fetchPersonalRecommendations(
     .slice(0, MAX_CURRENT_FOR_RELATED);
 
   const bookmarksFiltered = bookmarks.filter(
-    (b) => b.type === (isTVShow ? "show" : "movie"),
+    (b) => b.type === (isTVShow ? "show" : "movie")
   );
 
   const sourceIds: string[] = [];
@@ -147,11 +147,11 @@ export async function fetchPersonalRecommendations(
 
   // Fetch from both fed-similar API and TMDB
   const fedSimilarPromises = sourceIds.map((id) =>
-    fetchFedSimilarItems(id, isTVShow),
+    fetchFedSimilarItems(id, isTVShow)
   );
 
   const tmdbPromises = sourceIds.map((id) =>
-    getRelatedMedia(id, type, RELATED_PER_ITEM_LIMIT),
+    getRelatedMedia(id, type, RELATED_PER_ITEM_LIMIT)
   );
 
   const [fedSimilarResults, tmdbResults] = await Promise.allSettled([
@@ -180,7 +180,7 @@ export async function fetchPersonalRecommendations(
       .map((tmdbId) => getMediaDetails(tmdbId, type));
 
     const fedSimilarDetails = await Promise.allSettled(
-      fedSimilarDetailPromises,
+      fedSimilarDetailPromises
     );
 
     for (const result of fedSimilarDetails) {

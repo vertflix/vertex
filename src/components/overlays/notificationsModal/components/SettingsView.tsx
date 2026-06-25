@@ -1,6 +1,6 @@
 import { Icon, Icons } from "@/components/Icon";
 
-import { SettingsViewProps } from "../types";
+import type { SettingsViewProps } from "../types";
 
 export function SettingsView({
   autoReadDays,
@@ -19,12 +19,12 @@ export function SettingsView({
       customFeeds.map((v, i) => {
         if (i !== index) return v;
         return val;
-      }),
+      })
     );
   };
 
   const removeCustomFeed = (index: number) => {
-    setCustomFeeds(customFeeds.filter((v, i) => i !== index));
+    setCustomFeeds(customFeeds.filter((_v, i) => i !== index));
   };
 
   return (

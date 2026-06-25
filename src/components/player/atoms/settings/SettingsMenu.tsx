@@ -18,17 +18,17 @@ export function SettingsMenu({ id }: { id: string }) {
   const currentQuality = usePlayerStore((s) => s.currentQuality);
   const currentAudioTrack = usePlayerStore((s) => s.currentAudioTrack);
   const selectedCaptionLanguage = usePlayerStore(
-    (s) => s.caption.selected?.language,
+    (s) => s.caption.selected?.language
   );
   const subtitlesEnabled = useSubtitleStore((s) => s.enabled);
   const currentSourceId = usePlayerStore((s) => s.sourceId);
   const currentEmbedId = usePlayerStore(
-    (s) => (s as any).embedId as string | null,
+    (s) => (s as any).embedId as string | null
   );
   const sourceName = useMemo(() => {
     if (!currentSourceId) return "...";
     const source = getCachedMetadata().find(
-      (src) => src.id === currentSourceId,
+      (src) => src.id === currentSourceId
     );
     return source?.name ?? "...";
   }, [currentSourceId]);

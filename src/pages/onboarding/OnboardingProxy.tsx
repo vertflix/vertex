@@ -50,7 +50,7 @@ export function OnboardingProxyPage() {
       }
 
       completeAndRedirect();
-    } catch (e) {
+    } catch (_e) {
       throw new Error("onboarding.proxy.input.errorConnection");
     }
   }, [url, completeAndRedirect, setProxySet]);

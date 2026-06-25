@@ -6,6 +6,6 @@ export function isAutoplayAllowed() {
   return Boolean(
     conf().ALLOW_AUTOPLAY ||
       isExtensionActiveCached() ||
-      useAuthStore.getState().proxySet,
+      useAuthStore.getState().proxySet
   );
 }

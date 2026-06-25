@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
 import type { DragEvent, ReactNode } from "react";
+import { useEffect, useState } from "react";
 
 interface FileDropHandlerProps {
   children: ReactNode;

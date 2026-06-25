@@ -14,8 +14,11 @@ import { Heading1 } from "@/components/utils/Text";
 import { useRandomTranslation } from "@/hooks/useRandomTranslation";
 import { SubPageLayout } from "@/pages/layouts/SubPageLayout";
 import { useOverlayStack } from "@/stores/interface/overlayStack";
-import { WatchHistoryItem, useWatchHistoryStore } from "@/stores/watchHistory";
-import { MediaItem } from "@/utils/mediaTypes";
+import {
+  useWatchHistoryStore,
+  type WatchHistoryItem,
+} from "@/stores/watchHistory";
+import type { MediaItem } from "@/utils/mediaTypes";
 
 interface WatchHistoryProps {
   onShowDetails?: (media: MediaItem) => void;
@@ -37,7 +40,7 @@ function formatWatchHistorySeries(historyItem: WatchHistoryItem) {
 }
 
 function getWatchHistoryPercentage(
-  historyItem: WatchHistoryItem,
+  historyItem: WatchHistoryItem
 ): number | undefined {
   const { progress } = historyItem;
   if (!progress.duration || progress.duration <= 0) return undefined;
@@ -45,7 +48,7 @@ function getWatchHistoryPercentage(
 
   const percentage = Math.min(
     (progress.watched / progress.duration) * 100,
-    100,
+    100
   );
   return percentage;
 }

@@ -8,9 +8,9 @@ import { useWatchHistoryStore } from "@/stores/watchHistory";
 
 import {
   type BookmarkSource,
+  fetchPersonalRecommendations,
   type HistorySource,
   type ProgressSource,
-  fetchPersonalRecommendations,
 } from "../lib/personalRecommendations";
 
 export interface UsePersonalRecommendationsOptions {
@@ -28,7 +28,7 @@ export interface UsePersonalRecommendationsReturn {
 }
 
 function getHistorySources(
-  items: Record<string, { type: "movie" | "show"; watchedAt: number }>,
+  items: Record<string, { type: "movie" | "show"; watchedAt: number }>
 ): HistorySource[] {
   const byKey: Map<string, HistorySource> = new Map();
 
@@ -72,7 +72,7 @@ export function usePersonalRecommendations({
   const fetch = useCallback(async () => {
     const history: HistorySource[] = getHistorySources(watchHistoryItems);
     const progress: ProgressSource[] = Object.entries(progressItems).map(
-      ([tmdbId, item]) => ({ tmdbId, type: item.type }),
+      ([tmdbId, item]) => ({ tmdbId, type: item.type })
     );
     const bookmarkList: BookmarkSource[] = Object.entries(bookmarks).map(
       ([tmdbId, item]) => ({
@@ -81,7 +81,7 @@ export function usePersonalRecommendations({
         title: item.title,
         year: item.year,
         poster: item.poster,
-      }),
+      })
     );
 
     const hasAnySource =
@@ -105,7 +105,7 @@ export function usePersonalRecommendations({
         history,
         progress,
         bookmarkList,
-        excludeIds,
+        excludeIds
       );
       setMedia(results);
     } catch (err) {
@@ -121,13 +121,13 @@ export function usePersonalRecommendations({
   }, [enabled, fetch]);
 
   const historyCount = getHistorySources(watchHistoryItems).filter(
-    (h) => h.type === (isTVShow ? "show" : "movie"),
+    (h) => h.type === (isTVShow ? "show" : "movie")
   ).length;
   const progressCount = Object.values(progressItems).filter(
-    (p) => p.type === (isTVShow ? "show" : "movie"),
+    (p) => p.type === (isTVShow ? "show" : "movie")
   ).length;
   const bookmarkCount = Object.values(bookmarks).filter(
-    (b) => b.type === (isTVShow ? "show" : "movie"),
+    (b) => b.type === (isTVShow ? "show" : "movie")
   ).length;
   const hasRecommendations =
     historyCount > 0 || progressCount > 0 || bookmarkCount > 0;

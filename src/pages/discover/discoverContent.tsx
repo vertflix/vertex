@@ -8,7 +8,7 @@ import { WideContainer } from "@/components/layout/WideContainer";
 import { useDiscoverStore } from "@/stores/discover";
 import { useOverlayStack } from "@/stores/interface/overlayStack";
 import { useProgressStore } from "@/stores/progress";
-import { MediaItem } from "@/utils/mediaTypes";
+import type { MediaItem } from "@/utils/mediaTypes";
 
 import { DiscoverNavigation } from "./components/DiscoverNavigation";
 import type { FeaturedMedia } from "./components/FeaturedCarousel";
@@ -40,10 +40,10 @@ export function DiscoverContent() {
   };
 
   const movieProgressItems = Object.entries(progressItems || {}).filter(
-    ([_, item]) => item.type === "movie",
+    ([_, item]) => item.type === "movie"
   );
   const tvProgressItems = Object.entries(progressItems || {}).filter(
-    ([_, item]) => item.type === "show",
+    ([_, item]) => item.type === "show"
   );
 
   // Render Movies content with lazy loading
@@ -57,7 +57,7 @@ export function DiscoverContent() {
         isTVShow={false}
         carouselRefs={carouselRefs}
         onShowDetails={handleShowDetails}
-      />,
+      />
     );
 
     // Movie Recommendations - only show if there are movie progress items
@@ -72,7 +72,7 @@ export function DiscoverContent() {
           moreContent
           showRecommendations
           priority={carousels.length < 2} // First 2 carousels load immediately
-        />,
+        />
       );
     }
 
@@ -86,7 +86,7 @@ export function DiscoverContent() {
         onShowDetails={handleShowDetails}
         moreContent
         priority={carousels.length < 2}
-      />,
+      />
     );
 
     // Latest Releases
@@ -99,7 +99,7 @@ export function DiscoverContent() {
         onShowDetails={handleShowDetails}
         moreContent
         priority={carousels.length < 2}
-      />,
+      />
     );
 
     // 4K Releases
@@ -125,7 +125,7 @@ export function DiscoverContent() {
         onShowDetails={handleShowDetails}
         moreContent
         priority={carousels.length < 2}
-      />,
+      />
     );
 
     // Provider Movies
@@ -138,7 +138,7 @@ export function DiscoverContent() {
         onShowDetails={handleShowDetails}
         showProviders
         moreContent
-      />,
+      />
     );
 
     // Genre Movies
@@ -151,7 +151,7 @@ export function DiscoverContent() {
         onShowDetails={handleShowDetails}
         showGenres
         moreContent
-      />,
+      />
     );
 
     return carousels;
@@ -168,7 +168,7 @@ export function DiscoverContent() {
         isTVShow
         carouselRefs={carouselRefs}
         onShowDetails={handleShowDetails}
-      />,
+      />
     );
 
     // TV Show Recommendations - only show if there are TV show progress items
@@ -183,7 +183,7 @@ export function DiscoverContent() {
           moreContent
           showRecommendations
           priority={carousels.length < 2} // First 2 carousels load immediately
-        />,
+        />
       );
     }
 
@@ -197,7 +197,7 @@ export function DiscoverContent() {
         onShowDetails={handleShowDetails}
         moreContent
         priority={carousels.length < 2}
-      />,
+      />
     );
 
     // Top Rated
@@ -210,7 +210,7 @@ export function DiscoverContent() {
         onShowDetails={handleShowDetails}
         moreContent
         priority={carousels.length < 2}
-      />,
+      />
     );
 
     // Popular
@@ -223,7 +223,7 @@ export function DiscoverContent() {
         onShowDetails={handleShowDetails}
         moreContent
         priority={carousels.length < 2}
-      />,
+      />
     );
 
     // Provider TV Shows
@@ -236,7 +236,7 @@ export function DiscoverContent() {
         onShowDetails={handleShowDetails}
         showProviders
         moreContent
-      />,
+      />
     );
 
     // Genre TV Shows
@@ -249,7 +249,7 @@ export function DiscoverContent() {
         onShowDetails={handleShowDetails}
         showGenres
         moreContent
-      />,
+      />
     );
 
     return carousels;
@@ -307,7 +307,7 @@ export function DiscoverContent() {
       <div
         className={classNames(
           "flex justify-center mt-8 mb-12",
-          isMoviesTab ? "block" : "hidden",
+          isMoviesTab ? "block" : "hidden"
         )}
       >
         <Button theme="purple" onClick={() => navigate("/discover/all")}>

@@ -1,8 +1,14 @@
 import classNames from "classnames";
-import { PointerEvent, useCallback, useEffect, useRef, useState } from "react";
+import {
+  type PointerEvent,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { useEffectOnce, useTimeoutFn } from "react-use";
 
-import { Seek, SeekDirection } from "@/components/player/atoms/Seek";
+import { Seek, type SeekDirection } from "@/components/player/atoms/Seek";
 import { useShouldShowVideoElement } from "@/components/player/internals/VideoContainer";
 import { useOverlayStack } from "@/stores/interface/overlayStack";
 import { PlayerHoverState } from "@/stores/player/slices/interface";
@@ -17,7 +23,7 @@ export function VideoClickTarget(props: { showingControls: boolean }) {
   const isPaused = usePlayerStore((s) => s.mediaPlaying.isPaused);
   const playbackRate = usePlayerStore((s) => s.mediaPlaying.playbackRate);
   const updateInterfaceHovering = usePlayerStore(
-    (s) => s.updateInterfaceHovering,
+    (s) => s.updateInterfaceHovering
   );
   const setSpeedBoosted = usePlayerStore((s) => s.setSpeedBoosted);
   const setShowSpeedIndicator = usePlayerStore((s) => s.setShowSpeedIndicator);
@@ -26,7 +32,7 @@ export function VideoClickTarget(props: { showingControls: boolean }) {
   const isInWatchParty = useWatchPartyStore((s) => s.enabled);
   const enableHoldToBoost = usePreferencesStore((s) => s.enableHoldToBoost);
   const enableDoubleClickToSeek = usePreferencesStore(
-    (s) => s.enableDoubleClickToSeek,
+    (s) => s.enableDoubleClickToSeek
   );
 
   const [_, cancel, reset] = useTimeoutFn(() => {
@@ -42,7 +48,7 @@ export function VideoClickTarget(props: { showingControls: boolean }) {
   const boostTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const [isPendingBoost, setIsPendingBoost] = useState(false);
   const [seekDirection, setSeekDirection] = useState<SeekDirection | null>(
-    null,
+    null
   );
   const [seekId, setSeekId] = useState(0);
   const [isSeeking, setIsSeeking] = useState(false);
@@ -77,7 +83,7 @@ export function VideoClickTarget(props: { showingControls: boolean }) {
         toggleFullscreen();
       }
     },
-    [display, toggleFullscreen, enableDoubleClickToSeek, time],
+    [display, toggleFullscreen, enableDoubleClickToSeek, time]
   );
 
   useEffect(() => {
@@ -133,7 +139,7 @@ export function VideoClickTarget(props: { showingControls: boolean }) {
       cancel,
       isPendingBoost,
       isSeeking,
-    ],
+    ]
   );
 
   const handleTap = useCallback(
@@ -156,7 +162,7 @@ export function VideoClickTarget(props: { showingControls: boolean }) {
         }, 250);
       }
     },
-    [handleDoubleClick, togglePause, enableDoubleClickToSeek],
+    [handleDoubleClick, togglePause, enableDoubleClickToSeek]
   );
 
   const handlePointerDown = useCallback(
@@ -207,7 +213,7 @@ export function VideoClickTarget(props: { showingControls: boolean }) {
       setCurrentOverlay,
       isInWatchParty,
       enableHoldToBoost,
-    ],
+    ]
   );
 
   const handlePointerUp = useCallback(
@@ -256,7 +262,7 @@ export function VideoClickTarget(props: { showingControls: boolean }) {
       setCurrentOverlay,
       isPendingBoost,
       enableHoldToBoost,
-    ],
+    ]
   );
 
   // Handle case where mouse leaves the player while still pressed

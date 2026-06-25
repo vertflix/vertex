@@ -1,17 +1,17 @@
 /* eslint-disable no-console */
-import { ScrapeMedia } from "@p-stream/providers";
+import type { ScrapeMedia } from "@p-stream/providers";
 
 import { downloadCaption } from "@/backend/helpers/subs";
-import { MakeSlice } from "@/stores/player/slices/types";
+import type { MakeSlice } from "@/stores/player/slices/types";
 import {
-  SourceQuality,
-  SourceSliceSource,
+  type SourceQuality,
+  type SourceSliceSource,
   selectQuality,
 } from "@/stores/player/utils/qualities";
 import { useQualityStore } from "@/stores/quality";
 import googletranslate from "@/utils/translation/googletranslate";
 import { translate } from "@/utils/translation/index";
-import { ValuesOf } from "@/utils/typeguard";
+import type { ValuesOf } from "@/utils/typeguard";
 
 export const playerStatus = {
   IDLE: "idle",
@@ -112,7 +112,7 @@ export interface SourceSlice {
   setSource(
     stream: SourceSliceSource,
     captions: CaptionListItem[],
-    startAt: number,
+    startAt: number
   ): void;
   switchQuality(quality: SourceQuality): void;
   setMeta(meta: PlayerMeta, status?: PlayerStatus): void;
@@ -125,7 +125,7 @@ export interface SourceSlice {
   addExternalSubtitles(): Promise<void>;
   translateCaption(
     targetCaption: CaptionListItem,
-    targetLanguage: string,
+    targetLanguage: string
   ): Promise<void>;
   clearTranslateTask(): void;
   addFailedSource(sourceId: string): void;
@@ -258,7 +258,7 @@ export const createSourceSlice: MakeSlice<SourceSlice> = (set, get) => ({
   setSource(
     stream: SourceSliceSource,
     captions: CaptionListItem[],
-    startAt: number,
+    startAt: number
   ) {
     let qualities: string[] = [];
     if (stream.type === "file") qualities = Object.keys(stream.qualities);
@@ -441,7 +441,7 @@ export const createSourceSlice: MakeSlice<SourceSlice> = (set, get) => ({
           // Add external captions to the existing list, avoiding duplicates
           const existingIds = new Set(s.captionList.map((c) => c.id));
           const newCaptions = externalCaptions.filter(
-            (c) => !existingIds.has(c.id),
+            (c) => !existingIds.has(c.id)
           );
           s.captionList = [...s.captionList, ...newCaptions];
         });
@@ -467,7 +467,7 @@ export const createSourceSlice: MakeSlice<SourceSlice> = (set, get) => ({
 
   async translateCaption(
     targetCaption: CaptionListItem,
-    targetLanguage: string,
+    targetLanguage: string
   ) {
     let store = get();
 
@@ -531,7 +531,7 @@ export const createSourceSlice: MakeSlice<SourceSlice> = (set, get) => ({
         store.caption.translateTask!.fetchedTargetCaption!,
         targetLanguage,
         googletranslate,
-        abortController.signal,
+        abortController.signal
       );
       if (abortController.signal.aborted) {
         return;

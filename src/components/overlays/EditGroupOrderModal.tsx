@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { Button } from "@/components/buttons/Button";
-import { Item, SortableList } from "@/components/form/SortableList";
+import { type Item, SortableList } from "@/components/form/SortableList";
 import { Modal, ModalCard } from "@/components/overlays/Modal";
 import { UserIcons } from "@/components/UserIcon";
 import { Heading2, Paragraph } from "@/components/utils/Text";
@@ -67,7 +67,7 @@ export function EditGroupOrderModal({
     }
 
     const orderMap = new Map(
-      currentOrder.map((group, index) => [group, index]),
+      currentOrder.map((group, index) => [group, index])
     );
     const sortedGroups = allGroups.sort((groupA, groupB) => {
       const orderA = orderMap.has(groupA)

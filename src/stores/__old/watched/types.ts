@@ -1,4 +1,4 @@
-import { MWMediaMeta } from "@/backend/metadata/types/mw";
+import type { MWMediaMeta } from "@/backend/metadata/types/mw";
 
 export interface StoreMediaItem {
   meta: MWMediaMeta;

@@ -26,13 +26,13 @@ export function Volume(props: Props) {
     (percentage: number) => {
       setVolume(percentage);
     },
-    [setVolume],
+    [setVolume]
   );
 
   const { dragging, dragPercentage, dragMouseDown } = useProgressBar(
     ref,
     commitVolume,
-    true,
+    true
   );
 
   const handleClick = useCallback(() => {
@@ -59,7 +59,7 @@ export function Volume(props: Props) {
       newVolume = Math.max(0, Math.min(newVolume, 1));
       setVolume(newVolume);
     },
-    [volume, setVolume],
+    [volume, setVolume]
   );
 
   const getVolumeIcon = (volumeLevel: number) => {

@@ -190,7 +190,7 @@ export function normalizeKey(key: string): string {
  */
 export function checkShortcutConflict(
   config1: KeyboardShortcutConfig | undefined,
-  config2: KeyboardShortcutConfig | undefined,
+  config2: KeyboardShortcutConfig | undefined
 ): boolean {
   if (!config1 || !config2 || !config1.key || !config2.key) {
     return false;
@@ -220,7 +220,7 @@ export function checkShortcutConflict(
  * Find all conflicts in a shortcuts configuration
  */
 export function findConflicts(
-  shortcuts: KeyboardShortcuts,
+  shortcuts: KeyboardShortcuts
 ): Array<{ id1: string; id2: string }> {
   const conflicts: Array<{ id1: string; id2: string }> = [];
   const ids = Object.keys(shortcuts);
@@ -246,9 +246,9 @@ export function findConflicts(
  */
 export function matchesShortcut(
   event: KeyboardEvent,
-  config: KeyboardShortcutConfig | undefined,
+  config: KeyboardShortcutConfig | undefined
 ): boolean {
-  if (!config || !config.key) {
+  if (!config?.key) {
     return false;
   }
 

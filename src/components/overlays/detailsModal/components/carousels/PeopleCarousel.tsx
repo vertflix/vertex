@@ -5,7 +5,7 @@ import {
   getMediaCredits,
   getPersonProfileImage,
 } from "@/backend/metadata/tmdb";
-import {
+import type {
   TMDBCastMember,
   TMDBContentTypes,
   TMDBCrewMember,
@@ -27,7 +27,7 @@ export function CastCarousel({ mediaId, mediaType }: CastCarouselProps) {
         const credits = await getMediaCredits(mediaId, mediaType);
         // Find the director
         const foundDirector = credits.crew.find(
-          (member) => member.job === "Director" && member.profile_path,
+          (member) => member.job === "Director" && member.profile_path
         );
         setDirector(foundDirector || null);
 

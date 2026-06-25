@@ -11,7 +11,7 @@ import { hasAired } from "@/components/player/utils/aired";
 import { useBookmarkStore } from "@/stores/bookmarks";
 import { getProgressPercentage, useProgressStore } from "@/stores/progress";
 
-import { EpisodeCarouselProps } from "../../types";
+import type { EpisodeCarouselProps } from "../../types";
 
 const EMPTY_ARRAY: string[] = [];
 
@@ -138,7 +138,7 @@ export function EpisodeCarousel({
 
     // Find the episode in the current season's episodes
     const episodeData = episodes.find(
-      (e) => e.season_number === season && e.episode_number === episode,
+      (e) => e.season_number === season && e.episode_number === episode
     );
 
     if (!episodeData) {
@@ -146,7 +146,7 @@ export function EpisodeCarousel({
         "No episode data found for season:",
         season,
         "episode:",
-        episode,
+        episode
       );
       return;
     }
@@ -165,7 +165,7 @@ export function EpisodeCarousel({
       const episode = episodes.find((ep) => ep.id === episodeId);
       if (episode) {
         const seasonData = seasons.find(
-          (s) => s.season_number === selectedSeason,
+          (s) => s.season_number === selectedSeason
         );
         if (!seasonData) return;
 
@@ -175,7 +175,7 @@ export function EpisodeCarousel({
         const percentage = episodeProgress
           ? getProgressPercentage(
               episodeProgress.progress.watched,
-              episodeProgress.progress.duration,
+              episodeProgress.progress.duration
             )
           : 0;
 
@@ -215,7 +215,7 @@ export function EpisodeCarousel({
   };
 
   const toggleFavoriteEpisode = useBookmarkStore(
-    (s) => s.toggleFavoriteEpisode,
+    (s) => s.toggleFavoriteEpisode
   );
   const bookmarks = useBookmarkStore((s) => s.bookmarks);
 
@@ -244,14 +244,14 @@ export function EpisodeCarousel({
   };
 
   const currentSeasonEpisodes = episodes.filter(
-    (ep) => ep.season_number === selectedSeason,
+    (ep) => ep.season_number === selectedSeason
   );
 
   // Get favorite episodes for this show
   const favoriteEpisodeIds = useBookmarkStore((s) =>
     mediaId
       ? (s.bookmarks[mediaId.toString()]?.favoriteEpisodes ?? EMPTY_ARRAY)
-      : EMPTY_ARRAY,
+      : EMPTY_ARRAY
   );
 
   // Calculate watched episodes count and percentage
@@ -265,7 +265,7 @@ export function EpisodeCarousel({
       const percentage = episodeProgress
         ? getProgressPercentage(
             episodeProgress.progress.watched,
-            episodeProgress.progress.duration,
+            episodeProgress.progress.duration
           )
         : 0;
       if (percentage > 90) {
@@ -282,7 +282,7 @@ export function EpisodeCarousel({
   useEffect(() => {
     if (showFavorites && mediaId && favoriteEpisodeIds.length > 0) {
       const favoriteEpisodesData = episodes.filter((ep) =>
-        favoriteEpisodeIds.includes(ep.id.toString()),
+        favoriteEpisodeIds.includes(ep.id.toString())
       );
       setFavoriteEpisodes(favoriteEpisodesData);
     } else {
@@ -313,7 +313,7 @@ export function EpisodeCarousel({
         const percentage = episodeProgress
           ? getProgressPercentage(
               episodeProgress.progress.watched,
-              episodeProgress.progress.duration,
+              episodeProgress.progress.duration
             )
           : 0;
         const isAired = hasAired(episode.air_date);
@@ -331,7 +331,7 @@ export function EpisodeCarousel({
         const percentage = episodeProgress
           ? getProgressPercentage(
               episodeProgress.progress.watched,
-              episodeProgress.progress.duration,
+              episodeProgress.progress.duration
             )
           : 0;
         const isAired = hasAired(episode.air_date);
@@ -352,7 +352,7 @@ export function EpisodeCarousel({
 
   const toggleEpisodeExpansion = (
     episodeId: number,
-    event: React.MouseEvent,
+    event: React.MouseEvent
   ) => {
     event.preventDefault();
     setExpandedEpisodes((prev) => ({
@@ -411,7 +411,7 @@ export function EpisodeCarousel({
       const percentage = episodeProgress
         ? getProgressPercentage(
             episodeProgress.progress.watched,
-            episodeProgress.progress.duration,
+            episodeProgress.progress.duration
           )
         : 0;
       const isAired = hasAired(episode.air_date);
@@ -608,7 +608,7 @@ export function EpisodeCarousel({
                 const percentage = episodeProgress
                   ? getProgressPercentage(
                       episodeProgress.progress.watched,
-                      episodeProgress.progress.duration,
+                      episodeProgress.progress.duration
                     )
                   : 0;
                 const isAired = hasAired(episode.air_date);
@@ -616,7 +616,7 @@ export function EpisodeCarousel({
                 const isWatched = percentage > 90;
                 const isFavorited = mediaId
                   ? (bookmarks[mediaId.toString()]?.favoriteEpisodes?.includes(
-                      episode.id.toString(),
+                      episode.id.toString()
                     ) ?? false)
                   : false;
 
@@ -632,7 +632,7 @@ export function EpisodeCarousel({
                         : "hover:bg-white/5",
                       !isAired ? "opacity-50" : "",
                       isExpanded ? "w-[32rem]" : "w-52 md:w-64",
-                      "h-[280px]", // Fixed height for all states
+                      "h-[280px]" // Fixed height for all states
                     )}
                   >
                     {/* Thumbnail */}
@@ -713,7 +713,7 @@ export function EpisodeCarousel({
                     <div
                       className={classNames(
                         "p-3",
-                        isExpanded ? "h-full" : "h-[122px]",
+                        isExpanded ? "h-full" : "h-[122px]"
                       )}
                     >
                       <div className="flex items-start justify-between">
@@ -767,7 +767,7 @@ export function EpisodeCarousel({
                               "text-sm text-white/80 mt-1.5 transition-all duration-200",
                               !isExpanded
                                 ? "line-clamp-2"
-                                : "max-h-[200px] overflow-y-auto scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent pr-2",
+                                : "max-h-[200px] overflow-y-auto scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent pr-2"
                             )}
                           >
                             {episode.overview}
@@ -811,7 +811,7 @@ export function EpisodeCarousel({
                     )}
                   </Link>
                 );
-              },
+              }
             )
           )}
 

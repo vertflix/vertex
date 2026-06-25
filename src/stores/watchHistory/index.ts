@@ -2,7 +2,7 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { immer } from "zustand/middleware/immer";
 
-import { PlayerMeta } from "@/stores/player/slices/source";
+import type { PlayerMeta } from "@/stores/player/slices/source";
 
 export interface WatchHistoryItem {
   title: string;
@@ -47,12 +47,12 @@ export interface WatchHistoryStore {
   addItem(
     meta: PlayerMeta,
     progress: { watched: number; duration: number },
-    completed: boolean,
+    completed: boolean
   ): void;
   updateItem(
     id: string,
     progress: { watched: number; duration: number },
-    completed: boolean,
+    completed: boolean
   ): void;
   removeItem(id: string): void;
   replaceItems(items: Record<string, WatchHistoryItem>): void;
@@ -199,6 +199,6 @@ export const useWatchHistoryStore = create(
     })),
     {
       name: "__MW::watchHistory",
-    },
-  ),
+    }
+  )
 );

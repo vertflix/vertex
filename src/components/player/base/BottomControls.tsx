@@ -9,10 +9,10 @@ export function BottomControls(props: {
   children: React.ReactNode;
 }) {
   const setHoveringAnyControls = usePlayerStore(
-    (s) => s.setHoveringAnyControls,
+    (s) => s.setHoveringAnyControls
   );
   const backgroundBlurEnabled = useSubtitleStore(
-    (s) => s.styling.backgroundBlurEnabled,
+    (s) => s.styling.backgroundBlurEnabled
   );
 
   useEffect(() => {

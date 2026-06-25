@@ -33,7 +33,7 @@ class Particle {
     options: LightbarOptions = {
       horizontalMotion: false,
       sizeRange: [10, 15],
-    },
+    }
   ) {
     if (options.imgSrc) {
       this.image = new Image();
@@ -123,7 +123,7 @@ class Particle {
         this.radius * 1.5,
         this.direction,
         0,
-        Math.PI * 2,
+        Math.PI * 2
       );
       ctx.fillStyle = "white";
       ctx.fill();

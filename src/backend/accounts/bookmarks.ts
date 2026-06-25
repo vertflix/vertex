@@ -1,9 +1,9 @@
 import { ofetch } from "ofetch";
 
 import { getAuthHeaders } from "@/backend/accounts/auth";
-import { BookmarkResponse } from "@/backend/accounts/user";
-import { AccountWithToken } from "@/stores/auth";
-import { BookmarkMediaItem } from "@/stores/bookmarks";
+import type { BookmarkResponse } from "@/backend/accounts/user";
+import type { AccountWithToken } from "@/stores/auth";
+import type { BookmarkMediaItem } from "@/stores/bookmarks";
 
 export interface BookmarkMetaInput {
   title: string;
@@ -21,7 +21,7 @@ export interface BookmarkInput {
 
 export function bookmarkMediaToInput(
   tmdbId: string,
-  item: BookmarkMediaItem,
+  item: BookmarkMediaItem
 ): BookmarkInput {
   return {
     meta: {
@@ -39,7 +39,7 @@ export function bookmarkMediaToInput(
 export async function addBookmark(
   url: string,
   account: AccountWithToken,
-  input: BookmarkInput,
+  input: BookmarkInput
 ) {
   return ofetch<BookmarkResponse>(
     `/users/${account.userId}/bookmarks/${input.tmdbId}`,
@@ -48,14 +48,14 @@ export async function addBookmark(
       headers: getAuthHeaders(account.token),
       baseURL: url,
       body: input,
-    },
+    }
   );
 }
 
 export async function removeBookmark(
   url: string,
   account: AccountWithToken,
-  id: string,
+  id: string
 ) {
   return ofetch<{ tmdbId: string }>(
     `/users/${account.userId}/bookmarks/${id}`,
@@ -63,6 +63,6 @@ export async function removeBookmark(
       method: "DELETE",
       headers: getAuthHeaders(account.token),
       baseURL: url,
-    },
+    }
   );
 }

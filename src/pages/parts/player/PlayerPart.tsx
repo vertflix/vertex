@@ -1,4 +1,4 @@
-import { ReactNode, useCallback, useRef, useState } from "react";
+import { type ReactNode, useCallback, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { BrandPill } from "@/components/layout/BrandPill";
@@ -8,12 +8,12 @@ import { ThumbsFeedback } from "@/components/player/atoms/ThumbsFeedback";
 import { WatchPartyStatus } from "@/components/player/atoms/WatchPartyStatus";
 import { useShouldShowControls } from "@/components/player/hooks/useShouldShowControls";
 import {
-  SegmentData,
+  type SegmentData,
   useSkipTime,
 } from "@/components/player/hooks/useSkipTime";
 import { PauseOverlay } from "@/components/player/overlays/PauseOverlay";
 import { useIsMobile } from "@/hooks/useIsMobile";
-import { PlayerMeta, playerStatus } from "@/stores/player/slices/source";
+import { type PlayerMeta, playerStatus } from "@/stores/player/slices/source";
 import { usePlayerStore } from "@/stores/player/store";
 import { usePreferencesStore } from "@/stores/preferences";
 import { useWatchPartyStore } from "@/stores/watchParty";
@@ -32,7 +32,7 @@ export function PlayerPart(props: PlayerPartProps) {
   const status = usePlayerStore((s) => s.status);
   const { isMobile } = useIsMobile();
   const manualSourceSelection = usePreferencesStore(
-    (s) => s.manualSourceSelection,
+    (s) => s.manualSourceSelection
   );
   const isLoading = usePlayerStore((s) => s.mediaPlaying.isLoading);
   const { isHost, enabled } = useWatchPartyStore();
@@ -90,7 +90,7 @@ export function PlayerPart(props: PlayerPartProps) {
     (segment: SegmentData, skipTime: number) => {
       setThumbsFeedbackData({ segment, skipTime });
     },
-    [],
+    []
   );
 
   const handleThumbsFeedback = useCallback(() => {

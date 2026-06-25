@@ -1,12 +1,12 @@
 import fscreen from "fscreen";
-import Hls, { Level } from "hls.js";
+import Hls, { type Level } from "hls.js";
 
 import {
-  RULE_IDS,
   isExtensionActiveCached,
+  RULE_IDS,
   setDomainRule,
 } from "@/backend/extension/messaging";
-import {
+import type {
   DisplayInterface,
   DisplayInterfaceEvents,
 } from "@/components/player/display/displayInterface";
@@ -19,9 +19,9 @@ import {
 } from "@/components/player/utils/proxy";
 import { useLanguageStore } from "@/stores/language";
 import {
-  LoadableSource,
-  SourceQuality,
   getPreferredQuality,
+  type LoadableSource,
+  type SourceQuality,
 } from "@/stores/player/utils/qualities";
 import { processCdnLink } from "@/utils/cdn";
 import {
@@ -134,7 +134,7 @@ export function makeVideoElementDisplayInterface(): DisplayInterface {
         id: v.id.toString(),
         label: v.name,
         language: v.lang ?? "unknown",
-      })),
+      }))
     );
   }
 
@@ -154,7 +154,7 @@ export function makeVideoElementDisplayInterface(): DisplayInterface {
       if (availableQuality) {
         // Find the best level that matches our preferred quality
         const matchingLevels = hls.levels.filter(
-          (level) => hlsLevelToQuality(level) === availableQuality,
+          (level) => hlsLevelToQuality(level) === availableQuality
         );
         if (matchingLevels.length > 0) {
           // Pick the highest resolution level for this quality
@@ -213,7 +213,7 @@ export function makeVideoElementDisplayInterface(): DisplayInterface {
         const exceptions = [
           "Failed to execute 'appendBuffer' on 'SourceBuffer': This SourceBuffer has been removed from the parent media source.",
         ];
-        hls?.on(Hls.Events.ERROR, (event, data) => {
+        hls?.on(Hls.Events.ERROR, (_event, data) => {
           console.error("HLS error", data);
 
           // Extract detailed HLS error information
@@ -274,7 +274,7 @@ export function makeVideoElementDisplayInterface(): DisplayInterface {
           if (isExtensionActiveCached()) {
             hls.on(Hls.Events.LEVEL_LOADED, async (_, data) => {
               const chunkUrlsDomains = data.details.fragments.map(
-                (v) => new URL(v.url).hostname,
+                (v) => new URL(v.url).hostname
               );
               const chunkUrls = [...new Set(chunkUrlsDomains)];
 
@@ -289,7 +289,7 @@ export function makeVideoElementDisplayInterface(): DisplayInterface {
             });
             hls.on(Hls.Events.AUDIO_TRACK_LOADED, async (_, data) => {
               const chunkUrlsDomains = data.details.fragments.map(
-                (v) => new URL(v.url).hostname,
+                (v) => new URL(v.url).hostname
               );
               const chunkUrls = [...new Set(chunkUrlsDomains)];
 
@@ -430,8 +430,8 @@ export function makeVideoElementDisplayInterface(): DisplayInterface {
     videoElement.addEventListener("volumechange", () =>
       emit(
         "volumechange",
-        videoElement?.muted ? 0 : (videoElement?.volume ?? 0),
-      ),
+        videoElement?.muted ? 0 : (videoElement?.volume ?? 0)
+      )
     );
     videoElement.addEventListener("timeupdate", () => {
       const currentTime = videoElement?.currentTime ?? 0;
@@ -470,7 +470,7 @@ export function makeVideoElementDisplayInterface(): DisplayInterface {
       if (videoElement) {
         const bufferedTime = handleBuffered(
           videoElement.currentTime,
-          videoElement.buffered,
+          videoElement.buffered
         );
         emit("buffered", bufferedTime);
 
@@ -511,11 +511,11 @@ export function makeVideoElementDisplayInterface(): DisplayInterface {
         if (e.availability === "available") {
           emit("canairplay", true);
         }
-      },
+      }
     );
     videoElement.addEventListener(
       "webkitpresentationmodechanged",
-      webkitPresentationModeChange,
+      webkitPresentationModeChange
     );
     videoElement.addEventListener("ratechange", () => {
       if (videoElement) emit("playbackrate", videoElement.playbackRate);
@@ -574,12 +574,7 @@ export function makeVideoElementDisplayInterface(): DisplayInterface {
     if (!isFullscreen) emit("needstrack", false);
 
     // On iOS, entering fullscreen may allow autoplay that was previously blocked
-    if (
-      isFullscreen &&
-      videoElement &&
-      videoElement.paused &&
-      shouldAutoplayAfterLoad
-    ) {
+    if (isFullscreen && videoElement?.paused && shouldAutoplayAfterLoad) {
       shouldAutoplayAfterLoad = false;
       videoElement.play().catch(() => {
         // If still blocked, emit pause to show play button
@@ -595,12 +590,7 @@ export function makeVideoElementDisplayInterface(): DisplayInterface {
     emit("needstrack", isPictureInPicture);
 
     // Entering PiP may allow autoplay that was previously blocked
-    if (
-      isPictureInPicture &&
-      videoElement &&
-      videoElement.paused &&
-      shouldAutoplayAfterLoad
-    ) {
+    if (isPictureInPicture && videoElement?.paused && shouldAutoplayAfterLoad) {
       shouldAutoplayAfterLoad = false;
       videoElement.play().catch(() => {
         // If still blocked, emit pause to show play button
@@ -623,11 +613,11 @@ export function makeVideoElementDisplayInterface(): DisplayInterface {
       fscreen.removeEventListener("fullscreenchange", fullscreenChange);
       document.removeEventListener(
         "enterpictureinpicture",
-        pictureInPictureChange,
+        pictureInPictureChange
       );
       document.removeEventListener(
         "leavepictureinpicture",
-        pictureInPictureChange,
+        pictureInPictureChange
       );
     },
     load(ops) {
@@ -752,7 +742,7 @@ export function makeVideoElementDisplayInterface(): DisplayInterface {
         webkitPlayer.webkitSetPresentationMode(
           webkitPlayer.webkitPresentationMode === "picture-in-picture"
             ? "inline"
-            : "picture-in-picture",
+            : "picture-in-picture"
         );
       }
       if (canPictureInPicture()) {
@@ -765,7 +755,7 @@ export function makeVideoElementDisplayInterface(): DisplayInterface {
     },
     startAirplay() {
       const videoPlayer = videoElement as any;
-      if (!videoPlayer || !videoPlayer.webkitShowPlaybackTargetPicker) return;
+      if (!videoPlayer?.webkitShowPlaybackTargetPicker) return;
 
       if (!source) {
         // No source loaded, just trigger Airplay
@@ -912,7 +902,7 @@ export function makeVideoElementDisplayInterface(): DisplayInterface {
     changeAudioTrack(track) {
       if (!hls) return;
       const audioTrack = hls?.audioTracks.find(
-        (t) => t.id.toString() === track.id,
+        (t) => t.id.toString() === track.id
       );
       if (!audioTrack) return;
       hls.audioTrack = hls.audioTracks.indexOf(audioTrack);

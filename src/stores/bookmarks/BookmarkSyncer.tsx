@@ -2,8 +2,8 @@ import { useEffect } from "react";
 
 import { addBookmark, removeBookmark } from "@/backend/accounts/bookmarks";
 import { useBackendUrl } from "@/hooks/auth/useBackendUrl";
-import { AccountWithToken, useAuthStore } from "@/stores/auth";
-import { BookmarkUpdateItem, useBookmarkStore } from "@/stores/bookmarks";
+import { type AccountWithToken, useAuthStore } from "@/stores/auth";
+import { type BookmarkUpdateItem, useBookmarkStore } from "@/stores/bookmarks";
 
 const syncIntervalMs = 5 * 1000;
 
@@ -11,7 +11,7 @@ async function syncBookmarks(
   items: BookmarkUpdateItem[],
   finish: (id: string) => void,
   url: string,
-  account: AccountWithToken | null,
+  account: AccountWithToken | null
 ) {
   for (const item of items) {
     // complete it beforehand so it doesn't get handled while in progress
@@ -37,12 +37,11 @@ async function syncBookmarks(
           group: item.group,
           favoriteEpisodes: item.favoriteEpisodes,
         });
-        continue;
       }
     } catch (err) {
       console.error(
         `Failed to sync bookmark: ${item.tmdbId} - ${item.action}`,
-        err,
+        err
       );
     }
   }
@@ -70,7 +69,7 @@ export function BookmarkSyncer() {
           state.updateQueue,
           removeUpdateItem,
           url,
-          user.account,
+          user.account
         );
       })();
     }, syncIntervalMs);
@@ -94,7 +93,7 @@ export function BookmarkSyncer() {
           state.updateQueue,
           removeUpdateItem,
           url,
-          user.account,
+          user.account
         );
       }
     };

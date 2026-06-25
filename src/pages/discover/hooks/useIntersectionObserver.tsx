@@ -7,7 +7,7 @@ interface IntersectionObserverOptions {
 }
 
 export function useIntersectionObserver(
-  options: IntersectionObserverOptions = {},
+  options: IntersectionObserverOptions = {}
 ) {
   const [isIntersecting, setIsIntersecting] = useState(false);
   const [hasIntersected, setHasIntersected] = useState(false);
@@ -24,7 +24,7 @@ export function useIntersectionObserver(
       {
         ...options,
         rootMargin: options.rootMargin || "400px 0px",
-      },
+      }
     );
 
     const currentTarget = targetRef.current;

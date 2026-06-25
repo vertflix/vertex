@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import { base64ToBuffer, decryptData } from "@/backend/accounts/crypto";
 import { Icon, Icons } from "@/components/Icon";
 import { UserIcon } from "@/components/UserIcon";
-import { AccountProfile } from "@/pages/parts/auth/AccountCreatePart";
+import type { AccountProfile } from "@/pages/parts/auth/AccountCreatePart";
 import { useAuthStore } from "@/stores/auth";
 
 export interface AvatarProps {
@@ -21,7 +21,7 @@ export function Avatar(props: AvatarProps) {
       <div
         className={classNames(
           props.sizeClass,
-          "rounded-full overflow-hidden flex items-center justify-center text-white",
+          "rounded-full overflow-hidden flex items-center justify-center text-white"
         )}
         style={{
           background: `linear-gradient(to bottom right, ${props.profile.colorA}, ${props.profile.colorB})`,
@@ -50,11 +50,8 @@ export function UserAvatar(props: {
   const auth = useAuthStore();
 
   const bufferSeed = useMemo(
-    () =>
-      auth.account && auth.account.seed
-        ? base64ToBuffer(auth.account.seed)
-        : null,
-    [auth],
+    () => (auth.account?.seed ? base64ToBuffer(auth.account.seed) : null),
+    [auth]
   );
   const { t } = useTranslation();
 
@@ -67,7 +64,7 @@ export function UserAvatar(props: {
         } catch (error) {
           console.warn(
             "Failed to decrypt device name in Avatar, using fallback:",
-            error,
+            error
           );
           return t("settings.account.devices.unknownDevice");
         }

@@ -104,7 +104,7 @@ export async function scrapeIMDb(
   season?: number,
   episode?: number,
   language?: string,
-  type?: "movie" | "show",
+  type?: "movie" | "show"
 ): Promise<IMDbMetadata> {
   // Check if we have a proxy or extension
   const hasExtension = await isExtensionActive();
@@ -113,7 +113,7 @@ export async function scrapeIMDb(
   if (!hasExtension && !hasProxy) {
     // Custom API for trailers:
     const trailerResponse = await fetch(
-      `https://fed-trailers.pstream.mov/${type === "movie" ? "movie" : "tv"}/${imdbId}`,
+      `https://fed-trailers.pstream.mov/${type === "movie" ? "movie" : "tv"}/${imdbId}`
     ).then((res) => res.json());
     if (trailerResponse.trailer?.embed_url) {
       return {
@@ -123,12 +123,12 @@ export async function scrapeIMDb(
     // END CUSTOM API
     throw new Error(
       "IMDb scraping requires either the browser extension or a custom proxy to be set up. " +
-        "Please install the extension or set up a proxy in the settings.",
+        "Please install the extension or set up a proxy in the settings."
     );
   }
 
   console.log(
-    `[IMDb Scraper] Using ${hasExtension ? "browser extension" : "custom proxy"} for requests`,
+    `[IMDb Scraper] Using ${hasExtension ? "browser extension" : "custom proxy"} for requests`
   );
 
   // Get user language if not provided
@@ -181,7 +181,7 @@ export async function scrapeIMDb(
 
   // Extract JSON data from the page
   const jsonMatch = response.match(
-    /<script id="__NEXT_DATA__" type="application\/json">(.*?)<\/script>/,
+    /<script id="__NEXT_DATA__" type="application\/json">(.*?)<\/script>/
   );
   if (!jsonMatch) {
     throw new Error("Could not find IMDb data on the page");
@@ -248,11 +248,11 @@ export async function scrapeIMDb(
     metadata.genre = aboveTheFold.genres?.genres?.map((g: any) => g.text) || [];
     metadata.cast =
       aboveTheFold.castPageTitle?.edges?.map(
-        (e: any) => e.node.name.nameText.text,
+        (e: any) => e.node.name.nameText.text
       ) || [];
     metadata.directors =
       aboveTheFold.directorsPageTitle?.[0]?.credits?.map(
-        (c: any) => c.name.nameText.text,
+        (c: any) => c.name.nameText.text
       ) || [];
     metadata.writers =
       mainColumn.writers?.[0]?.credits?.map((c: any) => c.name.nameText.text) ||
@@ -271,7 +271,7 @@ export async function scrapeIMDb(
     if (season && episode) {
       const episodeData =
         data.props.pageProps.mainColumnData.episodes?.edges?.find(
-          (e: any) => e.node.episodeNumber === episode,
+          (e: any) => e.node.episodeNumber === episode
         );
 
       if (episodeData) {

@@ -1,6 +1,6 @@
-import { BookmarkMediaItem } from "@/stores/bookmarks";
-import { ProgressMediaItem } from "@/stores/progress";
-import { MediaItem } from "@/utils/mediaTypes";
+import type { BookmarkMediaItem } from "@/stores/bookmarks";
+import type { ProgressMediaItem } from "@/stores/progress";
+import type { MediaItem } from "@/utils/mediaTypes";
 
 export type SortOption =
   | "date"
@@ -13,7 +13,7 @@ export function sortMediaItems(
   items: MediaItem[],
   sortBy: SortOption,
   bookmarks?: Record<string, BookmarkMediaItem>,
-  progressItems?: Record<string, ProgressMediaItem>,
+  progressItems?: Record<string, ProgressMediaItem>
 ): MediaItem[] {
   const sorted = [...items];
 
@@ -27,11 +27,11 @@ export function sortMediaItems(
 
         const dateA = Math.max(
           bookmarkA?.updatedAt ?? 0,
-          progressA?.updatedAt ?? 0,
+          progressA?.updatedAt ?? 0
         );
         const dateB = Math.max(
           bookmarkB?.updatedAt ?? 0,
-          progressB?.updatedAt ?? 0,
+          progressB?.updatedAt ?? 0
         );
 
         return dateB - dateA; // Newest first
@@ -97,11 +97,11 @@ export function sortMediaItems(
 
         const dateA = Math.max(
           bookmarkA?.updatedAt ?? 0,
-          progressA?.updatedAt ?? 0,
+          progressA?.updatedAt ?? 0
         );
         const dateB = Math.max(
           bookmarkB?.updatedAt ?? 0,
-          progressB?.updatedAt ?? 0,
+          progressB?.updatedAt ?? 0
         );
 
         return dateB - dateA; // Newest first

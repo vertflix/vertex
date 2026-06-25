@@ -1,6 +1,12 @@
 import classNames from "classnames";
 import FocusTrap from "focus-trap-react";
-import { ReactNode, useCallback, useEffect, useRef, useState } from "react";
+import {
+  type ReactNode,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { createPortal } from "react-dom";
 
 import { Transition } from "@/components/utils/Transition";
@@ -72,7 +78,7 @@ export function OverlayPortal(props: {
         ) {
           console.warn(
             "Caught focus-trap matches.call error, preventing crash:",
-            event.reason,
+            event.reason
           );
           event.preventDefault();
         }
@@ -83,7 +89,7 @@ export function OverlayPortal(props: {
     return () =>
       window.removeEventListener(
         "unhandledrejection",
-        handleUnhandledRejection,
+        handleUnhandledRejection
       );
   }, []);
 
@@ -134,7 +140,7 @@ export function OverlayPortal(props: {
                 </div>
               </FocusTrap>
             </Transition>,
-            portalElement,
+            portalElement
           )
         : null}
     </div>

@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React from "react";
+import type React from "react";
 import { Trans, useTranslation } from "react-i18next";
 
 import { ThinContainer } from "@/components/layout/ThinContainer";
@@ -17,9 +17,10 @@ export function Ol(props: { items: React.ReactNode[] }) {
       {props.items.map((child, i) => {
         return (
           <li
+            key={i}
             className={classNames(
               "grid grid-cols-[auto,1fr] gap-6",
-              i !== props.items.length - 1 ? "pb-12" : undefined,
+              i !== props.items.length - 1 ? "pb-12" : undefined
             )}
           >
             <div className="relative z-0">
@@ -71,7 +72,7 @@ export function SupportPage() {
         </Paragraph>
         <Ol
           items={[
-            <Item title={t("support.q1.title")}>
+            <Item key="q1" title={t("support.q1.title")}>
               <Trans i18nKey="support.q1.body">
                 <MwLink to={conf().DISCORD_LINK} />
               </Trans>

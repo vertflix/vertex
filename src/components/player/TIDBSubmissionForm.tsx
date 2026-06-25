@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 import { Button } from "@/components/buttons/Button";
 import { Icon, Icons } from "@/components/Icon";
 import { Modal, useModal } from "@/components/overlays/Modal";
-import { SegmentData } from "@/components/player/hooks/useSkipTime";
+import type { SegmentData } from "@/components/player/hooks/useSkipTime";
 import { AuthInputBox } from "@/components/text-inputs/AuthInputBox";
 import { Heading3, Paragraph } from "@/components/utils/Text";
 import { usePlayerStore } from "@/stores/player/store";
@@ -191,7 +191,7 @@ export function TIDBSubmissionForm({
       console.error("Error submitting:", error);
       // eslint-disable-next-line no-alert
       alert(
-        `${t("player.skipTime.feedback.modal.error.submission")}: ${error instanceof Error ? error.message : String(error)}`,
+        `${t("player.skipTime.feedback.modal.error.submission")}: ${error instanceof Error ? error.message : String(error)}`
       );
     } finally {
       setIsSubmitting(false);
@@ -215,7 +215,7 @@ export function TIDBSubmissionForm({
             "max-w-[1200px] max-h-[650px]",
             "bg-mediaCard-hoverBackground/60 backdrop-filter backdrop-blur-lg shadow-lg overflow-hidden",
             "h-[97%] w-[95%]",
-            "relative",
+            "relative"
           )}
         >
           <div className="transition-transform duration-300 h-full relative">
@@ -273,17 +273,17 @@ export function TIDBSubmissionForm({
                               ? t("player.skipTime.feedback.modal.types.intro")
                               : seg === "recap"
                                 ? t(
-                                    "player.skipTime.feedback.modal.types.recap",
+                                    "player.skipTime.feedback.modal.types.recap"
                                   )
                                 : seg === "credits"
                                   ? t(
-                                      "player.skipTime.feedback.modal.types.credits",
+                                      "player.skipTime.feedback.modal.types.credits"
                                     )
                                   : t(
-                                      "player.skipTime.feedback.modal.types.preview",
+                                      "player.skipTime.feedback.modal.types.preview"
                                     )}
                           </Button>
-                        ),
+                        )
                       )}
                     </div>
 
@@ -314,7 +314,7 @@ export function TIDBSubmissionForm({
                               setFormData({ ...formData, start: value })
                             }
                             placeholder={t(
-                              `player.skipTime.feedback.modal.placeholders.start.${formData.segment}`,
+                              `player.skipTime.feedback.modal.placeholders.start.${formData.segment}`
                             )}
                           />
                         </div>
@@ -335,7 +335,7 @@ export function TIDBSubmissionForm({
                               setFormData({ ...formData, end: value })
                             }
                             placeholder={t(
-                              `player.skipTime.feedback.modal.placeholders.end.${formData.segment}`,
+                              `player.skipTime.feedback.modal.placeholders.end.${formData.segment}`
                             )}
                           />
                         </div>
@@ -348,70 +348,70 @@ export function TIDBSubmissionForm({
                             `player.skipTime.feedback.modal.guide.${formData.segment}.whenToTitle`,
                             {
                               defaultValue: t(
-                                "player.skipTime.feedback.modal.whenToTitle",
+                                "player.skipTime.feedback.modal.whenToTitle"
                               ),
-                            },
+                            }
                           )}
                         </h3>
                         <div className="grid grid-cols-2 gap-3 text-xs text-gray-400">
                           <div>
                             <span className="font-medium text-gray-300 block mb-0.5">
                               {t(
-                                "player.skipTime.feedback.modal.guide.startLabel",
+                                "player.skipTime.feedback.modal.guide.startLabel"
                               )}
                             </span>
                             {t(
                               `player.skipTime.feedback.modal.guide.${formData.segment}.startDesc`,
                               {
                                 defaultValue: t(
-                                  "player.skipTime.feedback.modal.guide.startDesc",
+                                  "player.skipTime.feedback.modal.guide.startDesc"
                                 ),
-                              },
+                              }
                             )}
                           </div>
                           <div>
                             <span className="font-medium text-gray-300 block mb-0.5">
                               {t(
-                                "player.skipTime.feedback.modal.guide.endLabel",
+                                "player.skipTime.feedback.modal.guide.endLabel"
                               )}
                             </span>
                             {t(
                               `player.skipTime.feedback.modal.guide.${formData.segment}.endDesc`,
                               {
                                 defaultValue: t(
-                                  "player.skipTime.feedback.modal.guide.endDesc",
+                                  "player.skipTime.feedback.modal.guide.endDesc"
                                 ),
-                              },
+                              }
                             )}
                           </div>
                           <div>
                             <span className="font-medium text-gray-300 block mb-0.5">
                               {t(
-                                "player.skipTime.feedback.modal.guide.durationLabel",
+                                "player.skipTime.feedback.modal.guide.durationLabel"
                               )}
                             </span>
                             {t(
                               `player.skipTime.feedback.modal.guide.${formData.segment}.durationDesc`,
                               {
                                 defaultValue: t(
-                                  "player.skipTime.feedback.modal.guide.durationDesc",
+                                  "player.skipTime.feedback.modal.guide.durationDesc"
                                 ),
-                              },
+                              }
                             )}
                           </div>
                           <div>
                             <span className="font-medium text-gray-300 block mb-0.5">
                               {t(
-                                "player.skipTime.feedback.modal.guide.excludeLabel",
+                                "player.skipTime.feedback.modal.guide.excludeLabel"
                               )}
                             </span>
                             {t(
                               `player.skipTime.feedback.modal.guide.${formData.segment}.excludeDesc`,
                               {
                                 defaultValue: t(
-                                  "player.skipTime.feedback.modal.guide.excludeDesc",
+                                  "player.skipTime.feedback.modal.guide.excludeDesc"
                                 ),
-                              },
+                              }
                             )}
                           </div>
                         </div>

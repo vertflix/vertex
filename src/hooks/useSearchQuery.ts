@@ -31,7 +31,7 @@ export function useSearchQuery(): [
       generatePath("/browse/:query", {
         query: encodeURIComponent(inp),
       }),
-      { replace: true },
+      { replace: true }
     );
   };
 

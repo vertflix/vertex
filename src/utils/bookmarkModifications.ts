@@ -1,4 +1,4 @@
-import { BookmarkMediaItem } from "@/stores/bookmarks";
+import type { BookmarkMediaItem } from "@/stores/bookmarks";
 
 /**
  * Options for modifying bookmark properties
@@ -35,7 +35,7 @@ export interface BookmarkModificationResult {
  */
 export function modifyBookmark(
   bookmark: BookmarkMediaItem,
-  options: BookmarkModificationOptions,
+  options: BookmarkModificationOptions
 ): BookmarkMediaItem {
   const modified = { ...bookmark, updatedAt: Date.now() };
 
@@ -69,7 +69,7 @@ export function modifyBookmark(
   if (options.removeGroups && options.removeGroups.length > 0) {
     const currentGroups = modified.group || [];
     modified.group = currentGroups.filter(
-      (group) => !options.removeGroups!.includes(group),
+      (group) => !options.removeGroups!.includes(group)
     );
   }
 
@@ -86,7 +86,7 @@ export function modifyBookmark(
 export function modifyBookmarks(
   bookmarks: Record<string, BookmarkMediaItem>,
   bookmarkIds: string[],
-  options: BookmarkModificationOptions,
+  options: BookmarkModificationOptions
 ): {
   modifiedBookmarks: Record<string, BookmarkMediaItem>;
   result: BookmarkModificationResult;
@@ -148,7 +148,7 @@ export interface BulkGroupModificationOptions {
  */
 export function modifyBookmarksByGroup(
   bookmarks: Record<string, BookmarkMediaItem>,
-  options: BulkGroupModificationOptions,
+  options: BulkGroupModificationOptions
 ): {
   modifiedBookmarks: Record<string, BookmarkMediaItem>;
   result: BookmarkModificationResult;
@@ -157,14 +157,14 @@ export function modifyBookmarksByGroup(
   const modifiedIds: string[] = [];
 
   Object.entries(bookmarks).forEach(([id, bookmark]) => {
-    if (bookmark.group && bookmark.group.includes(options.oldGroupName)) {
+    if (bookmark.group?.includes(options.oldGroupName)) {
       // Check if we should only modify exclusive groups
       if (options.onlyIfExclusive && bookmark.group.length > 1) {
         return;
       }
 
       const newGroups = bookmark.group.map((group) =>
-        group === options.oldGroupName ? options.newGroupName : group,
+        group === options.oldGroupName ? options.newGroupName : group
       );
 
       modifiedBookmarks[id] = {
@@ -187,7 +187,7 @@ export function modifyBookmarksByGroup(
  */
 export function findBookmarksByGroup(
   bookmarks: Record<string, BookmarkMediaItem>,
-  groupName: string,
+  groupName: string
 ): string[] {
   return Object.entries(bookmarks)
     .filter(([, bookmark]) => bookmark.group?.includes(groupName))
@@ -198,7 +198,7 @@ export function findBookmarksByGroup(
  * Gets all unique group names from bookmarks
  */
 export function getAllGroupNames(
-  bookmarks: Record<string, BookmarkMediaItem>,
+  bookmarks: Record<string, BookmarkMediaItem>
 ): string[] {
   const groups = new Set<string>();
   Object.values(bookmarks).forEach((bookmark) => {

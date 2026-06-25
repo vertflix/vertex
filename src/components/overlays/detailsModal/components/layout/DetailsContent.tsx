@@ -14,7 +14,7 @@ import { scrapeIMDb } from "@/utils/imdbScraper";
 import { getTmdbLanguageCode } from "@/utils/language";
 import { scrapeRottenTomatoes } from "@/utils/rottenTomatoesScraper";
 
-import { DetailsContentProps } from "../../types";
+import type { DetailsContentProps } from "../../types";
 import { EpisodeCarousel } from "../carousels/EpisodeCarousel";
 import { CastCarousel } from "../carousels/PeopleCarousel";
 import { SimilarMediaCarousel } from "../carousels/SimilarMediaCarousel";
@@ -28,17 +28,17 @@ export function DetailsContent({ data, minimal = false }: DetailsContentProps) {
   const [imdbData, setImdbData] = useState<any>(null);
   const [rtData, setRtData] = useState<any>(null);
   const [providerData, setProviderData] = useState<string | undefined>(
-    undefined,
+    undefined
   );
   const [, setIsLoadingImdb] = useState(false);
   const [showTrailer, setShowTrailer] = useState(false);
   const [showCollection, setShowCollection] = useState(false);
   const [selectedSeason, setSelectedSeason] = useState<number>(1);
   const [fetchedSeasons, setFetchedSeasons] = useState<Record<number, any[]>>(
-    {},
+    {}
   );
   const [loadingSeasons, setLoadingSeasons] = useState<Record<number, boolean>>(
-    {},
+    {}
   );
   const [, copyToClipboard] = useCopyToClipboard();
   const [hasCopiedShare, setHasCopiedShare] = useState(false);
@@ -47,7 +47,7 @@ export function DetailsContent({ data, minimal = false }: DetailsContentProps) {
   const progress = useProgressStore((s) => s.items);
   const updateItem = useProgressStore((s) => s.updateItem);
   const enableImageLogos = usePreferencesStore(
-    (state) => state.enableImageLogos,
+    (state) => state.enableImageLogos
   );
 
   // Check if movie is watched (>90% progress)
@@ -57,7 +57,7 @@ export function DetailsContent({ data, minimal = false }: DetailsContentProps) {
     if (!movieProgress) return false;
     const percentage = getProgressPercentage(
       movieProgress.watched,
-      movieProgress.duration,
+      movieProgress.duration
     );
     return percentage > 90;
   }, [data.type, data.id, progress]);
@@ -91,7 +91,7 @@ export function DetailsContent({ data, minimal = false }: DetailsContentProps) {
       try {
         const episodes = await getSeasonDetails(
           data.id.toString(),
-          seasonNumber,
+          seasonNumber
         );
         setFetchedSeasons((prev) => ({ ...prev, [seasonNumber]: episodes }));
       } catch (err) {
@@ -144,11 +144,7 @@ export function DetailsContent({ data, minimal = false }: DetailsContentProps) {
 
       try {
         const networkData = await getNetworkContent(data.id.toString());
-        if (
-          networkData &&
-          networkData.platforms &&
-          networkData.platforms.length > 0
-        ) {
+        if (networkData?.platforms && networkData.platforms.length > 0) {
           setProviderData(networkData.platforms[0]);
         } else {
           setProviderData(undefined);
@@ -178,7 +174,7 @@ export function DetailsContent({ data, minimal = false }: DetailsContentProps) {
           undefined,
           undefined,
           formattedLanguage,
-          data.type,
+          data.type
         );
         // Transform the data to match the expected format
         if (
@@ -201,7 +197,7 @@ export function DetailsContent({ data, minimal = false }: DetailsContentProps) {
             data.title,
             data.releaseDate
               ? new Date(data.releaseDate).getFullYear()
-              : undefined,
+              : undefined
           );
           setRtData(rtMetadata);
         }
@@ -218,17 +214,17 @@ export function DetailsContent({ data, minimal = false }: DetailsContentProps) {
   const handlePlayClick = () => {
     if (data.type === "movie") {
       window.location.assign(
-        `/media/tmdb-movie-${data.id}-${data.title.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`,
+        `/media/tmdb-movie-${data.id}-${data.title.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`
       );
     } else if (data.type === "show") {
       if (showProgress?.season?.id && showProgress?.episode?.id) {
         window.location.assign(
-          `/media/tmdb-tv-${data.id}-${data.title.toLowerCase().replace(/[^a-z0-9]+/g, "-")}/${showProgress.season.id}/${showProgress.episode.id}`,
+          `/media/tmdb-tv-${data.id}-${data.title.toLowerCase().replace(/[^a-z0-9]+/g, "-")}/${showProgress.season.id}/${showProgress.episode.id}`
         );
       } else {
         // Start new show
         window.location.assign(
-          `/media/tmdb-tv-${data.id}-${data.title.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`,
+          `/media/tmdb-tv-${data.id}-${data.title.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`
         );
       }
     }

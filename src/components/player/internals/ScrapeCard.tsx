@@ -1,10 +1,10 @@
 import classNames from "classnames";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 
 import {
   StatusCircle,
-  StatusCircleProps,
+  type StatusCircleProps,
 } from "@/components/player/internals/StatusCircle";
 import { Transition } from "@/components/utils/Transition";
 

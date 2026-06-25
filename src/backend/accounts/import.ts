@@ -1,17 +1,17 @@
 import { ofetch } from "ofetch";
 
 import { getAuthHeaders } from "@/backend/accounts/auth";
-import { AccountWithToken } from "@/stores/auth";
+import type { AccountWithToken } from "@/stores/auth";
 
-import { BookmarkInput } from "./bookmarks";
-import { ProgressInput } from "./progress";
-import { SettingsInput } from "./settings";
-import { WatchHistoryInput } from "./watchHistory";
+import type { BookmarkInput } from "./bookmarks";
+import type { ProgressInput } from "./progress";
+import type { SettingsInput } from "./settings";
+import type { WatchHistoryInput } from "./watchHistory";
 
 export function importProgress(
   url: string,
   account: AccountWithToken,
-  progressItems: ProgressInput[],
+  progressItems: ProgressInput[]
 ) {
   return ofetch<void>(`/users/${account.userId}/progress/import`, {
     method: "PUT",
@@ -24,7 +24,7 @@ export function importProgress(
 export function importBookmarks(
   url: string,
   account: AccountWithToken,
-  bookmarks: BookmarkInput[],
+  bookmarks: BookmarkInput[]
 ) {
   return ofetch<void>(`/users/${account.userId}/bookmarks`, {
     method: "PUT",
@@ -37,7 +37,7 @@ export function importBookmarks(
 export function importGroupOrder(
   url: string,
   account: AccountWithToken,
-  groupOrder: string[],
+  groupOrder: string[]
 ) {
   return ofetch<void>(`/users/${account.userId}/group-order`, {
     method: "PUT",
@@ -50,7 +50,7 @@ export function importGroupOrder(
 export function importWatchHistory(
   url: string,
   account: AccountWithToken,
-  watchHistoryItems: WatchHistoryInput[],
+  watchHistoryItems: WatchHistoryInput[]
 ) {
   return ofetch<void>(`/users/${account.userId}/watch-history/import`, {
     method: "PUT",
@@ -63,7 +63,7 @@ export function importWatchHistory(
 export function importSettings(
   url: string,
   account: AccountWithToken,
-  settings: SettingsInput,
+  settings: SettingsInput
 ) {
   return ofetch<void>(`/users/${account.userId}/settings`, {
     method: "PUT",

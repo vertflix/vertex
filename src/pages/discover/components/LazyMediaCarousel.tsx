@@ -1,10 +1,9 @@
-import React from "react";
+import type React from "react";
 
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
-import { MediaItem } from "@/utils/mediaTypes";
-
+import type { MediaItem } from "@/utils/mediaTypes";
+import type { DiscoverContentType } from "../types/discover";
 import { MediaCarousel } from "./MediaCarousel";
-import { DiscoverContentType } from "../types/discover";
 
 interface ContentConfig {
   type: DiscoverContentType;

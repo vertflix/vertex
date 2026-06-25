@@ -3,12 +3,11 @@ import { useTranslation } from "react-i18next";
 import { FlagIcon } from "@/components/FlagIcon";
 import { Menu } from "@/components/player/internals/ContextMenu";
 import { useOverlayRouter } from "@/hooks/useOverlayRouter";
-import { CaptionListItem } from "@/stores/player/slices/source";
+import type { CaptionListItem } from "@/stores/player/slices/source";
 import { usePlayerStore } from "@/stores/player/store";
 import { getPrettyLanguageNameFromLocale } from "@/utils/language";
-
-import { CaptionOption } from "./CaptionsView";
 import { useCaptions } from "../../hooks/useCaptions";
+import { CaptionOption } from "./CaptionsView";
 
 // https://developers.google.com/workspace/admin/directory/v1/languages
 const availableLanguages: string[] = [
@@ -142,7 +141,7 @@ export function TranslateSubtitleView({
           router.navigate(
             overlayBackLink
               ? "/captionsOverlay/languagesOverlay"
-              : "/captions/languages",
+              : "/captions/languages"
           )
         }
       >
@@ -166,7 +165,7 @@ export function TranslateSubtitleView({
             (lang) =>
               lang !== caption.language &&
               !lang.includes(caption.language) &&
-              !caption.language.includes(lang),
+              !caption.language.includes(lang)
           )
           .map(renderTargetLang)}
       </div>

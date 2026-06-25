@@ -6,7 +6,7 @@ import type { AsyncReturnType } from "type-fest";
 import { isAllowedExtensionVersion } from "@/backend/extension/compatibility";
 import { extensionInfo, sendPage } from "@/backend/extension/messaging";
 import { setCachedMetadata } from "@/backend/helpers/providerApi";
-import { DetailedMeta, getMetaFromId } from "@/backend/metadata/getmeta";
+import { type DetailedMeta, getMetaFromId } from "@/backend/metadata/getmeta";
 import { decodeTMDBId } from "@/backend/metadata/tmdb";
 import { MWMediaType } from "@/backend/metadata/types/mw";
 import { getProviders } from "@/backend/providers/providers";
@@ -81,7 +81,7 @@ export function MetaPart(props: MetaPartProps) {
     let epId = params.episode;
     if (meta.meta.type === MWMediaType.SERIES) {
       let ep = meta.meta.seasonData.episodes.find(
-        (v) => v.id === params.episode,
+        (v) => v.id === params.episode
       );
       if (!ep) ep = meta.meta.seasonData.episodes[0];
       epId = ep.id;

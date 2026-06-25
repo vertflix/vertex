@@ -1,13 +1,13 @@
-import { ScrapeMedia } from "@p-stream/providers";
+import type { ScrapeMedia } from "@p-stream/providers";
 import { nanoid } from "nanoid";
 import { ofetch } from "ofetch";
 import { useCallback } from "react";
 
 import { isExtensionActiveCached } from "@/backend/extension/messaging";
-import { ScrapingItems, ScrapingSegment } from "@/hooks/useProviderScrape";
+import type { ScrapingItems, ScrapingSegment } from "@/hooks/useProviderScrape";
 import { conf } from "@/setup/config";
 import { useAuthStore } from "@/stores/auth";
-import { PlayerMeta } from "@/stores/player/slices/source";
+import type { PlayerMeta } from "@/stores/player/slices/source";
 
 // for anybody who cares - these are anonymous metrics.
 // They are just used for figuring out if providers are broken or not
@@ -85,7 +85,7 @@ export function scrapeSourceOutputToProviderMetric(
   providerId: string,
   embedId: string | null,
   status: ProviderMetric["status"],
-  err: unknown | null,
+  err: unknown | null
 ): ProviderMetric {
   const episodeId = media.episode?.tmdbId;
   const seasonId = media.season?.tmdbId;
@@ -109,7 +109,7 @@ export function scrapeSourceOutputToProviderMetric(
 export function scrapeSegmentToProviderMetric(
   media: ScrapeMedia,
   providerId: string,
-  segment: ScrapingSegment,
+  segment: ScrapingSegment
 ): ProviderMetric | null {
   const status = segmentStatusMap[segment.status];
   if (!status) return null;
@@ -139,7 +139,7 @@ export function scrapeSegmentToProviderMetric(
 export function scrapePartsToProviderMetric(
   media: ScrapeMedia,
   order: ScrapingItems[],
-  sources: Record<string, ScrapingSegment>,
+  sources: Record<string, ScrapingSegment>
 ): ProviderMetric[] {
   const output: ProviderMetric[] = [];
 

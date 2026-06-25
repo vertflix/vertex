@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { useAsyncFn } from "react-use";
 
-import { SessionResponse } from "@/backend/accounts/auth";
+import type { SessionResponse } from "@/backend/accounts/auth";
 import { base64ToBuffer, decryptData } from "@/backend/accounts/crypto";
 import { removeSession } from "@/backend/accounts/sessions";
 import { Button } from "@/components/buttons/Button";
@@ -81,7 +81,7 @@ export function DeviceListPart(props: {
       } catch (error) {
         console.warn(
           `Failed to decrypt device name for session ${session.id}:`,
-          error,
+          error
         );
         decryptedName = t("settings.account.devices.unknownDevice");
       }

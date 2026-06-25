@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useAsyncFn } from "react-use";
 
-import { MetaResponse, getBackendMeta } from "@/backend/accounts/meta";
+import { getBackendMeta, type MetaResponse } from "@/backend/accounts/meta";
 import { Button } from "@/components/buttons/Button";
 import { Icon, Icons } from "@/components/Icon";
 import { Box } from "@/components/layout/Box";
@@ -49,7 +49,7 @@ export function BackendTestPart() {
         errorText: "",
         value: backendData,
       });
-    } catch (err) {
+    } catch (_err) {
       return setStatus({
         hasTested: true,
         success: false,

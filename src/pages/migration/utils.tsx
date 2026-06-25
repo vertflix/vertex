@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { Icon, Icons } from "@/components/Icon";
@@ -18,7 +18,7 @@ export function Card(props: {
           "hover:bg-onboarding-cardHover transition-colors cursor-pointer":
             !!props.onClick,
         },
-        props.className,
+        props.className
       )}
       onClick={props.onClick}
     >
@@ -45,7 +45,7 @@ export function CardContent(props: {
         <Heading3
           className={classNames(
             "!mt-0 !mb-0 !text-xs uppercase",
-            props.colorClass,
+            props.colorClass
           )}
         >
           {props.subtitle}
@@ -77,7 +77,7 @@ export function Link(props: {
       target={props.target}
       className={classNames(
         "text-onboarding-link cursor-pointer inline-flex gap-2 items-center group hover:opacity-75 transition-opacity",
-        props.className,
+        props.className
       )}
       rel="noreferrer"
     >

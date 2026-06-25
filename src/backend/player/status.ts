@@ -1,4 +1,4 @@
-import { AccountWithToken } from "@/stores/auth";
+import type { AccountWithToken } from "@/stores/auth";
 
 interface PlayerState {
   isPlaying: boolean;
@@ -69,7 +69,7 @@ interface RoomStatusesResponse {
 export async function sendPlayerStatus(
   backendUrl: string | null,
   account: AccountWithToken | null,
-  data: PlayerStatusRequest,
+  data: PlayerStatusRequest
 ): Promise<PlayerStatusResponse> {
   if (!backendUrl) {
     throw new Error("Backend URL not set");
@@ -98,7 +98,7 @@ export async function getUserPlayerStatus(
   backendUrl: string | null,
   account: AccountWithToken | null,
   userId: string,
-  roomCode: string,
+  roomCode: string
 ): Promise<UserStatusResponse> {
   if (!backendUrl) {
     throw new Error("Backend URL not set");
@@ -106,11 +106,11 @@ export async function getUserPlayerStatus(
 
   const response = await fetch(
     `${backendUrl}/api/player/status?userId=${encodeURIComponent(
-      userId,
+      userId
     )}&roomCode=${encodeURIComponent(roomCode)}`,
     {
       headers: account ? { Authorization: `Bearer ${account.token}` } : {},
-    },
+    }
   );
 
   if (!response.ok) {
@@ -126,7 +126,7 @@ export async function getUserPlayerStatus(
 export async function getRoomStatuses(
   backendUrl: string | null,
   account: AccountWithToken | null,
-  roomCode: string,
+  roomCode: string
 ): Promise<RoomStatusesResponse> {
   if (!backendUrl) {
     throw new Error("Backend URL not set");
@@ -136,7 +136,7 @@ export async function getRoomStatuses(
     `${backendUrl}/api/player/status?roomCode=${encodeURIComponent(roomCode)}`,
     {
       headers: account ? { Authorization: `Bearer ${account.token}` } : {},
-    },
+    }
   );
 
   if (!response.ok) {

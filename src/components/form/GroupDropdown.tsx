@@ -1,5 +1,5 @@
 import { t } from "i18next";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { Icon, Icons } from "@/components/Icon";
 import { UserIcon, UserIcons } from "@/components/UserIcon";
@@ -63,7 +63,7 @@ export function GroupDropdown({
   }, [open]);
 
   const handleToggleGroup = (group: string) => {
-    let newGroups;
+    let newGroups: string[];
     if (currentGroups.includes(group)) {
       newGroups = currentGroups.filter((g) => g !== group);
     } else {

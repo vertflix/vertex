@@ -6,8 +6,8 @@ import {
   setProgress,
 } from "@/backend/accounts/progress";
 import { useBackendUrl } from "@/hooks/auth/useBackendUrl";
-import { AccountWithToken, useAuthStore } from "@/stores/auth";
-import { ProgressUpdateItem, useProgressStore } from "@/stores/progress";
+import { type AccountWithToken, useAuthStore } from "@/stores/auth";
+import { type ProgressUpdateItem, useProgressStore } from "@/stores/progress";
 
 const syncIntervalMs = 20 * 1000; // 20 second intervals
 
@@ -15,7 +15,7 @@ async function syncProgress(
   items: ProgressUpdateItem[],
   finish: (id: string) => void,
   url: string,
-  account: AccountWithToken | null,
+  account: AccountWithToken | null
 ) {
   for (const item of items) {
     // complete it beforehand so it doesn't get handled while in progress
@@ -30,19 +30,18 @@ async function syncProgress(
           account,
           item.tmdbId,
           item.seasonId,
-          item.episodeId,
+          item.episodeId
         );
         continue;
       }
 
       if (item.action === "upsert") {
         await setProgress(url, account, progressUpdateItemToInput(item));
-        continue;
       }
     } catch (err) {
       console.error(
         `Failed to sync progress: ${item.tmdbId} - ${item.action}`,
-        err,
+        err
       );
     }
   }
@@ -70,7 +69,7 @@ export function ProgressSyncer() {
           state.updateQueue,
           removeUpdateItem,
           url,
-          user.account,
+          user.account
         );
       })();
     }, syncIntervalMs);
@@ -94,7 +93,7 @@ export function ProgressSyncer() {
           state.updateQueue,
           removeUpdateItem,
           url,
-          user.account,
+          user.account
         );
       }
     };

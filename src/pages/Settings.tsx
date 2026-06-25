@@ -17,7 +17,7 @@ import { SearchBarInput } from "@/components/form/SearchBar";
 import { ThinContainer } from "@/components/layout/ThinContainer";
 import { WideContainer } from "@/components/layout/WideContainer";
 import { Modal, ModalCard, useModal } from "@/components/overlays/Modal";
-import { UserIcons } from "@/components/UserIcon";
+import type { UserIcons } from "@/components/UserIcon";
 import { Divider } from "@/components/utils/Divider";
 import { Heading1, Heading2, Paragraph } from "@/components/utils/Text";
 import { Transition } from "@/components/utils/Transition";
@@ -34,7 +34,7 @@ import { DeviceListPart } from "@/pages/parts/settings/DeviceListPart";
 import { RegisterCalloutPart } from "@/pages/parts/settings/RegisterCalloutPart";
 import { SidebarPart } from "@/pages/parts/settings/SidebarPart";
 import { PageTitle } from "@/pages/parts/util/PageTitle";
-import { AccountWithToken, useAuthStore } from "@/stores/auth";
+import { type AccountWithToken, useAuthStore } from "@/stores/auth";
 import { useBannerSize } from "@/stores/banner";
 import { useLanguageStore } from "@/stores/language";
 import { usePreferencesStore } from "@/stores/preferences";
@@ -99,7 +99,7 @@ function SettingsLayout(props: {
       <div
         className={classNames(
           "grid gap-12",
-          isMobile ? "grid-cols-1" : "lg:grid-cols-[280px,1fr]",
+          isMobile ? "grid-cols-1" : "lg:grid-cols-[280px,1fr]"
         )}
         data-settings-content
       >
@@ -317,7 +317,7 @@ export function SettingsPage() {
       const walker = document.createTreeWalker(
         document.querySelector("[data-settings-content]") || document.body,
         NodeFilter.SHOW_TEXT,
-        null,
+        null
       );
 
       let node = walker.nextNode();
@@ -330,11 +330,11 @@ export function SettingsPage() {
         if (lowerText.includes(lowerValue)) {
           const regex = new RegExp(
             `(${value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")})`,
-            "gi",
+            "gi"
           );
           const highlightedText = text.replace(
             regex,
-            '<span class="search-highlight bg-yellow-200 text-black px-1 rounded">$1</span>',
+            '<span class="search-highlight bg-yellow-200 text-black px-1 rounded">$1</span>'
           );
 
           if (highlightedText !== text) {
@@ -378,7 +378,7 @@ export function SettingsPage() {
         });
       }, 100); // Wait for section to render after tab switch
     },
-    [searchQuery],
+    [searchQuery]
   );
 
   const appLanguage = useLanguageStore((s) => s.language);
@@ -412,14 +412,14 @@ export function SettingsPage() {
 
   const enableSkipCredits = usePreferencesStore((s) => s.enableSkipCredits);
   const setEnableSkipCredits = usePreferencesStore(
-    (s) => s.setEnableSkipCredits,
+    (s) => s.setEnableSkipCredits
   );
 
   const enableAutoSkipSegments = usePreferencesStore(
-    (s) => s.enableAutoSkipSegments,
+    (s) => s.enableAutoSkipSegments
   );
   const setEnableAutoSkipSegments = usePreferencesStore(
-    (s) => s.setEnableAutoSkipSegments,
+    (s) => s.setEnableAutoSkipSegments
   );
 
   const sourceOrder = usePreferencesStore((s) => s.sourceOrder);
@@ -427,21 +427,21 @@ export function SettingsPage() {
 
   const enableSourceOrder = usePreferencesStore((s) => s.enableSourceOrder);
   const setEnableSourceOrder = usePreferencesStore(
-    (s) => s.setEnableSourceOrder,
+    (s) => s.setEnableSourceOrder
   );
 
   const lastSuccessfulSource = usePreferencesStore(
-    (s) => s.lastSuccessfulSource,
+    (s) => s.lastSuccessfulSource
   );
   const setLastSuccessfulSource = usePreferencesStore(
-    (s) => s.setLastSuccessfulSource,
+    (s) => s.setLastSuccessfulSource
   );
 
   const enableLastSuccessfulSource = usePreferencesStore(
-    (s) => s.enableLastSuccessfulSource,
+    (s) => s.enableLastSuccessfulSource
   );
   const setEnableLastSuccessfulSource = usePreferencesStore(
-    (s) => s.setEnableLastSuccessfulSource,
+    (s) => s.setEnableLastSuccessfulSource
   );
 
   // These are commented because the EmbedOrderPart is on the admin page and not on the settings page.
@@ -461,7 +461,7 @@ export function SettingsPage() {
 
   const enableDetailsModal = usePreferencesStore((s) => s.enableDetailsModal);
   const setEnableDetailsModal = usePreferencesStore(
-    (s) => s.setEnableDetailsModal,
+    (s) => s.setEnableDetailsModal
   );
 
   const enableImageLogos = usePreferencesStore((s) => s.enableImageLogos);
@@ -472,31 +472,31 @@ export function SettingsPage() {
 
   const enableCarouselView = usePreferencesStore((s) => s.enableCarouselView);
   const setEnableCarouselView = usePreferencesStore(
-    (s) => s.setEnableCarouselView,
+    (s) => s.setEnableCarouselView
   );
 
   const enableMinimalCards = usePreferencesStore((s) => s.enableMinimalCards);
   const setEnableMinimalCards = usePreferencesStore(
-    (s) => s.setEnableMinimalCards,
+    (s) => s.setEnableMinimalCards
   );
 
   const forceCompactEpisodeView = usePreferencesStore(
-    (s) => s.forceCompactEpisodeView,
+    (s) => s.forceCompactEpisodeView
   );
   const setForceCompactEpisodeView = usePreferencesStore(
-    (s) => s.setForceCompactEpisodeView,
+    (s) => s.setForceCompactEpisodeView
   );
 
   const enableLowPerformanceMode = usePreferencesStore(
-    (s) => s.enableLowPerformanceMode,
+    (s) => s.enableLowPerformanceMode
   );
   const setEnableLowPerformanceMode = usePreferencesStore(
-    (s) => s.setEnableLowPerformanceMode,
+    (s) => s.setEnableLowPerformanceMode
   );
 
   // These are commented because the NativeSubtitlesPart is accessable though the atoms caption style menu and not on the settings page.
   const enableNativeSubtitles = usePreferencesStore(
-    (s) => s.enableNativeSubtitles,
+    (s) => s.enableNativeSubtitles
   );
   // const setEnableNativeSubtitles = usePreferencesStore(
   //   (s) => s.setEnableNativeSubtitles,
@@ -504,39 +504,39 @@ export function SettingsPage() {
 
   const enableHoldToBoost = usePreferencesStore((s) => s.enableHoldToBoost);
   const setEnableHoldToBoost = usePreferencesStore(
-    (s) => s.setEnableHoldToBoost,
+    (s) => s.setEnableHoldToBoost
   );
 
   const homeSectionOrder = usePreferencesStore((s) => s.homeSectionOrder);
   const setHomeSectionOrder = usePreferencesStore((s) => s.setHomeSectionOrder);
 
   const manualSourceSelection = usePreferencesStore(
-    (s) => s.manualSourceSelection,
+    (s) => s.manualSourceSelection
   );
   const setManualSourceSelection = usePreferencesStore(
-    (s) => s.setManualSourceSelection,
+    (s) => s.setManualSourceSelection
   );
 
   const enableDoubleClickToSeek = usePreferencesStore(
-    (s) => s.enableDoubleClickToSeek,
+    (s) => s.enableDoubleClickToSeek
   );
   const setEnableDoubleClickToSeek = usePreferencesStore(
-    (s) => s.setEnableDoubleClickToSeek,
+    (s) => s.setEnableDoubleClickToSeek
   );
 
   const enableAutoResumeOnPlaybackError = usePreferencesStore(
-    (s) => s.enableAutoResumeOnPlaybackError,
+    (s) => s.enableAutoResumeOnPlaybackError
   );
   const setEnableAutoResumeOnPlaybackError = usePreferencesStore(
-    (s) => s.setEnableAutoResumeOnPlaybackError,
+    (s) => s.setEnableAutoResumeOnPlaybackError
   );
 
   const enablePauseOverlay = usePreferencesStore((s) => s.enablePauseOverlay);
   const setEnablePauseOverlay = usePreferencesStore(
-    (s) => s.setEnablePauseOverlay,
+    (s) => s.setEnablePauseOverlay
   );
   const setEnableNumberKeySeeking = usePreferencesStore(
-    (s) => s.setEnableNumberKeySeeking,
+    (s) => s.setEnableNumberKeySeeking
   );
 
   const account = useAuthStore((s) => s.account);
@@ -652,7 +652,7 @@ export function SettingsPage() {
         }
         if (settings.enableAutoResumeOnPlaybackError !== undefined) {
           setEnableAutoResumeOnPlaybackError(
-            settings.enableAutoResumeOnPlaybackError,
+            settings.enableAutoResumeOnPlaybackError
           );
         }
         if (settings.enablePauseOverlay !== undefined) {
@@ -745,7 +745,7 @@ export function SettingsPage() {
     enableDoubleClickToSeek,
     enableAutoResumeOnPlaybackError,
     enablePauseOverlay,
-    customThemeBaseline ?? customTheme,
+    customThemeBaseline ?? customTheme
   );
 
   const availableSources = useMemo(() => {
@@ -780,7 +780,7 @@ export function SettingsPage() {
       state.theme.set(theme === "default" ? null : theme);
       setPreviewTheme(theme);
     },
-    [state.theme, setPreviewTheme],
+    [state.theme, setPreviewTheme]
   );
 
   const saveChanges = useCallback(async () => {
@@ -854,7 +854,7 @@ export function SettingsPage() {
       if (state.deviceName.changed) {
         const newDeviceName = await encryptData(
           state.deviceName.state,
-          base64ToBuffer(account.seed),
+          base64ToBuffer(account.seed)
         );
         await updateSession(backendUrl, account, {
           deviceName: newDeviceName,
@@ -906,7 +906,7 @@ export function SettingsPage() {
     setManualSourceSelection(state.manualSourceSelection.state);
     setEnableDoubleClickToSeek(state.enableDoubleClickToSeek.state);
     setEnableAutoResumeOnPlaybackError(
-      state.enableAutoResumeOnPlaybackError.state,
+      state.enableAutoResumeOnPlaybackError.state
     );
     setEnablePauseOverlay(state.enablePauseOverlay.state);
     setCustomTheme(state.customTheme.state);
@@ -1003,13 +1003,13 @@ export function SettingsPage() {
                 colorA={state.profile.state.colorA}
                 setColorA={(v) => {
                   state.profile.set((s) =>
-                    s ? { ...s, colorA: v } : undefined,
+                    s ? { ...s, colorA: v } : undefined
                   );
                 }}
                 colorB={state.profile.state.colorB}
                 setColorB={(v) =>
                   state.profile.set((s) =>
-                    s ? { ...s, colorB: v } : undefined,
+                    s ? { ...s, colorB: v } : undefined
                   )
                 }
                 userIcon={state.profile.state.icon as any}

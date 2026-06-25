@@ -81,7 +81,7 @@ export function WorkerTestPart() {
         await singularProxiedFetch(
           worker.url,
           "https://postman-echo.com/get",
-          {},
+          {}
         );
         updateWorker(worker.id, {
           id: worker.id,

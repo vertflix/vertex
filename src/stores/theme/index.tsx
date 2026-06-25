@@ -1,14 +1,13 @@
-import { ReactNode } from "react";
-import { Helmet } from "react-helmet-async";
-import { create } from "zustand";
-import { persist } from "zustand/middleware";
-import { immer } from "zustand/middleware/immer";
-
 import {
   primaryOptions,
   secondaryOptions,
   tertiaryOptions,
 } from "@themes/custom";
+import type { ReactNode } from "react";
+import { Helmet } from "react-helmet-async";
+import { create } from "zustand";
+import { persist } from "zustand/middleware";
+import { immer } from "zustand/middleware/immer";
 
 export interface ThemeStore {
   theme: string | null;
@@ -53,8 +52,8 @@ export const useThemeStore = create(
     })),
     {
       name: "__MW::theme",
-    },
-  ),
+    }
+  )
 );
 
 export interface PreviewThemeStore {
@@ -70,7 +69,7 @@ export const usePreviewThemeStore = create(
         s.previewTheme = v;
       });
     },
-  })),
+  }))
 );
 
 export function ThemeProvider(props: {

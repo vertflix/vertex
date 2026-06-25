@@ -38,7 +38,7 @@ export interface LetterboxdResponse {
 
 // Base function to fetch from Letterboxd API
 async function fetchFromLetterboxd<T = LetterboxdResponse>(
-  endpoint: string,
+  endpoint: string
 ): Promise<T> {
   const response = await fetch(`${conf().BACKEND_URL}${endpoint}`);
   if (!response.ok) {

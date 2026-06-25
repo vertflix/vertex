@@ -9,7 +9,7 @@ import { createProgressSlice } from "@/stores/player/slices/progress";
 import { createSkipSegmentsSlice } from "@/stores/player/slices/skipSegments";
 import { createSourceSlice } from "@/stores/player/slices/source";
 import { createThumbnailSlice } from "@/stores/player/slices/thumbnails";
-import { AllSlices } from "@/stores/player/slices/types";
+import type { AllSlices } from "@/stores/player/slices/types";
 
 export const usePlayerStore = create(
   immer<AllSlices>((...a) => ({
@@ -21,5 +21,5 @@ export const usePlayerStore = create(
     ...createCastingSlice(...a),
     ...createThumbnailSlice(...a),
     ...createSkipSegmentsSlice(...a),
-  })),
+  }))
 );

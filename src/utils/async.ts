@@ -10,7 +10,7 @@
 export async function concurrentMap<T, R>(
   items: T[],
   concurrency: number,
-  fn: (item: T) => Promise<R>,
+  fn: (item: T) => Promise<R>
 ): Promise<R[]> {
   const results: R[] = new Array(items.length);
   const queue = items.map((item, index) => ({ item, index }));
@@ -24,7 +24,7 @@ export async function concurrentMap<T, R>(
         const { item, index } = entry;
         results[index] = await fn(item);
       }
-    },
+    }
   );
 
   await Promise.all(workers);

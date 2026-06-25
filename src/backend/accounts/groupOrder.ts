@@ -1,7 +1,7 @@
 import { ofetch } from "ofetch";
 
 import { getAuthHeaders } from "@/backend/accounts/auth";
-import { AccountWithToken } from "@/stores/auth";
+import type { AccountWithToken } from "@/stores/auth";
 
 export interface GroupOrderResponse {
   groupOrder: string[];
@@ -10,7 +10,7 @@ export interface GroupOrderResponse {
 export function updateGroupOrder(
   url: string,
   account: AccountWithToken,
-  groupOrder: string[],
+  groupOrder: string[]
 ) {
   return ofetch<GroupOrderResponse>(`/users/${account.userId}/group-order`, {
     method: "PUT",

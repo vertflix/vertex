@@ -1,4 +1,4 @@
-import { ReactNode, useCallback, useEffect, useState } from "react";
+import { type ReactNode, useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { updateSettings } from "@/backend/accounts/settings";
@@ -14,15 +14,15 @@ import { useOverlayStack } from "@/stores/interface/overlayStack";
 import { usePreferencesStore } from "@/stores/preferences";
 import {
   DEFAULT_KEYBOARD_SHORTCUTS,
-  KeyboardModifier,
-  KeyboardShortcutConfig,
-  KeyboardShortcuts,
-  LOCKED_SHORTCUT_IDS,
-  ShortcutId,
   findConflicts,
   getKeyDisplayName,
   getModifierSymbol,
   isNumberKey,
+  type KeyboardModifier,
+  type KeyboardShortcutConfig,
+  type KeyboardShortcuts,
+  LOCKED_SHORTCUT_IDS,
+  ShortcutId,
 } from "@/utils/keyboardShortcuts";
 
 interface KeyboardShortcut {
@@ -74,7 +74,7 @@ function KeyBadge({
 
 const getShortcutGroups = (
   t: (key: string) => string,
-  shortcuts: KeyboardShortcuts,
+  shortcuts: KeyboardShortcuts
 ): ShortcutGroup[] => {
   return [
     {
@@ -156,21 +156,21 @@ const getShortcutGroups = (
           id: ShortcutId.SYNC_SUBTITLES_EARLIER,
           config: shortcuts[ShortcutId.SYNC_SUBTITLES_EARLIER],
           description: t(
-            "global.keyboardShortcuts.shortcuts.syncSubtitlesEarlier",
+            "global.keyboardShortcuts.shortcuts.syncSubtitlesEarlier"
           ),
         },
         {
           id: ShortcutId.SYNC_SUBTITLES_LATER,
           config: shortcuts[ShortcutId.SYNC_SUBTITLES_LATER],
           description: t(
-            "global.keyboardShortcuts.shortcuts.syncSubtitlesLater",
+            "global.keyboardShortcuts.shortcuts.syncSubtitlesLater"
           ),
         },
         {
           id: ShortcutId.TOGGLE_NATIVE_SUBTITLES,
           config: shortcuts[ShortcutId.TOGGLE_NATIVE_SUBTITLES],
           description: t(
-            "global.keyboardShortcuts.shortcuts.toggleNativeSubtitles",
+            "global.keyboardShortcuts.shortcuts.toggleNativeSubtitles"
           ),
         },
       ],
@@ -202,20 +202,20 @@ export function KeyboardCommandsEditModal({
   const modal = useModal(id);
   const keyboardShortcuts = usePreferencesStore((s) => s.keyboardShortcuts);
   const setKeyboardShortcuts = usePreferencesStore(
-    (s) => s.setKeyboardShortcuts,
+    (s) => s.setKeyboardShortcuts
   );
   const enableNumberKeySeeking = usePreferencesStore(
-    (s) => s.enableNumberKeySeeking,
+    (s) => s.enableNumberKeySeeking
   );
   const setEnableNumberKeySeeking = usePreferencesStore(
-    (s) => s.setEnableNumberKeySeeking,
+    (s) => s.setEnableNumberKeySeeking
   );
 
   const [editingShortcuts, setEditingShortcuts] =
     useState<KeyboardShortcuts>(keyboardShortcuts);
   const [editingId, setEditingId] = useState<ShortcutId | null>(null);
   const [editingModifier, setEditingModifier] = useState<KeyboardModifier | "">(
-    "",
+    ""
   );
   const [editingKey, setEditingKey] = useState<string>("");
   const [isCapturingKey, setIsCapturingKey] = useState(false);
@@ -237,9 +237,9 @@ export function KeyboardCommandsEditModal({
     (group) => ({
       ...group,
       shortcuts: group.shortcuts.filter(
-        (s) => !LOCKED_SHORTCUT_IDS.includes(s.id),
+        (s) => !LOCKED_SHORTCUT_IDS.includes(s.id)
       ),
-    }),
+    })
   );
   const conflicts = findConflicts(editingShortcuts);
   const conflictIds = new Set<string>();
@@ -262,7 +262,7 @@ export function KeyboardCommandsEditModal({
       setEditingKey(config?.key || "");
       setIsCapturingKey(true);
     },
-    [editingShortcuts],
+    [editingShortcuts]
   );
 
   const handleCancelEdit = useCallback(() => {
@@ -301,7 +301,7 @@ export function KeyboardCommandsEditModal({
       setEditingKey(event.key);
       setIsCapturingKey(false);
     },
-    [isCapturingKey, editingId],
+    [isCapturingKey, editingId]
   );
 
   useEffect(() => {
@@ -433,12 +433,12 @@ export function KeyboardCommandsEditModal({
                                 <Dropdown
                                   selectedItem={
                                     modifierOptions.find(
-                                      (opt) => opt.id === editingModifier,
+                                      (opt) => opt.id === editingModifier
                                     ) || modifierOptions[0]
                                   }
                                   setSelectedItem={(item) =>
                                     setEditingModifier(
-                                      item.id as KeyboardModifier | "",
+                                      item.id as KeyboardModifier | ""
                                     )
                                   }
                                   options={modifierOptions}
@@ -509,7 +509,7 @@ export function KeyboardCommandsEditModal({
                               onClick={() => handleResetShortcut(shortcut.id)}
                               className="text-type-secondary hover:text-white transition-colors"
                               title={t(
-                                "global.keyboardShortcuts.resetToDefault",
+                                "global.keyboardShortcuts.resetToDefault"
                               )}
                             >
                               <Icon icon={Icons.RELOAD} />
@@ -535,7 +535,7 @@ export function KeyboardCommandsEditModal({
                 enabled={editingEnableNumberKeySeeking}
                 onClick={() =>
                   setEditingEnableNumberKeySeeking(
-                    !editingEnableNumberKeySeeking,
+                    !editingEnableNumberKeySeeking
                   )
                 }
               />

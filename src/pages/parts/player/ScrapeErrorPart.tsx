@@ -12,13 +12,13 @@ import { IconPill } from "@/components/layout/IconPill";
 import { useModal } from "@/components/overlays/Modal";
 import { Paragraph } from "@/components/text/Paragraph";
 import { Title } from "@/components/text/Title";
-import { ScrapingItems, ScrapingSegment } from "@/hooks/useProviderScrape";
+import type { ScrapingItems, ScrapingSegment } from "@/hooks/useProviderScrape";
 import { ErrorContainer, ErrorLayout } from "@/pages/layouts/ErrorLayout";
 import { conf } from "@/setup/config";
 import { useOnboardingStore } from "@/stores/onboarding";
 import { usePreferencesStore } from "@/stores/preferences";
-import { getExtensionState } from "@/utils/extension";
 import type { ExtensionStatus } from "@/utils/extension";
+import { getExtensionState } from "@/utils/extension";
 
 import { ErrorCardInModal } from "../errors/ErrorCard";
 

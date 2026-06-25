@@ -1,4 +1,4 @@
-import { TranslateService } from ".";
+import type { TranslateService } from ".";
 
 const SINGLE_API_URL =
   "https://translate.googleapis.com/translate_a/single?client=gtx&dt=t&dj=1&ie=UTF-8&oe=UTF-8&sl=auto";
@@ -39,7 +39,7 @@ export default {
           headers: {
             Accept: "application/json",
           },
-        },
+        }
       )
     ).json();
 
@@ -78,7 +78,7 @@ export default {
     }
 
     return response[0].map((s: any) =>
-      (s as string).replaceAll("<br />", "\n"),
+      (s as string).replaceAll("<br />", "\n")
     );
   },
 } satisfies TranslateService;

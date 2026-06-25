@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 import { useOverlayStack } from "@/stores/interface/overlayStack";
 
-import { NotificationItem } from "../types";
+import type { NotificationItem } from "../types";
 import { fetchRssFeed, getAllFeeds, getSourceName } from "../utils";
 
 // Hook to manage notifications
@@ -83,20 +83,20 @@ export function useNotifications() {
                         category,
                         source: getSourceName(feedUrl),
                       });
-                    } catch (itemError) {
+                    } catch (_itemError) {
                       // Skip malformed items silently
                     }
                   });
                 }
               }
             }
-          } catch (customFeedError) {
+          } catch (_customFeedError) {
             // Silently fail for individual feed errors
           }
         }
 
         setNotifications(allNotifications);
-      } catch (err) {
+      } catch (_err) {
         // Silently fail for badge count
       }
     };
@@ -130,7 +130,7 @@ export function useNotifications() {
 
       // Get the actual count from the notifications state
       const count = notifications.filter(
-        (n: NotificationItem) => !readSet.has(n.guid),
+        (n: NotificationItem) => !readSet.has(n.guid)
       ).length;
 
       return count > 99 ? "99+" : count;

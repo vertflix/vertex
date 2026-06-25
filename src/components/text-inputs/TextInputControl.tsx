@@ -36,7 +36,7 @@ export const TextInputControl = forwardRef<
       onFocus,
       passwordToggleable,
     },
-    ref,
+    ref
   ) => {
     let inputType = "text";
     const [showPassword, setShowPassword] = useState(true);
@@ -49,11 +49,11 @@ export const TextInputControl = forwardRef<
           ref={ref}
           className={classNames(className, passwordToggleable && "pr-12")}
           placeholder={placeholder}
-          onChange={(e) => onChange && onChange(e.target.value)}
+          onChange={(e) => onChange?.(e.target.value)}
           value={value}
           name={name}
           autoComplete={autoComplete}
-          onBlur={() => onUnFocus && onUnFocus()}
+          onBlur={() => onUnFocus?.()}
           onFocus={() => onFocus?.()}
           onKeyDown={(e) =>
             e.key === "Enter" ? (e.target as HTMLInputElement).blur() : null
@@ -81,5 +81,5 @@ export const TextInputControl = forwardRef<
     }
 
     return input;
-  },
+  }
 );

@@ -5,30 +5,29 @@ import { useLanguageStore } from "@/stores/language";
 import { usePreferencesStore } from "@/stores/preferences";
 import { SimpleCache } from "@/utils/cache";
 import { getTmdbLanguageCode } from "@/utils/language";
-import { MediaItem } from "@/utils/mediaTypes";
+import type { MediaItem } from "@/utils/mediaTypes";
 import { getProxyUrls } from "@/utils/proxyUrls";
-
-import { MWMediaMeta, MWMediaType, MWSeasonMeta } from "./types/mw";
-import {
-  ExternalIdMovieSearchResult,
-  TMDBContentTypes,
-  TMDBCredits,
-  TMDBEpisode,
-  TMDBEpisodeShort,
-  TMDBMediaResult,
-  TMDBMovieData,
-  TMDBMovieSearchResult,
-  TMDBPerson,
-  TMDBPersonImages,
-  TMDBSearchResult,
-  TMDBSeason,
-  TMDBSeasonMetaResult,
-  TMDBShowData,
-  TMDBShowSearchResult,
-  TMDBVideo,
-  TMDBVideosResponse,
-} from "./types/tmdb";
 import { mwFetch } from "../helpers/fetch";
+import { type MWMediaMeta, MWMediaType, type MWSeasonMeta } from "./types/mw";
+import {
+  type ExternalIdMovieSearchResult,
+  TMDBContentTypes,
+  type TMDBCredits,
+  type TMDBEpisode,
+  type TMDBEpisodeShort,
+  type TMDBMediaResult,
+  type TMDBMovieData,
+  type TMDBMovieSearchResult,
+  type TMDBPerson,
+  type TMDBPersonImages,
+  type TMDBSearchResult,
+  type TMDBSeason,
+  type TMDBSeasonMetaResult,
+  type TMDBShowData,
+  type TMDBShowSearchResult,
+  type TMDBVideo,
+  type TMDBVideosResponse,
+} from "./types/tmdb";
 
 export function mediaTypeToTMDB(type: MWMediaType): TMDBContentTypes {
   if (type === MWMediaType.MOVIE) return TMDBContentTypes.MOVIE;
@@ -49,7 +48,7 @@ export function TMDBMediaToMediaType(type: TMDBContentTypes): MWMediaType {
 }
 
 export function TMDBMediaToMediaItemType(
-  type: TMDBContentTypes,
+  type: TMDBContentTypes
 ): MediaItem["type"] {
   if (type === TMDBContentTypes.MOVIE) return "movie";
   if (type === TMDBContentTypes.TV) return "show";
@@ -76,7 +75,7 @@ export function formatTMDBEpisode(v: TMDBEpisodeShort): {
 
 export function formatTMDBMeta(
   media: TMDBMediaResult,
-  season?: TMDBSeasonMetaResult,
+  season?: TMDBSeasonMetaResult
 ): MWMediaMeta {
   const type = TMDBMediaToMediaType(media.object_type);
   let seasons: undefined | MWSeasonMeta[];
@@ -88,7 +87,7 @@ export function formatTMDBMeta(
           title: v.title,
           id: v.id.toString(),
           number: v.season_number,
-        }),
+        })
       );
   }
 
@@ -129,7 +128,7 @@ export function formatTMDBMetaToMediaItem(media: TMDBMediaResult): MediaItem {
 export function TMDBIdToUrlId(
   type: MWMediaType,
   tmdbId: string,
-  title: string,
+  title: string
 ) {
   return [
     "tmdb",
@@ -147,16 +146,16 @@ export function mediaItemToId(media: MediaItem): string {
   return TMDBIdToUrlId(
     mediaItemTypeToMediaType(media.type),
     media.id,
-    media.title,
+    media.title
   );
 }
 
 export function decodeTMDBId(
-  paramId: string,
+  paramId: string
 ): { id: string; type: MWMediaType } | null {
   const [prefix, type, id] = paramId.split("-", 3);
   if (prefix !== "tmdb") return null;
-  let mediaType;
+  let mediaType: MWMediaType;
   try {
     mediaType = TMDBMediaToMediaType(type as TMDBContentTypes);
   } catch {
@@ -254,7 +253,7 @@ export async function get<T>(url: string, params?: object): Promise<T> {
           headers: tmdbHeaders,
           baseURL: proxy,
           signal: abortOnTimeout(5000),
-        },
+        }
       );
     } catch (err) {
       console.error(err);
@@ -270,7 +269,7 @@ export async function get<T>(url: string, params?: object): Promise<T> {
         params: allParams,
         signal: abortOnTimeout(5000),
       });
-    } catch (err) {
+    } catch (_err) {
       result = await mwFetch<T>(encodeURI(url), {
         headers: tmdbHeaders,
         baseURL: tmdbBaseUrl2,
@@ -286,7 +285,7 @@ export async function get<T>(url: string, params?: object): Promise<T> {
 }
 
 export async function multiSearch(
-  query: string,
+  query: string
 ): Promise<(TMDBMovieSearchResult | TMDBShowSearchResult)[]> {
   const data = await get<TMDBSearchResult>("search/multi", {
     query,
@@ -297,13 +296,13 @@ export async function multiSearch(
   const results = data.results.filter(
     (r) =>
       r.media_type === TMDBContentTypes.MOVIE ||
-      r.media_type === TMDBContentTypes.TV,
+      r.media_type === TMDBContentTypes.TV
   );
   return results;
 }
 
 export async function searchMovies(
-  query: string,
+  query: string
 ): Promise<TMDBMovieSearchResult[]> {
   const data = await get<{
     results: TMDBMovieSearchResult[];
@@ -319,7 +318,7 @@ export async function searchMovies(
 }
 
 export async function searchTVShows(
-  query: string,
+  query: string
 ): Promise<TMDBShowSearchResult[]> {
   const data = await get<{
     results: TMDBShowSearchResult[];
@@ -335,7 +334,7 @@ export async function searchTVShows(
 }
 
 export async function generateQuickSearchMediaUrl(
-  query: string,
+  query: string
 ): Promise<string | undefined> {
   const data = await multiSearch(query);
   if (data.length === 0) return undefined;
@@ -346,7 +345,7 @@ export async function generateQuickSearchMediaUrl(
   return `/media/${TMDBIdToUrlId(
     TMDBMediaToMediaType(result.media_type),
     result.id.toString(),
-    title,
+    title
   )}`;
 }
 
@@ -361,11 +360,11 @@ type MediaDetailReturn<T extends TMDBContentTypes> =
 export async function getEpisodeDetails(
   showId: string,
   seasonNumber: number,
-  episodeNumber: number,
+  episodeNumber: number
 ): Promise<{ vote_average: number } | null> {
   try {
     const data = await get<TMDBEpisode>(
-      `/tv/${showId}/season/${seasonNumber}/episode/${episodeNumber}`,
+      `/tv/${showId}/season/${seasonNumber}/episode/${episodeNumber}`
     );
     return {
       vote_average:
@@ -378,7 +377,7 @@ export async function getEpisodeDetails(
 
 export async function getSeasonDetails(
   id: string,
-  season: number,
+  season: number
 ): Promise<
   Array<{
     id: number;
@@ -440,7 +439,7 @@ export async function getMediaDetails<
           if (!item) break;
           const { season, index } = item;
           const seasonData = await get<TMDBSeason>(
-            `/tv/${id}/season/${season.season_number}`,
+            `/tv/${id}/season/${season.season_number}`
           );
           allEpisodesBySeason[index] = seasonData.episodes.map((episode) => ({
             id: episode.id,
@@ -452,7 +451,7 @@ export async function getMediaDetails<
             season_number: season.season_number,
           }));
         }
-      },
+      }
     );
 
     await Promise.all(workers);
@@ -467,7 +466,7 @@ export async function getMediaDetails<
 }
 
 export function getMediaBackdrop(
-  backdropPath: string | null,
+  backdropPath: string | null
 ): string | undefined {
   const shouldProxyTmdb = usePreferencesStore.getState().proxyTmdb;
   const imgUrl = `https://image.tmdb.org/t/p/original${backdropPath}`;
@@ -499,7 +498,7 @@ export function getMediaPoster(posterPath: string | null): string | undefined {
  */
 export async function getPosterForMedia(
   tmdbId: string,
-  type: "movie" | "show",
+  type: "movie" | "show"
 ): Promise<string | undefined> {
   try {
     const tmdbType =
@@ -519,7 +518,7 @@ export async function getCollectionDetails(collectionId: number): Promise<any> {
 
 export async function getEpisodes(
   id: string,
-  season: number,
+  season: number
 ): Promise<TMDBEpisodeShort[]> {
   const data = await get<TMDBSeason>(`/tv/${id}/season/${season}`);
   return data.episodes.map((e) => ({
@@ -539,14 +538,14 @@ export async function getEpisodes(
 export async function getEpisodeIds(
   showTmdbId: string,
   seasonNumber: number,
-  episodeNumber: number,
+  episodeNumber: number
 ): Promise<{ seasonId: string; episodeId: string } | null> {
   try {
     const data = await get<TMDBSeason>(
-      `/tv/${showTmdbId}/season/${seasonNumber}`,
+      `/tv/${showTmdbId}/season/${seasonNumber}`
     );
     const episode = data.episodes.find(
-      (e) => e.episode_number === episodeNumber,
+      (e) => e.episode_number === episodeNumber
     );
     if (!episode) return null;
     return {
@@ -559,7 +558,7 @@ export async function getEpisodeIds(
 }
 
 export async function getMovieFromExternalId(
-  imdbId: string,
+  imdbId: string
 ): Promise<string | undefined> {
   const data = await get<ExternalIdMovieSearchResult>(`/find/${imdbId}`, {
     external_source: "imdb_id",
@@ -573,7 +572,7 @@ export async function getMovieFromExternalId(
 
 export function formatTMDBSearchResult(
   result: TMDBMovieSearchResult | TMDBShowSearchResult,
-  mediatype: TMDBContentTypes,
+  mediatype: TMDBContentTypes
 ): TMDBMediaResult {
   const type = TMDBMediaToMediaType(mediatype);
   if (type === MWMediaType.SERIES) {
@@ -604,7 +603,7 @@ export function formatTMDBSearchResult(
 export async function getMediaLogo(
   id: string,
   type: TMDBContentTypes,
-  language?: string,
+  language?: string
 ): Promise<string | undefined> {
   const userLanguage = language || useLanguageStore.getState().language;
   const formattedLanguage = getTmdbLanguageCode(userLanguage);
@@ -621,7 +620,7 @@ export async function getMediaLogo(
       data.logos?.find((l: any) => l.iso_639_1 === formattedLanguage) ||
       data.logos?.find((l: any) => l.iso_639_1 === "en") ||
       data.logos?.[0];
-    if (logo && logo.file_path) {
+    if (logo?.file_path) {
       return `https://image.tmdb.org/t/p/original${logo.file_path}`;
     }
     return undefined;
@@ -633,7 +632,7 @@ export async function getMediaLogo(
 
 export async function getMediaCredits(
   id: string,
-  type: TMDBContentTypes,
+  type: TMDBContentTypes
 ): Promise<TMDBCredits> {
   const endpoint = type === TMDBContentTypes.MOVIE ? "movie" : "tv";
   return get<TMDBCredits>(`/${endpoint}/${id}/credits`);
@@ -641,14 +640,14 @@ export async function getMediaCredits(
 
 export async function getMediaVideos(
   id: string,
-  type: TMDBContentTypes,
+  type: TMDBContentTypes
 ): Promise<TMDBVideo[]> {
   const endpoint = type === TMDBContentTypes.MOVIE ? "movie" : "tv";
   const data = await get<TMDBVideosResponse>(`/${endpoint}/${id}/videos`);
   return data.results.filter(
     (video) =>
       video.site === "YouTube" &&
-      (video.type === "Trailer" || video.type === "Teaser"),
+      (video.type === "Trailer" || video.type === "Teaser")
   );
 }
 
@@ -659,7 +658,7 @@ export async function getMediaVideos(
 export async function getRelatedMedia(
   id: string,
   type: TMDBContentTypes,
-  limit: number = 10,
+  limit: number = 10
 ): Promise<TMDBMovieSearchResult[] | TMDBShowSearchResult[]> {
   const endpoint = type === TMDBContentTypes.MOVIE ? "movie" : "tv";
   const data = await get<{
@@ -678,7 +677,7 @@ export async function getPersonImages(id: string): Promise<TMDBPersonImages> {
 }
 
 export function getPersonProfileImage(
-  profilePath: string | null,
+  profilePath: string | null
 ): string | undefined {
   const shouldProxyTmdb = usePreferencesStore.getState().proxyTmdb;
   const imgUrl = `https://image.tmdb.org/t/p/w185/${profilePath}`;

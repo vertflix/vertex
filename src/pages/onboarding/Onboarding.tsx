@@ -126,16 +126,23 @@ export function OnboardingPage() {
             <Ol
               items={[
                 <Item
+                  key="extension"
                   title={t("onboarding.start.moreInfo.explainer.extension")}
                 >
                   {t(
-                    "onboarding.start.moreInfo.explainer.extensionDescription",
+                    "onboarding.start.moreInfo.explainer.extensionDescription"
                   )}
                 </Item>,
-                <Item title={t("onboarding.start.moreInfo.explainer.proxy")}>
+                <Item
+                  key="proxy"
+                  title={t("onboarding.start.moreInfo.explainer.proxy")}
+                >
                   {t("onboarding.start.moreInfo.explainer.proxyDescription")}
                 </Item>,
-                <Item title={t("onboarding.start.moreInfo.explainer.default")}>
+                <Item
+                  key="default"
+                  title={t("onboarding.start.moreInfo.explainer.default")}
+                >
                   {t("onboarding.start.moreInfo.explainer.defaultDescription")}
                 </Item>,
               ].filter(Boolean)}
@@ -146,7 +153,7 @@ export function OnboardingPage() {
                   title={t("onboarding.start.moreInfo.explainer.fedapi.fedapi")}
                 >
                   {t(
-                    "onboarding.start.moreInfo.explainer.fedapi.fedapiDescription",
+                    "onboarding.start.moreInfo.explainer.fedapi.fedapiDescription"
                   )}
                 </Item>
               </div>
@@ -186,7 +193,7 @@ export function OnboardingPage() {
             onClick={() =>
               window.open(
                 "https://github.com/vertflix/vertex-desktop/releases",
-                "_blank",
+                "_blank"
               )
             }
             className="w-1/3"

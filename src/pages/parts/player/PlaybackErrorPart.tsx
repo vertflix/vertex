@@ -34,10 +34,10 @@ export function PlaybackErrorPart(props: PlaybackErrorPartProps) {
   const hasOpenedSettings = useRef(false);
   const hasAutoResumed = useRef(false);
   const setLastSuccessfulSource = usePreferencesStore(
-    (s) => s.setLastSuccessfulSource,
+    (s) => s.setLastSuccessfulSource
   );
   const enableAutoResumeOnPlaybackError = usePreferencesStore(
-    (s) => s.enableAutoResumeOnPlaybackError,
+    (s) => s.enableAutoResumeOnPlaybackError
   );
 
   // Mark the failed source/embed and handle UI when a playback error occurs

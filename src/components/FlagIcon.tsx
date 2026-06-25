@@ -80,7 +80,7 @@ export function FlagIcon(props: FlagIconProps) {
       className={classNames(
         "!w-8 min-w-8 h-6 rounded overflow-hidden bg-cover bg-center block fi",
         backgroundClass,
-        countryCode ? `fi-${countryCode}` : undefined,
+        countryCode ? `fi-${countryCode}` : undefined
       )}
     />
   );

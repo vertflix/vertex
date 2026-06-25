@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, useMemo, useRef } from "react";
+import { type ReactNode, useEffect, useMemo, useRef } from "react";
 
 import { makeVideoElementDisplayInterface } from "@/components/player/display/base";
 import { convertSubtitlesToObjectUrl } from "@/components/player/utils/captions";
@@ -70,11 +70,11 @@ function VideoElement() {
   const language = usePlayerStore((s) => s.caption.selected?.language);
   const source = usePlayerStore((s) => s.source);
   const enableNativeSubtitles = usePreferencesStore(
-    (s) => s.enableNativeSubtitles,
+    (s) => s.enableNativeSubtitles
   );
   const trackObjectUrl = useObjectUrl(
     () => (srtData ? convertSubtitlesToObjectUrl(srtData) : null),
-    [srtData],
+    [srtData]
   );
 
   // Use native tracks when the setting is enabled

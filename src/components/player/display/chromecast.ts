@@ -3,7 +3,7 @@
 import fscreen from "fscreen";
 
 import { MWMediaType } from "@/backend/metadata/types/mw";
-import {
+import type {
   DisplayCaption,
   DisplayInterface,
   DisplayInterfaceEvents,
@@ -14,7 +14,7 @@ import {
   createMP4ProxyUrl,
   isUrlAlreadyProxied,
 } from "@/components/player/utils/proxy";
-import { LoadableSource } from "@/stores/player/utils/qualities";
+import type { LoadableSource } from "@/stores/player/utils/qualities";
 import { processCdnLink } from "@/utils/cdn";
 import { canFullscreen, canFullscreenAnyElement } from "@/utils/detectFeatures";
 import { makeEmitter } from "@/utils/events";
@@ -32,7 +32,7 @@ export interface ChromeCastDisplayInterfaceOptions {
  */
 
 export function makeChromecastDisplayInterface(
-  ops: ChromeCastDisplayInterfaceOptions,
+  ops: ChromeCastDisplayInterfaceOptions
 ): DisplayInterface {
   const { emit, on, off } = makeEmitter<DisplayInterfaceEvents>();
   let isPaused = false;
@@ -93,12 +93,12 @@ export function makeChromecastDisplayInterface(
     };
     ops.controller?.addEventListener(
       cast.framework.RemotePlayerEventType.ANY_CHANGE,
-      listen,
+      listen
     );
     return () => {
       ops.controller?.removeEventListener(
         cast.framework.RemotePlayerEventType.ANY_CHANGE,
-        listen,
+        listen
       );
     };
   }
@@ -149,7 +149,7 @@ export function makeChromecastDisplayInterface(
       try {
         const textTrack = new chrome.cast.media.Track(
           1,
-          chrome.cast.media.TrackType.TEXT,
+          chrome.cast.media.TrackType.TEXT
         );
         textTrack.trackContentType = "text/vtt";
         textTrack.trackContentId = caption.url;

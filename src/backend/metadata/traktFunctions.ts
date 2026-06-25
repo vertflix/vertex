@@ -5,7 +5,7 @@ export function paginateResults(
   results: TraktListResponse,
   page: number,
   pageSize: number = 20,
-  contentType: "movie" | "tv" | "both" = "both",
+  contentType: "movie" | "tv" | "both" = "both"
 ): PaginatedTraktResponse {
   if (!results) {
     return {

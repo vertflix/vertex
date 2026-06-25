@@ -50,7 +50,7 @@ function ButtonList(props: {
       props.onClick(option);
       setIsCustomSpeed(false);
     },
-    [editingIndex, props, isCustomSpeed],
+    [editingIndex, props, isCustomSpeed]
   );
 
   const handleDoubleClick = useCallback(
@@ -60,14 +60,14 @@ function ButtonList(props: {
       setEditingIndex(index);
       setCustomValue(option.toString());
     },
-    [props.disabled],
+    [props.disabled]
   );
 
   const handleCustomValueChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       setCustomValue(e.target.value);
     },
-    [],
+    []
   );
 
   const handleCustomValueKeyDown = useCallback(
@@ -83,7 +83,7 @@ function ButtonList(props: {
         setEditingIndex(null);
       }
     },
-    [customValue, props],
+    [customValue, props]
   );
 
   const handleInputBlur = useCallback(() => {
@@ -105,7 +105,7 @@ function ButtonList(props: {
           className={classNames(
             "w-full px-2 py-1 rounded-md tabbable relative",
             "bg-video-context-light/20 text-white",
-            props.disabled ? "opacity-50 cursor-not-allowed" : null,
+            props.disabled ? "opacity-50 cursor-not-allowed" : null
           )}
           onClick={() => handleButtonClick(props.selected, 0)}
           onDoubleClick={() => handleDoubleClick(props.selected, 0)}
@@ -149,7 +149,7 @@ function ButtonList(props: {
                 props.selected === option
                   ? "bg-video-context-light/20 text-white"
                   : null,
-                props.disabled ? "opacity-50 cursor-not-allowed" : null,
+                props.disabled ? "opacity-50 cursor-not-allowed" : null
               )}
               onClick={() => handleButtonClick(option, index)}
               onDoubleClick={() => handleDoubleClick(option, index)}
@@ -187,7 +187,7 @@ export function PlaybackSettingsView({ id }: { id: string }) {
   const enableAutoplay = usePreferencesStore((s) => s.enableAutoplay);
   const setEnableAutoplay = usePreferencesStore((s) => s.setEnableAutoplay);
   const enableLowPerformanceMode = usePreferencesStore(
-    (s) => s.enableLowPerformanceMode,
+    (s) => s.enableLowPerformanceMode
   );
   const isInWatchParty = useWatchPartyStore((s) => s.enabled);
 
@@ -210,7 +210,7 @@ export function PlaybackSettingsView({ id }: { id: string }) {
         console.error("Failed to save thumbnail setting:", error);
       }
     },
-    [account, backendUrl],
+    [account, backendUrl]
   );
 
   const saveAutoplaySetting = useCallback(
@@ -225,7 +225,7 @@ export function PlaybackSettingsView({ id }: { id: string }) {
         console.error("Failed to save autoplay setting:", error);
       }
     },
-    [account, backendUrl],
+    [account, backendUrl]
   );
 
   const setPlaybackRate = useCallback(
@@ -233,7 +233,7 @@ export function PlaybackSettingsView({ id }: { id: string }) {
       if (isInWatchParty) return; // Don't allow changes in watch party
       display?.setPlaybackRate(v);
     },
-    [display, isInWatchParty],
+    [display, isInWatchParty]
   );
 
   // Handle thumbnail toggle with backend save

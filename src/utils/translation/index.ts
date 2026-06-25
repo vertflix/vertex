@@ -1,8 +1,8 @@
 /* eslint-disable no-console */
 import subsrt from "subsrt-ts";
-import { Caption, ContentCaption } from "subsrt-ts/dist/types/handler";
+import type { Caption, ContentCaption } from "subsrt-ts/dist/types/handler";
 
-import { Caption as PlayerCaption } from "@/stores/player/slices/source";
+import type { Caption as PlayerCaption } from "@/stores/player/slices/source";
 
 import { compressStr, decompressStr, sleep } from "./utils";
 
@@ -27,12 +27,12 @@ export interface TranslateService {
   translate(
     str: string,
     targetLang: string,
-    abortSignal?: AbortSignal,
+    abortSignal?: AbortSignal
   ): Promise<string>;
   translateMulti(
     batch: string[],
     targetLang: string,
-    abortSignal?: AbortSignal,
+    abortSignal?: AbortSignal
   ): Promise<string[]>;
 }
 
@@ -55,7 +55,7 @@ class Translator {
     srtData: string,
     targetLang: string,
     service: TranslateService,
-    abortSignal?: AbortSignal,
+    abortSignal?: AbortSignal
   ) {
     this.captions = subsrt.parse(srtData);
     this.targetLang = targetLang;
@@ -86,7 +86,7 @@ class Translator {
   }
 
   async translateContent(content: ContentCaption): Promise<boolean> {
-    let result;
+    let result: string | undefined;
     let attempts = 0;
     const errors: any[] = [];
 
@@ -95,7 +95,7 @@ class Translator {
         result = await this.service.translate(
           content.text,
           this.targetLang,
-          this.abortSignal,
+          this.abortSignal
         );
       } catch (err) {
         if (this.abortSignal?.aborted) {
@@ -127,14 +127,14 @@ class Translator {
       const result = await this.service.translateMulti(
         batch.map((content) => content.text),
         this.targetLang,
-        this.abortSignal,
+        this.abortSignal
       );
 
       if (result.length !== batch.length) {
         console.warn(
           "Batch translation size mismatch",
           result.length,
-          batch.length,
+          batch.length
         );
         return false;
       }
@@ -182,7 +182,7 @@ class Translator {
       "Translating captions",
       this.service.getName(),
       this.contentCaptions.length,
-      batchDelay,
+      batchDelay
     );
     console.time("translation");
 
@@ -194,7 +194,7 @@ class Translator {
       if (!this.serviceCfg.multi) {
         result = (
           await Promise.all(
-            batch.map((content) => this.translateContent(content)),
+            batch.map((content) => this.translateContent(content))
           )
         ).every((res) => res);
       } else {
@@ -227,7 +227,7 @@ export async function translate(
   caption: PlayerCaption,
   targetLang: string,
   service: TranslateService,
-  abortSignal?: AbortSignal,
+  abortSignal?: AbortSignal
 ): Promise<string | undefined> {
   const cacheID = `${caption.id}_${targetLang}`;
 
@@ -240,7 +240,7 @@ export async function translate(
     caption.srtData,
     targetLang,
     service,
-    abortSignal,
+    abortSignal
   );
 
   const result = await translator.translate();

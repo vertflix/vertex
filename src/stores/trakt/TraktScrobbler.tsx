@@ -5,7 +5,7 @@ import { playerStatus } from "@/stores/player/slices/source";
 import { usePlayerStore } from "@/stores/player/store";
 import { useTraktAuthStore } from "@/stores/trakt/store";
 import { traktService } from "@/utils/trakt";
-import { TraktContentData } from "@/utils/traktTypes";
+import type { TraktContentData } from "@/utils/traktTypes";
 
 export function TraktScrobbler() {
   const { accessToken } = useTraktAuthStore();
@@ -77,7 +77,7 @@ export function TraktScrobbler() {
         if (cached) {
           await traktService.stopWatching(
             cached.contentData,
-            cached.progressPercent,
+            cached.progressPercent
           );
           lastScrobbleRef.current = null;
         }
@@ -121,7 +121,7 @@ export function TraktScrobbler() {
       if (cached) {
         traktService.stopWatchingOnUnload(
           cached.contentData,
-          cached.progressPercent,
+          cached.progressPercent
         );
       }
     };

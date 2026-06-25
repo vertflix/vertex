@@ -1,10 +1,10 @@
 import {
+  closestCenter,
   DndContext,
-  DragEndEvent,
+  type DragEndEvent,
   KeyboardSensor,
   MouseSensor,
   TouchSensor,
-  closestCenter,
   useSensor,
   useSensors,
 } from "@dnd-kit/core";
@@ -13,8 +13,8 @@ import {
   restrictToVerticalAxis,
 } from "@dnd-kit/modifiers";
 import {
-  SortableContext,
   arrayMove,
+  SortableContext,
   sortableKeyboardCoordinates,
   useSortable,
   verticalListSortingStrategy,
@@ -57,7 +57,7 @@ function SortableItemWithToggle(props: {
       {...attributes}
       className={classNames(
         "bg-dropdown-background hover:bg-dropdown-hoverBackground select-none space-x-3 flex items-center max-w-[25rem] py-3 px-4 rounded-lg",
-        props.item.disabled && "opacity-50",
+        props.item.disabled && "opacity-50"
       )}
     >
       <span className="flex-1 text-white font-bold">{props.item.name}</span>
@@ -74,7 +74,7 @@ function SortableItemWithToggle(props: {
         {...listeners}
         className={classNames(
           "cursor-grab touch-manipulation flex-shrink-0",
-          transform ? "cursor-grabbing" : "cursor-grab",
+          transform ? "cursor-grabbing" : "cursor-grab"
         )}
       >
         <Icon icon={Icons.MENU} />
@@ -98,7 +98,7 @@ export function SortableListWithToggles(props: {
     useSensor(MouseSensor),
     useSensor(KeyboardSensor, {
       coordinateGetter: sortableKeyboardCoordinates,
-    }),
+    })
   );
 
   const handleDragEnd = (event: DragEndEvent) => {

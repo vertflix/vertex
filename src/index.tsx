@@ -4,8 +4,8 @@ import "./stores/__old/imports";
 import "@/setup/ga";
 import "@/assets/css/index.css";
 
-import { StrictMode, Suspense, useCallback, useState } from "react";
 import type { ReactNode } from "react";
+import { StrictMode, Suspense, useCallback, useState } from "react";
 import { createRoot } from "react-dom/client";
 import { HelmetProvider } from "react-helmet-async";
 import { useTranslation } from "react-i18next";
@@ -180,7 +180,7 @@ function AuthWrapper() {
         {t(
           isCustomUrl
             ? "screens.loadingUserError.textWithReset"
-            : "screens.loadingUserError.text",
+            : "screens.loadingUserError.text"
         )}
       </ErrorScreen>
     );
@@ -265,5 +265,5 @@ root.render(
         </Suspense>
       </HelmetProvider>
     </ErrorBoundary>
-  </StrictMode>,
+  </StrictMode>
 );

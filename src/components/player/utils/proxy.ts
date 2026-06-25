@@ -9,7 +9,7 @@ import { getM3U8ProxyUrls } from "@/utils/proxyUrls";
  */
 export function createM3U8ProxyUrl(
   url: string,
-  headers: Record<string, string> = {},
+  headers: Record<string, string> = {}
 ): string {
   // Get a random M3U8 proxy URL from the configuration
   const proxyBaseUrl = getLoadbalancedM3U8ProxyUrl();
@@ -32,7 +32,7 @@ export function createM3U8ProxyUrl(
  */
 export function createMP4ProxyUrl(
   url: string,
-  _headers: Record<string, string> = {},
+  _headers: Record<string, string> = {}
 ): string {
   // TODO: Implement MP4 proxy for protected streams
   // This would need a separate MP4 proxy service that can handle headers

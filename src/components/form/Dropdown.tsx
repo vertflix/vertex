@@ -1,5 +1,6 @@
 import { Listbox } from "@headlessui/react";
-import React, { Fragment } from "react";
+import type React from "react";
+import { Fragment } from "react";
 
 import { Icon, Icons } from "@/components/Icon";
 import { Transition } from "@/components/utils/Transition";

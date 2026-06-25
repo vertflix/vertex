@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
 interface ThinContainerProps {
   classNames?: string;
@@ -35,7 +35,7 @@ export function CenterContainer(props: ThinContainerProps) {
     <div
       className={classNames(
         "min-h-screen w-full flex justify-center p-8 py-24 items-center",
-        props.classNames,
+        props.classNames
       )}
     >
       <div className="w-[700px] max-w-full">{props.children}</div>
@@ -48,7 +48,7 @@ export function BiggerCenterContainer(props: ThinContainerProps) {
     <div
       className={classNames(
         "min-h-screen w-full flex justify-center p-8 py-24 items-center",
-        props.classNames,
+        props.classNames
       )}
     >
       <div className="w-[1100px] max-w-full">{props.children}</div>

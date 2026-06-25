@@ -86,7 +86,7 @@ export function CastingInternal() {
         setIsCasting(e.value);
       }
     },
-    [setIsCasting],
+    [setIsCasting]
   );
 
   useEffect(() => {
@@ -123,7 +123,7 @@ export function CastingInternal() {
 
       newController.addEventListener(
         cast.framework.RemotePlayerEventType.IS_CONNECTED_CHANGED,
-        connectionChanged,
+        connectionChanged
       );
     } catch (error) {
       console.error("Error initializing Chromecast:", error);
@@ -134,7 +134,7 @@ export function CastingInternal() {
       if (newController) {
         newController.removeEventListener(
           cast.framework.RemotePlayerEventType.IS_CONNECTED_CHANGED,
-          connectionChanged,
+          connectionChanged
         );
       }
     };

@@ -10,18 +10,17 @@ import {
 } from "@/backend/metadata/tmdb";
 import {
   TMDBContentTypes,
-  TMDBMovieData,
-  TMDBShowData,
+  type TMDBMovieData,
+  type TMDBShowData,
 } from "@/backend/metadata/types/tmdb";
 import { IconPatch } from "@/components/buttons/IconPatch";
 import { Icons } from "@/components/Icon";
 import { Flare } from "@/components/utils/Flare";
 import { useOverlayStack } from "@/stores/interface/overlayStack";
-
+import { OverlayPortal } from "../../../OverlayDisplay";
+import type { DetailsModalProps } from "../../types";
 import { DetailsContent } from "./DetailsContent";
 import { DetailsSkeleton } from "./DetailsSkeleton";
-import { OverlayPortal } from "../../../OverlayDisplay";
-import { DetailsModalProps } from "../../types";
 
 export function DetailsModal({
   id,
@@ -73,7 +72,7 @@ export function DetailsModal({
             voteCount: movieDetails.vote_count,
             releaseDate: movieDetails.release_date,
             rating: movieDetails.release_dates?.results?.find(
-              (r) => r.iso_3166_1 === "US",
+              (r) => r.iso_3166_1 === "US"
             )?.release_dates?.[0]?.certification,
             type: "movie",
             id: movieDetails.id,
@@ -107,7 +106,7 @@ export function DetailsModal({
             voteCount: showDetails.vote_count,
             releaseDate: showDetails.first_air_date,
             rating: showDetails.content_ratings?.results?.find(
-              (r) => r.iso_3166_1 === "US",
+              (r) => r.iso_3166_1 === "US"
             )?.rating,
             type: "show",
             id: showDetails.id,
@@ -155,7 +154,7 @@ export function DetailsModal({
             "max-h-[900px] max-w-[1200px]",
             "bg-mediaCard-hoverBackground/60 backdrop-filter backdrop-blur-lg shadow-lg overflow-hidden",
             "h-[97%] w-[95%]",
-            "relative",
+            "relative"
           )}
         >
           <div className="transition-transform duration-300 h-full relative">

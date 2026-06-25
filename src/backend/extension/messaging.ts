@@ -1,10 +1,10 @@
 import {
-  MessagesMetadata,
+  type MessagesMetadata,
   sendToBackgroundViaRelay,
 } from "@plasmohq/messaging";
 
 import { isAllowedExtensionVersion } from "@/backend/extension/compatibility";
-import { ExtensionMakeRequestResponse } from "@/backend/extension/plasmo";
+import type { ExtensionMakeRequestResponse } from "@/backend/extension/plasmo";
 
 export const RULE_IDS = {
   PREPARE_STREAM: 1,
@@ -25,7 +25,7 @@ let activeExtension = false;
 async function sendMessage<MessageKey extends keyof MessagesMetadata>(
   message: MessageKey,
   payload: MessagesMetadata[MessageKey]["req"] | undefined = undefined,
-  timeout: number = -1,
+  timeout: number = -1
 ) {
   await isExtensionReady;
   return new Promise<MessagesMetadata[MessageKey]["res"] | null>((resolve) => {
@@ -49,19 +49,19 @@ async function sendMessage<MessageKey extends keyof MessagesMetadata>(
 }
 
 export async function sendExtensionRequest<T>(
-  ops: MessagesMetadata["makeRequest"]["req"],
+  ops: MessagesMetadata["makeRequest"]["req"]
 ): Promise<ExtensionMakeRequestResponse<T> | null> {
   return sendMessage("makeRequest", ops);
 }
 
 export async function setDomainRule(
-  ops: MessagesMetadata["prepareStream"]["req"],
+  ops: MessagesMetadata["prepareStream"]["req"]
 ): Promise<MessagesMetadata["prepareStream"]["res"] | null> {
   return sendMessage("prepareStream", ops);
 }
 
 export async function sendPage(
-  ops: MessagesMetadata["openPage"]["req"],
+  ops: MessagesMetadata["openPage"]["req"]
 ): Promise<MessagesMetadata["openPage"]["res"] | null> {
   return sendMessage("openPage", ops);
 }

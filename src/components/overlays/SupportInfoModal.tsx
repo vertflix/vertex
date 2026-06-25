@@ -1,8 +1,7 @@
 import { useTranslation } from "react-i18next";
-
-import { FancyModal } from "./Modal";
 import { Button } from "../buttons/Button";
 import { MwLink } from "../text/Link";
+import { FancyModal } from "./Modal";
 
 export function SupportInfoModal({ id }: { id: string }) {
   const { t } = useTranslation();

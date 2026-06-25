@@ -2,7 +2,7 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { immer } from "zustand/middleware/immer";
 
-import { TraktUser } from "@/utils/traktTypes";
+import type { TraktUser } from "@/utils/traktTypes";
 
 export type TraktStatus = "idle" | "syncing";
 
@@ -66,8 +66,8 @@ export const useTraktAuthStore = create(
     })),
     {
       name: "__MW::trakt_auth",
-    },
-  ),
+    }
+  )
 );
 
 export function useTraktStore() {

@@ -1,4 +1,4 @@
-import countryLanguages, { LanguageObj } from "@ladjs/country-language";
+import countryLanguages, { type LanguageObj } from "@ladjs/country-language";
 import { getTag } from "@sozialhelden/ietf-language-tags";
 import { iso6393To1 } from "iso-639-3";
 
@@ -135,10 +135,10 @@ export function sortLangCodes(langCodes: string[], appLanguage?: string) {
 
   const results = langCodes.sort((a, b) => {
     const langOrderA = reversedOrder.findIndex(
-      (v) => a.startsWith(`${v}-`) || a === v,
+      (v) => a.startsWith(`${v}-`) || a === v
     );
     const langOrderB = reversedOrder.findIndex(
-      (v) => b.startsWith(`${v}-`) || b === v,
+      (v) => b.startsWith(`${v}-`) || b === v
     );
     if (langOrderA !== -1 || langOrderB !== -1) return langOrderB - langOrderA;
 
@@ -171,7 +171,7 @@ export function getCountryCodeForLocale(locale: string): string | null {
 
   if (priority) {
     const prioritizedCountry = output.countries.find(
-      (v) => v.code_2.toLowerCase() === priority,
+      (v) => v.code_2.toLowerCase() === priority
     );
     if (prioritizedCountry) return prioritizedCountry.code_2.toLowerCase();
   }
@@ -183,7 +183,7 @@ export function getCountryCodeForLocale(locale: string): string | null {
     const regionCode = output.countries.find(
       (c) =>
         c.code_2.toLowerCase() === regionSubtag ||
-        c.code_3.toLowerCase() === regionSubtag,
+        c.code_3.toLowerCase() === regionSubtag
     );
     if (regionCode) return regionCode.code_2.toLowerCase();
   }
@@ -249,7 +249,7 @@ export function getTmdbLanguageCode(language: string): string {
 
   // For standard language codes, find the appropriate region from the existing defaultLanguageCodes array
   const defaultCode = defaultLanguageCodes.find((code) =>
-    code.startsWith(`${language}-`),
+    code.startsWith(`${language}-`)
   );
 
   if (defaultCode) return defaultCode;

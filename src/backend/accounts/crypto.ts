@@ -14,7 +14,7 @@ function uint8ArrayToBuffer(array: Uint8Array): forge.util.ByteStringBuffer {
   return forge.util.createBuffer(
     Array.from(array)
       .map((byte) => String.fromCharCode(byte))
-      .join(""),
+      .join("")
   );
 }
 
@@ -61,7 +61,7 @@ export function genMnemonic(): string {
 
 export async function signCode(
   code: string,
-  privateKey: Uint8Array,
+  privateKey: Uint8Array
 ): Promise<Uint8Array> {
   const signature = forge.pki.ed25519.sign({
     encoding: "utf8",
@@ -114,7 +114,7 @@ export async function encryptData(data: string, secret: Uint8Array) {
 
   const cipher = forge.cipher.createCipher(
     "AES-GCM",
-    uint8ArrayToBuffer(secret),
+    uint8ArrayToBuffer(secret)
   );
   cipher.start({
     iv,
@@ -127,7 +127,7 @@ export async function encryptData(data: string, secret: Uint8Array) {
   const tag = cipher.mode.tag;
 
   return `${forge.util.encode64(iv)}.${stringBufferToBase64(
-    encryptedData,
+    encryptedData
   )}.${stringBufferToBase64(tag)}` as const;
 }
 
@@ -138,7 +138,7 @@ export function decryptData(data: string, secret: Uint8Array) {
 
   const decipher = forge.cipher.createDecipher(
     "AES-GCM",
-    uint8ArrayToBuffer(secret),
+    uint8ArrayToBuffer(secret)
   );
   decipher.start({
     iv: base64ToStringBuffer(iv),
@@ -173,7 +173,7 @@ export function isPasskeySupported(): boolean {
 function base64UrlToArrayBuffer(base64Url: string): ArrayBuffer {
   if (typeof base64Url !== "string") {
     throw new Error(
-      `Invalid credential ID: expected string, got ${typeof base64Url}`,
+      `Invalid credential ID: expected string, got ${typeof base64Url}`
     );
   }
   // Convert base64url to base64
@@ -203,8 +203,8 @@ export interface PasskeyAssertion {
 }
 
 export async function createPasskey(
-  userId: string,
-  userName: string,
+  _userId: string,
+  userName: string
 ): Promise<PasskeyCredential> {
   if (!isPasskeySupported()) {
     throw new Error("Passkeys are not supported in this browser");
@@ -257,13 +257,13 @@ export async function createPasskey(
     };
   } catch (error) {
     throw new Error(
-      `Failed to create passkey: ${error instanceof Error ? error.message : String(error)}`,
+      `Failed to create passkey: ${error instanceof Error ? error.message : String(error)}`
     );
   }
 }
 
 export async function authenticatePasskey(
-  credentialId?: string,
+  credentialId?: string
 ): Promise<PasskeyAssertion> {
   if (!isPasskeySupported()) {
     throw new Error("Passkeys are not supported in this browser");
@@ -306,7 +306,7 @@ export async function authenticatePasskey(
     };
   } catch (error) {
     throw new Error(
-      `Failed to authenticate with passkey: ${error instanceof Error ? error.message : String(error)}`,
+      `Failed to authenticate with passkey: ${error instanceof Error ? error.message : String(error)}`
     );
   }
 }
@@ -320,7 +320,7 @@ async function seedFromCredentialId(credentialId: string): Promise<Uint8Array> {
 }
 
 export async function keysFromCredentialId(
-  credentialId: string,
+  credentialId: string
 ): Promise<Keys> {
   const seed = await seedFromCredentialId(credentialId);
   return keysFromSeed(seed);
@@ -336,7 +336,7 @@ function getStorageKey(backendUrl: string, publicKey: string): string {
 export function storeCredentialMapping(
   backendUrl: string,
   publicKey: string,
-  credentialId: string,
+  credentialId: string
 ): void {
   if (typeof window === "undefined" || !window.localStorage) {
     throw new Error("localStorage is not available");
@@ -347,7 +347,7 @@ export function storeCredentialMapping(
 
 export function getCredentialId(
   backendUrl: string,
-  publicKey: string,
+  publicKey: string
 ): string | null {
   if (typeof window === "undefined" || !window.localStorage) {
     return null;
@@ -358,7 +358,7 @@ export function getCredentialId(
 
 export function removeCredentialMapping(
   backendUrl: string,
-  publicKey: string,
+  publicKey: string
 ): void {
   if (typeof window === "undefined" || !window.localStorage) {
     return;

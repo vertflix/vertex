@@ -3,18 +3,18 @@ import { persist } from "zustand/middleware";
 import { immer } from "zustand/middleware/immer";
 
 import { getGroupOrder, updateGroupOrder } from "@/backend/accounts/groupOrder";
-import { AccountWithToken } from "@/stores/auth";
+import type { AccountWithToken } from "@/stores/auth";
 
 export interface GroupOrderStore {
   groupOrder: string[];
   setGroupOrder(order: string[]): void;
   saveGroupOrderToBackend(
     backendUrl: string,
-    account: AccountWithToken,
+    account: AccountWithToken
   ): Promise<void>;
   loadGroupOrderFromBackend(
     backendUrl: string,
-    account: AccountWithToken,
+    account: AccountWithToken
   ): Promise<void>;
   clear(): void;
 }
@@ -30,7 +30,7 @@ export const useGroupOrderStore = create(
       },
       async saveGroupOrderToBackend(
         backendUrl: string,
-        account: AccountWithToken,
+        account: AccountWithToken
       ) {
         if (!account || !backendUrl) {
           throw new Error("No authenticated account or backend URL");
@@ -41,7 +41,7 @@ export const useGroupOrderStore = create(
       },
       async loadGroupOrderFromBackend(
         backendUrl: string,
-        account: AccountWithToken,
+        account: AccountWithToken
       ) {
         if (!account || !backendUrl) {
           throw new Error("No authenticated account or backend URL");
@@ -60,6 +60,6 @@ export const useGroupOrderStore = create(
     })),
     {
       name: "__MW::groupOrder",
-    },
-  ),
+    }
+  )
 );

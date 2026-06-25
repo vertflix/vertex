@@ -138,10 +138,10 @@ input[type="range"].styled-slider::-webkit-slider-thumb:hover {
 input[type="range"].styled-slider.slider-progress::-webkit-slider-runnable-track {
   background:
     linear-gradient(
-        var(--slider-progress-background),
-        var(--slider-progress-background)
-      )
-      0 / var(--sx) 100% no-repeat,
+      var(--slider-progress-background),
+      var(--slider-progress-background)
+    )
+    0 / var(--sx) 100% no-repeat,
     #1c161b;
 }
 
@@ -170,10 +170,10 @@ input[type="range"].styled-slider::-moz-range-thumb:hover {
 input[type="range"].styled-slider.slider-progress::-moz-range-track {
   background:
     linear-gradient(
-        var(--slider-progress-background),
-        var(--slider-progress-background)
-      )
-      0 / var(--sx) 100% no-repeat,
+      var(--slider-progress-background),
+      var(--slider-progress-background)
+    )
+    0 / var(--sx) 100% no-repeat,
     #1c161b;
 }
 

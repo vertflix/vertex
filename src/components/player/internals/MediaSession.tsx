@@ -7,7 +7,7 @@ import { usePlayerMeta } from "../hooks/usePlayerMeta";
 export function MediaSession() {
   const { setDirectMeta } = usePlayerMeta();
   const setShouldStartFromBeginning = usePlayerStore(
-    (s) => s.setShouldStartFromBeginning,
+    (s) => s.setShouldStartFromBeginning
   );
 
   const mediaPlaying = usePlayerStore((s) => s.mediaPlaying);
@@ -21,7 +21,7 @@ export function MediaSession() {
   const changeEpisode = useCallback(
     (change: number) => {
       const nextEp = meta?.episodes?.find(
-        (v) => v.number === (meta?.episode?.number ?? 0) + change,
+        (v) => v.number === (meta?.episode?.number ?? 0) + change
       );
 
       if (!meta || !nextEp) return;
@@ -30,7 +30,7 @@ export function MediaSession() {
       setShouldStartFromBeginning(true);
       setDirectMeta(metaCopy);
     },
-    [meta, setDirectMeta, setShouldStartFromBeginning],
+    [meta, setDirectMeta, setShouldStartFromBeginning]
   );
 
   const updatePositionState = useCallback(
@@ -73,7 +73,7 @@ export function MediaSession() {
         position,
       });
     },
-    [mediaPlaying, progress],
+    [mediaPlaying, progress]
   );
 
   useEffect(() => {
@@ -180,7 +180,7 @@ export function MediaSession() {
 
     if ((meta?.episode?.number ?? 1) > 1) {
       navigator.mediaSession.setActionHandler("previoustrack", () =>
-        changeEpisode(-1),
+        changeEpisode(-1)
       );
     } else {
       navigator.mediaSession.setActionHandler("previoustrack", null);
@@ -190,7 +190,7 @@ export function MediaSession() {
     const currentEpisodeNumber = meta?.episode?.number ?? 0;
     if (currentEpisodeNumber > 0 && currentEpisodeNumber < totalEpisodes) {
       navigator.mediaSession.setActionHandler("nexttrack", () =>
-        changeEpisode(1),
+        changeEpisode(1)
       );
     } else {
       navigator.mediaSession.setActionHandler("nexttrack", null);

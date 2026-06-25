@@ -1,10 +1,12 @@
 import { MWMediaType } from "@/backend/metadata/types/mw";
-import { BookmarkMediaItem, useBookmarkStore } from "@/stores/bookmarks";
-
-import { BookmarkStoreData } from "./types";
+import { type BookmarkMediaItem, useBookmarkStore } from "@/stores/bookmarks";
 import { createVersionedStore } from "../migrations";
-import { OldBookmarks, migrateV1Bookmarks } from "../watched/migrations/v2";
+import {
+  migrateV1Bookmarks,
+  type OldBookmarks,
+} from "../watched/migrations/v2";
 import { migrateV2Bookmarks } from "../watched/migrations/v3";
+import type { BookmarkStoreData } from "./types";
 
 const typeMap: Record<MWMediaType, "show" | "movie" | null> = {
   [MWMediaType.ANIME]: null,

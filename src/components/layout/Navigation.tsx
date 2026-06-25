@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import { useEffect, useState } from "react";
-import { Link, To, useNavigate } from "react-router-dom";
+import { Link, type To, useNavigate } from "react-router-dom";
 
 import { NoUserAvatar, UserAvatar } from "@/components/Avatar";
 import { IconPatch } from "@/components/buttons/IconPatch";
@@ -56,7 +56,7 @@ export function Navigation(props: NavigationProps) {
   };
 
   const enableLowPerformanceMode = usePreferencesStore(
-    (s) => s.enableLowPerformanceMode,
+    (s) => s.enableLowPerformanceMode
   );
 
   return (
@@ -90,7 +90,7 @@ export function Navigation(props: NavigationProps) {
               ? props.clearBackground
                 ? "backdrop-blur-md bg-transparent"
                 : "bg-background-main"
-              : "bg-transparent",
+              : "bg-transparent"
           )}
         >
           {props.doBackground ? (
@@ -106,7 +106,7 @@ export function Navigation(props: NavigationProps) {
               "absolute inset-0 block h-[11rem]",
               props.clearBackground
                 ? "backdrop-blur-md bg-transparent"
-                : "bg-background-main",
+                : "bg-background-main"
             )}
             style={{
               maskImage: `linear-gradient(

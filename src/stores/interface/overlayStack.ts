@@ -68,7 +68,7 @@ export const useOverlayStack = create<OverlayStackStore>()(
         state.modalData = {};
         state.currentOverlay = null;
       }),
-  })),
+  }))
 );
 
 // Hook to clear modals on navigation

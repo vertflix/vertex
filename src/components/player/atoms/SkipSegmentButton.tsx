@@ -4,15 +4,15 @@ import { useTranslation } from "react-i18next";
 
 import { Icon, Icons } from "@/components/Icon";
 import { NextEpisodeButton } from "@/components/player/atoms/NextEpisodeButton";
-import { SegmentData } from "@/components/player/hooks/useSkipTime";
+import type { SegmentData } from "@/components/player/hooks/useSkipTime";
 import { useSkipTracking } from "@/components/player/hooks/useSkipTracking";
 import { Transition } from "@/components/utils/Transition";
-import { PlayerMeta } from "@/stores/player/slices/source";
+import type { PlayerMeta } from "@/stores/player/slices/source";
 import { usePlayerStore } from "@/stores/player/store";
 
 function getSegmentText(
   type: "intro" | "recap" | "credits" | "preview",
-  t: (key: string) => string,
+  t: (key: string) => string
 ): string {
   switch (type) {
     case "intro":
@@ -30,7 +30,7 @@ function getSegmentText(
 
 function shouldShowSkipButton(
   currentTime: number,
-  segment: SegmentData | null,
+  segment: SegmentData | null
 ): "always" | "hover" | "none" {
   if (!segment) return "none";
 
@@ -63,7 +63,7 @@ function Button(props: {
     <button
       className={classNames(
         "font-bold rounded h-10 w-40 scale-95 hover:scale-100 transition-all duration-200",
-        props.className,
+        props.className
       )}
       type="button"
       onClick={props.onClick}
@@ -109,7 +109,7 @@ function SkipSegmentButton(props: {
 
   // NextEpisodeButton only for the "credits to end of video" segment (end_ms === null)
   const creditsSegment = props.segments.find(
-    (s) => s.type === "credits" && s.end_ms === null,
+    (s) => s.type === "credits" && s.end_ms === null
   );
   const inCreditsSegment =
     creditsSegment != null && time * 1000 >= (creditsSegment.start_ms ?? 0);
@@ -156,7 +156,7 @@ function SkipSegmentButton(props: {
       // eslint-disable-next-line no-console
       console.log(`Skip ${segment.type} button used: ${skipDuration}s total`);
     },
-    [display, time, _duration, addSkipEvent, meta, props],
+    [display, time, _duration, addSkipEvent, meta, props]
   );
 
   if (!props.inControl) return null;
@@ -181,7 +181,7 @@ function SkipSegmentButton(props: {
           const verticalOffset = index * 60; // 60px spacing between buttons
           const adjustedBottom = bottom.replace(
             /bottom-\[calc\(([^)]+)\)\]/,
-            `bottom-[calc($1 + ${verticalOffset}px)]`,
+            `bottom-[calc($1 + ${verticalOffset}px)]`
           );
 
           let show = false;

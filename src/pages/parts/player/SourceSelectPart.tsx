@@ -1,5 +1,5 @@
-import { ScrapeMedia } from "@p-stream/providers";
-import React, { ReactNode, useEffect, useMemo, useRef } from "react";
+import type { ScrapeMedia } from "@p-stream/providers";
+import React, { type ReactNode, useEffect, useMemo, useRef } from "react";
 import { useTranslation } from "react-i18next";
 
 import { getCachedMetadata } from "@/backend/helpers/providerApi";
@@ -32,10 +32,10 @@ function EmbedOption(props: {
     props.routerId,
     props.sourceId,
     props.url,
-    props.embedId,
+    props.embedId
   );
 
-  let rightSide;
+  let rightSide: ReactNode;
   if (loading) {
     rightSide = undefined; // Let SelectableLink handle loading
   } else if (notFound) {
@@ -71,7 +71,7 @@ function EmbedSelectionView(props: {
   const { t } = useTranslation();
   const { run, notfound, loading, items, errored } = useSourceScraping(
     props.sourceId,
-    props.routerId,
+    props.routerId
   );
 
   const sourceName = useMemo(() => {
@@ -142,16 +142,16 @@ function EmbedSelectionView(props: {
 export function SourceSelectPart(props: { media: ScrapeMedia }) {
   const { t } = useTranslation();
   const [selectedSourceId, setSelectedSourceId] = React.useState<string | null>(
-    null,
+    null
   );
   const routerId = "manualSourceSelect";
   const preferredSourceOrder = usePreferencesStore((s) => s.sourceOrder);
   const enableSourceOrder = usePreferencesStore((s) => s.enableSourceOrder);
   const lastSuccessfulSource = usePreferencesStore(
-    (s) => s.lastSuccessfulSource,
+    (s) => s.lastSuccessfulSource
   );
   const enableLastSuccessfulSource = usePreferencesStore(
-    (s) => s.enableLastSuccessfulSource,
+    (s) => s.enableLastSuccessfulSource
   );
 
   const sources = useMemo(() => {
@@ -165,7 +165,7 @@ export function SourceSelectPart(props: { media: ScrapeMedia }) {
       // Even without custom source order, prioritize last successful source if enabled
       if (enableLastSuccessfulSource && lastSuccessfulSource) {
         const lastSourceIndex = allSources.findIndex(
-          (s) => s.id === lastSuccessfulSource,
+          (s) => s.id === lastSuccessfulSource
         );
         if (lastSourceIndex !== -1) {
           const lastSource = allSources.splice(lastSourceIndex, 1)[0];
@@ -182,7 +182,7 @@ export function SourceSelectPart(props: { media: ScrapeMedia }) {
     // First, add the last successful source if it exists, is available, and the feature is enabled
     if (enableLastSuccessfulSource && lastSuccessfulSource) {
       const lastSourceIndex = remainingSources.findIndex(
-        (s) => s.id === lastSuccessfulSource,
+        (s) => s.id === lastSuccessfulSource
       );
       if (lastSourceIndex !== -1) {
         orderedSources.push(remainingSources[lastSourceIndex]);

@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React from "react";
+import type React from "react";
 
 import { Icon, Icons } from "@/components/Icon";
 import { BiggerCenterContainer } from "@/components/layout/ThinContainer";
@@ -37,7 +37,7 @@ function LegalCard(props: {
         <Heading3
           className={classNames(
             "!mt-0 !mb-0 !text-xs uppercase",
-            props.colorClass,
+            props.colorClass
           )}
         >
           {props.subtitle}

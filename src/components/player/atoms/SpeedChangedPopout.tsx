@@ -9,7 +9,7 @@ import { usePlayerStore } from "@/stores/player/store";
 export function SpeedChangedPopout() {
   const isSpeedBoosted = usePlayerStore((s) => s.interface.isSpeedBoosted);
   const showSpeedIndicator = usePlayerStore(
-    (s) => s.interface.showSpeedIndicator,
+    (s) => s.interface.showSpeedIndicator
   );
   const currentOverlay = useOverlayStack((s) => s.currentOverlay);
   const playbackRate = usePlayerStore((s) => s.mediaPlaying.playbackRate);

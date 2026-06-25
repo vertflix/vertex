@@ -37,8 +37,8 @@ export const useRegionStore = create<RegionStore>()(
     {
       name: "__MW::region",
       version: 8,
-    },
-  ),
+    }
+  )
 );
 
 // Coordinates for each proxy server region
@@ -59,7 +59,7 @@ function calculateDistance(
   lat1: number,
   lon1: number,
   lat2: number,
-  lon2: number,
+  lon2: number
 ): number {
   const R = 6371e3; // Earth radius in meters
   const φ1 = (lat1 * Math.PI) / 180;

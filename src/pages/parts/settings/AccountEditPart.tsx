@@ -6,7 +6,7 @@ import { Icon, Icons } from "@/components/Icon";
 import { SettingsCard } from "@/components/layout/SettingsCard";
 import { useModal } from "@/components/overlays/Modal";
 import { AuthInputBox } from "@/components/text-inputs/AuthInputBox";
-import { UserIcons } from "@/components/UserIcon";
+import type { UserIcons } from "@/components/UserIcon";
 import { useAuth } from "@/hooks/auth/useAuth";
 import { ProfileEditModal } from "@/pages/parts/settings/ProfileEditModal";
 
@@ -66,7 +66,7 @@ export function AccountEditPart(props: {
               <AuthInputBox
                 label={t("settings.account.accountDetails.nicknameLabel")}
                 placeholder={t(
-                  "settings.account.accountDetails.nicknamePlaceholder",
+                  "settings.account.accountDetails.nicknamePlaceholder"
                 )}
                 value={props.nickname}
                 onChange={(value) => props.setNickname(value)}

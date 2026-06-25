@@ -24,13 +24,13 @@ export function Time(props: { short?: boolean }) {
     setTimeFormat(
       timeFormat === VideoPlayerTimeFormat.REGULAR
         ? VideoPlayerTimeFormat.REMAINING
-        : VideoPlayerTimeFormat.REGULAR,
+        : VideoPlayerTimeFormat.REGULAR
     );
   }
 
   const currentTime = Math.min(
     Math.max(isSeeking ? draggingTime : time, 0),
-    timeDuration,
+    timeDuration
   );
   const secondsRemaining = Math.abs(currentTime - timeDuration);
 
@@ -40,7 +40,7 @@ export function Time(props: { short?: boolean }) {
 
   const timeLeft = formatSeconds(
     secondsRemaining,
-    durationExceedsHour(secondsRemaining),
+    durationExceedsHour(secondsRemaining)
   );
   const timeWatched = formatSeconds(currentTime, hasHours);
   const timeFinished = new Date(Date.now() + secondsRemainingAdjusted * 1e3);

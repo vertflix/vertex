@@ -1,4 +1,4 @@
-import { Icon, Icons } from "@/components/Icon";
+import { Icon, type Icons } from "@/components/Icon";
 
 export interface IconPatchProps {
   active?: boolean;

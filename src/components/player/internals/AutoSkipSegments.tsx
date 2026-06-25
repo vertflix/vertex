@@ -16,7 +16,7 @@ interface SegmentSkipState {
  */
 export function AutoSkipSegments() {
   const enableAutoSkipSegments = usePreferencesStore(
-    (s) => s.enableAutoSkipSegments,
+    (s) => s.enableAutoSkipSegments
   );
   const skipCredits = usePreferencesStore((s) => s.enableSkipCredits);
   const display = usePlayerStore((s) => s.display);
@@ -58,10 +58,10 @@ export function AutoSkipSegments() {
         const skipState = skippedSegmentsRef.current.get(segmentId);
 
         // Only skip if we haven't skipped this segment yet
-        if (!skipState || !skipState.hasSkipped) {
+        if (!skipState?.hasSkipped) {
           // Skip to the end of the segment
           display.setTime(
-            endSeconds === Infinity ? currentSeconds + 10 : endSeconds,
+            endSeconds === Infinity ? currentSeconds + 10 : endSeconds
           );
 
           // Mark this segment as skipped

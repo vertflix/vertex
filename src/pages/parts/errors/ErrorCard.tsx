@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { Button } from "@/components/buttons/Button";
 import { Icon, Icons } from "@/components/Icon";
 import { Modal } from "@/components/overlays/Modal";
-import { DisplayError } from "@/components/player/display/displayInterface";
+import type { DisplayError } from "@/components/player/display/displayInterface";
 import {
   formatErrorDebugInfo,
   gatherErrorDebugInfo,
@@ -16,7 +16,7 @@ export function ErrorCard(props: {
 }) {
   const [hasCopied, setHasCopied] = useState(false);
   const hasCopiedUnsetDebounce = useRef<ReturnType<typeof setTimeout> | null>(
-    null,
+    null
   );
   const { t } = useTranslation();
 

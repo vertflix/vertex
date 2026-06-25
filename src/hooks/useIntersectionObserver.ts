@@ -7,7 +7,7 @@ interface UseIntersectionObserverOptions {
 }
 
 export function useIntersectionObserver<T extends HTMLElement = HTMLDivElement>(
-  options: UseIntersectionObserverOptions = {},
+  options: UseIntersectionObserverOptions = {}
 ) {
   const { threshold = 0.1, root = null, rootMargin = "0px" } = options;
   const [isIntersecting, setIsIntersecting] = useState(false);
@@ -31,7 +31,7 @@ export function useIntersectionObserver<T extends HTMLElement = HTMLDivElement>(
         threshold,
         root,
         rootMargin,
-      },
+      }
     );
 
     observer.observe(element);

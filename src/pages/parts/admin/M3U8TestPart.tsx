@@ -85,7 +85,7 @@ export function M3U8TestPart() {
       }
       // Default: all enabled
       return Object.fromEntries(m3u8ProxyList.map((proxy) => [proxy.id, true]));
-    },
+    }
   );
 
   // Save enabled proxies to localStorage
@@ -114,7 +114,7 @@ export function M3U8TestPart() {
     setProxyState([]);
 
     const activeProxies = m3u8ProxyList.filter(
-      (proxy) => enabledProxies[proxy.id],
+      (proxy) => enabledProxies[proxy.id]
     );
     const proxyPromises = activeProxies.map(async (proxy) => {
       try {
@@ -129,7 +129,7 @@ export function M3U8TestPart() {
 
         // Test if it can do the same destination fetch as CORS proxy
         const testUrl = `${proxy.url}/?destination=${encodeURIComponent(
-          "https://postman-echo.com/get",
+          "https://postman-echo.com/get"
         )}`;
         const response = await fetch(testUrl);
 
@@ -168,18 +168,18 @@ export function M3U8TestPart() {
     if (allEnabled) {
       // Disable all
       setEnabledProxies(
-        Object.fromEntries(m3u8ProxyList.map((proxy) => [proxy.id, false])),
+        Object.fromEntries(m3u8ProxyList.map((proxy) => [proxy.id, false]))
       );
     } else {
       // Enable all
       setEnabledProxies(
-        Object.fromEntries(m3u8ProxyList.map((proxy) => [proxy.id, true])),
+        Object.fromEntries(m3u8ProxyList.map((proxy) => [proxy.id, true]))
       );
     }
   };
 
   const enabledCount = m3u8ProxyList.filter(
-    (proxy) => enabledProxies[proxy.id],
+    (proxy) => enabledProxies[proxy.id]
   ).length;
 
   return (

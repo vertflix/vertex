@@ -1,6 +1,6 @@
 import {
-  Dispatch,
-  SetStateAction,
+  type Dispatch,
+  type SetStateAction,
   useCallback,
   useEffect,
   useRef,
@@ -17,7 +17,7 @@ import { SettingsCard } from "@/components/layout/SettingsCard";
 import { Modal, ModalCard, useModal } from "@/components/overlays/Modal";
 import {
   StatusCircle,
-  StatusCircleProps,
+  type StatusCircleProps,
 } from "@/components/player/internals/StatusCircle";
 import { MwLink } from "@/components/text/Link";
 import { AuthInputBox } from "@/components/text-inputs/AuthInputBox";
@@ -25,12 +25,12 @@ import { Divider } from "@/components/utils/Divider";
 import { Heading1, Heading2, Paragraph } from "@/components/utils/Text";
 import { useIsDesktopApp } from "@/hooks/useIsDesktopApp";
 import {
-  SetupPart,
-  Status,
   fetchFebboxQuota,
+  SetupPart,
+  type Status,
+  testdebridToken,
   testFebboxKey,
   testTorboxToken,
-  testdebridToken,
 } from "@/pages/parts/settings/SetupPart";
 import { conf } from "@/setup/config";
 import { useAuthStore } from "@/stores/auth";
@@ -90,14 +90,14 @@ function ProxyEdit({
         }),
       ]);
     },
-    [setProxyUrls],
+    [setProxyUrls]
   );
 
   const removeItem = useCallback(
     (index: number) => {
-      setProxyUrls((s) => [...(s ?? []).filter((v, i) => i !== index)]);
+      setProxyUrls((s) => [...(s ?? []).filter((_v, i) => i !== index)]);
     },
-    [setProxyUrls],
+    [setProxyUrls]
   );
 
   const toggleProxyUrls = useCallback(() => {
@@ -203,7 +203,7 @@ function BackendEdit({ backendUrl, setBackendUrl }: BackendEditProps) {
   const currentBackendUrl =
     backendUrl ?? (availableBackends.length > 0 ? availableBackends[0] : null);
   const [pendingBackendUrl, setPendingBackendUrl] = useState<string | null>(
-    currentBackendUrl,
+    currentBackendUrl
   );
   const confirmationModal = useModal("backend-change-confirmation");
 
@@ -328,7 +328,7 @@ export function FebboxSetup({
 
   // Initialize expansion state for onboarding mode
   const [isFebboxExpanded, setIsFebboxExpanded] = useState(
-    mode === "onboarding" && febboxKey !== null && febboxKey !== "",
+    mode === "onboarding" && febboxKey !== null && febboxKey !== ""
   );
 
   // Expand when key is set in onboarding mode
@@ -572,7 +572,7 @@ export function FebboxSetup({
 
 async function getdebridTokenStatus(
   debridToken: string | null,
-  debridService: string,
+  debridService: string
 ) {
   if (debridToken) {
     const status: Status =
@@ -597,7 +597,7 @@ export function DebridEdit({
 
   // Initialize expansion state for onboarding mode
   const [isDebridExpanded, setIsDebridExpanded] = useState(
-    mode === "onboarding" && debridToken !== null && debridToken !== "",
+    mode === "onboarding" && debridToken !== null && debridToken !== ""
   );
 
   // Expand when key is set in onboarding mode
@@ -849,7 +849,7 @@ export function ConnectionsPart(
     ProxyEditProps &
     FebboxKeyProps &
     DebridProps &
-    TIDBKeyProps,
+    TIDBKeyProps
 ) {
   const { t } = useTranslation();
   const isDesktopApp = useIsDesktopApp();

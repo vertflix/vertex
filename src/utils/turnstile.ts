@@ -16,7 +16,7 @@ function loadTurnstileScript(): Promise<void> {
     // Check if script is already being loaded
     if (
       document.querySelector(
-        'script[src*="challenges.cloudflare.com/turnstile"]',
+        'script[src*="challenges.cloudflare.com/turnstile"]'
       )
     ) {
       // Wait for it to load
@@ -51,7 +51,7 @@ function loadTurnstileScript(): Promise<void> {
  */
 export async function getTurnstileToken(
   sitekey: string,
-  timeout: number = 30000,
+  timeout: number = 30000
 ): Promise<string> {
   // Only run in browser environment
   if (typeof window === "undefined") {
@@ -84,7 +84,7 @@ export async function getTurnstileToken(
         if (widgetId && (window as any).turnstile) {
           try {
             (window as any).turnstile.remove(widgetId);
-          } catch (e) {
+          } catch (_e) {
             // Ignore errors during cleanup
           }
         }
@@ -134,7 +134,7 @@ export async function getTurnstileToken(
  */
 export async function validateTurnstileToken(
   token: string,
-  secret: string,
+  secret: string
 ): Promise<boolean> {
   try {
     const response = await fetch(
@@ -148,7 +148,7 @@ export async function validateTurnstileToken(
           secret,
           response: token,
         }),
-      },
+      }
     );
 
     const result = await response.json();

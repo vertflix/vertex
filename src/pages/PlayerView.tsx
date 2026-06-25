@@ -1,4 +1,4 @@
-import { RunOutput } from "@p-stream/providers";
+import type { RunOutput } from "@p-stream/providers";
 import { useCallback, useEffect, useRef, useState } from "react";
 import {
   Navigate,
@@ -8,13 +8,13 @@ import {
 } from "react-router-dom";
 import { useAsync } from "react-use";
 
-import { DetailedMeta } from "@/backend/metadata/getmeta";
+import type { DetailedMeta } from "@/backend/metadata/getmeta";
 import { usePlayer } from "@/components/player/hooks/usePlayer";
 import { usePlayerMeta } from "@/components/player/hooks/usePlayerMeta";
 import { convertProviderCaption } from "@/components/player/utils/captions";
 import { convertRunoutputToSource } from "@/components/player/utils/convertRunoutputToSource";
 import { useOverlayRouter } from "@/hooks/useOverlayRouter";
-import { ScrapingItems, ScrapingSegment } from "@/hooks/useProviderScrape";
+import type { ScrapingItems, ScrapingSegment } from "@/hooks/useProviderScrape";
 import { useQueryParam } from "@/hooks/useQueryParams";
 import { MetaPart } from "@/pages/parts/player/MetaPart";
 import { PlaybackErrorPart } from "@/pages/parts/player/PlaybackErrorPart";
@@ -24,7 +24,7 @@ import { ScrapeErrorPart } from "@/pages/parts/player/ScrapeErrorPart";
 import { ScrapingPart } from "@/pages/parts/player/ScrapingPart";
 import { SourceSelectPart } from "@/pages/parts/player/SourceSelectPart";
 import { useLastNonPlayerLink } from "@/stores/history";
-import { PlayerMeta, playerStatus } from "@/stores/player/slices/source";
+import { type PlayerMeta, playerStatus } from "@/stores/player/slices/source";
 import { usePlayerStore } from "@/stores/player/store";
 import { usePreferencesStore } from "@/stores/preferences";
 import { getProgressPercentage, useProgressStore } from "@/stores/progress";
@@ -45,11 +45,11 @@ export function RealPlayerView() {
     sourceOrder: ScrapingItems[];
   } | null>(null);
   const [resumeFromSourceId, setResumeFromSourceId] = useState<string | null>(
-    null,
+    null
   );
   const storeResumeFromSourceId = usePlayerStore((s) => s.resumeFromSourceId);
   const setResumeFromSourceIdInStore = usePlayerStore(
-    (s) => s.setResumeFromSourceId,
+    (s) => s.setResumeFromSourceId
   );
   const [startAtParam] = useQueryParam("t");
   const {
@@ -65,10 +65,10 @@ export function RealPlayerView() {
   const { setPlayerMeta, scrapeMedia } = usePlayerMeta();
   const backUrl = useLastNonPlayerLink();
   const manualSourceSelection = usePreferencesStore(
-    (s) => s.manualSourceSelection,
+    (s) => s.manualSourceSelection
   );
   const setLastSuccessfulSource = usePreferencesStore(
-    (s) => s.setLastSuccessfulSource,
+    (s) => s.setLastSuccessfulSource
   );
   const router = useOverlayRouter("settings");
   const openedWatchPartyRef = useRef<boolean>(false);
@@ -121,11 +121,11 @@ export function RealPlayerView() {
     (meta: PlayerMeta) => {
       if (meta?.type === "show")
         navigate(
-          `/media/${params.media}/${meta.season?.tmdbId}/${meta.episode?.tmdbId}`,
+          `/media/${params.media}/${meta.season?.tmdbId}/${meta.episode?.tmdbId}`
         );
       else navigate(`/media/${params.media}`);
     },
-    [navigate, params],
+    [navigate, params]
   );
 
   // Check if episode is more than 80% watched
@@ -140,7 +140,7 @@ export function RealPlayerView() {
         if (!item.progress) return false;
         const percentage = getProgressPercentage(
           item.progress.watched,
-          item.progress.duration,
+          item.progress.duration
         );
         return percentage > 80;
       }
@@ -150,14 +150,14 @@ export function RealPlayerView() {
         if (!episode) return false;
         const percentage = getProgressPercentage(
           episode.progress.watched,
-          episode.progress.duration,
+          episode.progress.duration
         );
         return percentage > 80;
       }
 
       return false;
     },
-    [progressItems],
+    [progressItems]
   );
 
   const handleMetaReceived = useCallback(
@@ -167,7 +167,7 @@ export function RealPlayerView() {
         setStatus(playerStatus.RESUME);
       }
     },
-    [shouldShowResumeScreen, setStatus, setPlayerMeta],
+    [shouldShowResumeScreen, setStatus, setPlayerMeta]
   );
 
   const handleResume = useCallback(() => {
@@ -189,7 +189,7 @@ export function RealPlayerView() {
         setStatus(playerStatus.SCRAPING);
       }, 0);
     },
-    [setStatus, setResumeFromSourceIdInStore],
+    [setStatus, setResumeFromSourceIdInStore]
   );
 
   // Sync store value to local state when it changes (e.g., from settings)
@@ -221,7 +221,7 @@ export function RealPlayerView() {
         convertRunoutputToSource(out),
         convertProviderCaption(out.stream.captions),
         out.sourceId,
-        shouldStartFromBeginning ? 0 : startAt,
+        shouldStartFromBeginning ? 0 : startAt
       );
       setShouldStartFromBeginning(false);
     },
@@ -230,7 +230,7 @@ export function RealPlayerView() {
       startAtParam,
       shouldStartFromBeginning,
       setShouldStartFromBeginning,
-    ],
+    ]
   );
 
   return (

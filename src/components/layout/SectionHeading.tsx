@@ -1,6 +1,6 @@
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
-import { Icon, Icons } from "@/components/Icon";
+import { Icon, type Icons } from "@/components/Icon";
 
 interface SectionHeadingProps {
   icon?: Icons;

@@ -2,7 +2,7 @@ import classNames from "classnames";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import { MetaResponse, getBackendMeta } from "@/backend/accounts/meta";
+import { getBackendMeta, type MetaResponse } from "@/backend/accounts/meta";
 import { Button } from "@/components/buttons/Button";
 import { Icon, Icons } from "@/components/Icon";
 import { Loading } from "@/components/layout/Loading";
@@ -42,7 +42,7 @@ function BackendOptionItem({
         "w-full p-4 rounded-lg border-2 transition-colors text-left tabbable",
         isSelected
           ? "border-buttons-purple bg-buttons-purple/10"
-          : "border-transparent bg-authentication-inputBg hover:bg-authentication-inputBg/80",
+          : "border-transparent bg-authentication-inputBg hover:bg-authentication-inputBg/80"
       )}
     >
       <div className="flex items-center gap-3">
@@ -51,7 +51,7 @@ function BackendOptionItem({
             "w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0",
             isSelected
               ? "border-buttons-purple bg-buttons-purple"
-              : "border-type-secondary",
+              : "border-type-secondary"
           )}
         >
           {isSelected ? (
@@ -115,7 +115,7 @@ export function BackendSelector({
   // Initialize customUrl from selectedUrl if it's a custom URL (not in availableUrls)
   const isCustomUrl = selectedUrl && !availableUrls.includes(selectedUrl);
   const [customUrl, setCustomUrl] = useState(
-    isCustomUrl ? stripProtocol(selectedUrl) : "",
+    isCustomUrl ? stripProtocol(selectedUrl) : ""
   );
   const [backendOptions, setBackendOptions] = useState<BackendOption[]>([]);
 
@@ -146,16 +146,16 @@ export function BackendSelector({
             prev.map((opt) =>
               opt.url === option.url
                 ? { ...opt, meta, loading: false, error: false }
-                : opt,
-            ),
+                : opt
+            )
           );
         } catch {
           setBackendOptions((prev) =>
             prev.map((opt) =>
               opt.url === option.url
                 ? { ...opt, meta: null, loading: false, error: true }
-                : opt,
-            ),
+                : opt
+            )
           );
         }
       });
@@ -200,7 +200,7 @@ export function BackendSelector({
             "w-full p-4 rounded-lg border-2 transition-colors",
             isCustomUrlSelected
               ? "border-buttons-purple bg-buttons-purple/10"
-              : "border-transparent bg-authentication-inputBg",
+              : "border-transparent bg-authentication-inputBg"
           )}
         >
           <div className="space-y-3">
@@ -210,7 +210,7 @@ export function BackendSelector({
                   "w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0",
                   isCustomUrlSelected
                     ? "border-buttons-purple bg-buttons-purple"
-                    : "border-type-secondary",
+                    : "border-type-secondary"
                 )}
               >
                 {isCustomUrlSelected ? (

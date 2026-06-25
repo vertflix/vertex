@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, useMemo, useRef } from "react";
+import { type ReactNode, useEffect, useMemo, useRef } from "react";
 import { useTranslation } from "react-i18next";
 
 import { getCachedMetadata } from "@/backend/helpers/providerApi";
@@ -44,10 +44,10 @@ export function EmbedOption(props: {
     props.routerId,
     props.sourceId,
     props.url,
-    props.embedId,
+    props.embedId
   );
 
-  let rightSide;
+  let rightSide: ReactNode;
   if (loading) {
     rightSide = undefined; // Let SelectableLink handle loading
   } else if (notFound) {
@@ -162,13 +162,13 @@ export function SourceSelectionView({
   const preferredSourceOrder = usePreferencesStore((s) => s.sourceOrder);
   const enableSourceOrder = usePreferencesStore((s) => s.enableSourceOrder);
   const lastSuccessfulSource = usePreferencesStore(
-    (s) => s.lastSuccessfulSource,
+    (s) => s.lastSuccessfulSource
   );
   const enableLastSuccessfulSource = usePreferencesStore(
-    (s) => s.enableLastSuccessfulSource,
+    (s) => s.enableLastSuccessfulSource
   );
   const manualSourceSelection = usePreferencesStore(
-    (s) => s.manualSourceSelection,
+    (s) => s.manualSourceSelection
   );
 
   const sources = useMemo(() => {
@@ -181,7 +181,7 @@ export function SourceSelectionView({
       // Even without custom source order, prioritize last successful source if enabled
       if (enableLastSuccessfulSource && lastSuccessfulSource) {
         const lastSourceIndex = allSources.findIndex(
-          (s) => s.id === lastSuccessfulSource,
+          (s) => s.id === lastSuccessfulSource
         );
         if (lastSourceIndex !== -1) {
           const lastSource = allSources.splice(lastSourceIndex, 1)[0];
@@ -198,7 +198,7 @@ export function SourceSelectionView({
     // First, add the last successful source if it exists, is available, and the feature is enabled
     if (enableLastSuccessfulSource && lastSuccessfulSource) {
       const lastSourceIndex = remainingSources.findIndex(
-        (s) => s.id === lastSuccessfulSource,
+        (s) => s.id === lastSuccessfulSource
       );
       if (lastSourceIndex !== -1) {
         orderedSources.push(remainingSources[lastSourceIndex]);

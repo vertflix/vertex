@@ -9,7 +9,7 @@ import { HeroTitle } from "@/components/text/HeroTitle";
 import { useIsIOS, useIsMobile, useIsPWA } from "@/hooks/useIsMobile";
 import { useIsTV } from "@/hooks/useIsTv";
 import { useRandomTranslation } from "@/hooks/useRandomTranslation";
-import { useSearchQuery } from "@/hooks/useSearchQuery";
+import type { useSearchQuery } from "@/hooks/useSearchQuery";
 import { useBannerSize } from "@/stores/banner";
 
 export interface HeroPartProps {
@@ -20,7 +20,7 @@ export interface HeroPartProps {
 }
 
 function getTimeOfDay(
-  date: Date,
+  date: Date
 ): "night" | "morning" | "day" | "420" | "69" | "halloween" {
   const month = date.getMonth() + 1;
   const day = date.getDate();
@@ -52,7 +52,7 @@ export function HeroPart({
       setShowBg(isFixed);
       setIsSticky(isFixed);
     },
-    [setIsSticky],
+    [setIsSticky]
   );
 
   const isPWA = useIsPWA();
@@ -78,7 +78,7 @@ export function HeroPart({
       <div
         className={classNames(
           "space-y-16 text-center",
-          showTitle ? "mt-44" : "mt-4",
+          showTitle ? "mt-44" : "mt-4"
         )}
       >
         {showTitle && (!isTV || search.length === 0) ? (

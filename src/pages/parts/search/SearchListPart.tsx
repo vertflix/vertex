@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
 import { searchForMedia } from "@/backend/metadata/search";
-import { MWQuery } from "@/backend/metadata/types/mw";
+import type { MWQuery } from "@/backend/metadata/types/mw";
 import { IconPatch } from "@/components/buttons/IconPatch";
 import { Icons } from "@/components/Icon";
 import { SectionHeading } from "@/components/layout/SectionHeading";
@@ -12,7 +12,7 @@ import { WatchedMediaCard } from "@/components/media/WatchedMediaCard";
 import { useDebounce } from "@/hooks/useDebounce";
 import { Button } from "@/pages/About";
 import { SearchLoadingPart } from "@/pages/parts/search/SearchLoadingPart";
-import { MediaItem } from "@/utils/mediaTypes";
+import type { MediaItem } from "@/utils/mediaTypes";
 
 function SearchSuffix(props: { failed?: boolean; results?: number }) {
   const { t } = useTranslation();

@@ -19,7 +19,7 @@ import {
 } from "@/components/player/utils/captions";
 import { useOverlayRouter } from "@/hooks/useOverlayRouter";
 import { useLanguageStore } from "@/stores/language";
-import { CaptionListItem } from "@/stores/player/slices/source";
+import type { CaptionListItem } from "@/stores/player/slices/source";
 import { usePlayerStore } from "@/stores/player/store";
 import { useSubtitleStore } from "@/stores/subtitles";
 import {
@@ -70,7 +70,7 @@ function CaptionOptionRightSide(props: CaptionOptionProps) {
             },
             "transition duration-300 ease-in-out",
             "hover:bg-opacity-100 hover:bg-buttons-primaryHover",
-            "hover:text-buttons-primaryText",
+            "hover:text-buttons-primaryText"
           )}
           onClick={(e) => {
             e.stopPropagation();
@@ -216,7 +216,7 @@ export function CaptionOption(props: CaptionOptionProps) {
                     "bg-orange-500": props.subtitleSource === "opensubs",
                     "bg-purple-500": props.subtitleSource === "febbox",
                     "bg-green-500": props.subtitleSource === "granite",
-                  },
+                  }
                 )}
               >
                 {props.subtitleSource.toUpperCase()}
@@ -234,7 +234,7 @@ export function CaptionOption(props: CaptionOptionProps) {
                     "text-yellow-500":
                       props.matchScore >= 50 && props.matchScore < 80,
                     "text-video-context-error": props.matchScore < 50,
-                  },
+                  }
                 )}
               >
                 ~{props.matchScore}% match
@@ -270,7 +270,7 @@ export function useSubtitleList(subs: CaptionListItem[], searchQuery: string) {
     }));
     const sorted = sortLangCodes(
       input.map((t) => t.language),
-      appLanguage,
+      appLanguage
     );
     let results = input.sort((a, b) => {
       return sorted.indexOf(a.language) - sorted.indexOf(b.language);
@@ -318,9 +318,7 @@ export function CustomCaptionOption() {
         setSubtitle(true, "custom", "custom-caption");
       } catch (err) {
         setError(
-          err instanceof Error
-            ? err.message
-            : "Failed to convert subtitle file",
+          err instanceof Error ? err.message : "Failed to convert subtitle file"
         );
       }
     });
@@ -353,7 +351,7 @@ export function CustomCaptionOption() {
 
           if (!subtitleTypeList.includes(fileExtension)) {
             setError(
-              `Unsupported file type. Supported: ${subtitleTypeList.join(", ")}`,
+              `Unsupported file type. Supported: ${subtitleTypeList.join(", ")}`
             );
             e.target.value = ""; // Reset input
             return;
@@ -472,7 +470,7 @@ export function CaptionsView({
   const captionList = usePlayerStore((s) => s.captionList);
   const getHlsCaptionList = usePlayerStore((s) => s.display?.getCaptionList);
   const isLoadingExternalSubtitles = usePlayerStore(
-    (s) => s.isLoadingExternalSubtitles,
+    (s) => s.isLoadingExternalSubtitles
   );
   const delay = useSubtitleStore((s) => s.delay);
   const appLanguage = useLanguageStore((s) => s.language);
@@ -483,17 +481,17 @@ export function CaptionsView({
   const captions = useMemo(
     () =>
       captionList.length !== 0 ? captionList : (getHlsCaptionList?.() ?? []),
-    [captionList, getHlsCaptionList],
+    [captionList, getHlsCaptionList]
   );
 
   // Split captions into source and external (opensubtitles)
   const sourceCaptions = useMemo(
     () => captions.filter((x) => !x.opensubtitles),
-    [captions],
+    [captions]
   );
   const externalCaptions = useMemo(
     () => captions.filter((x) => x.opensubtitles),
-    [captions],
+    [captions]
   );
 
   // Group captions by language
@@ -550,7 +548,7 @@ export function CaptionsView({
     if (!srtData || !selectedCaption) return null;
     const parsedCaptions = parseSubtitles(srtData, selectedLanguage);
     const visibleCaption = parsedCaptions.find(({ start, end }) =>
-      captionIsVisible(start, end, delay, videoTime),
+      captionIsVisible(start, end, delay, videoTime)
     );
     return visibleCaption?.content;
   }, [srtData, selectedLanguage, delay, videoTime, selectedCaption]);
@@ -580,7 +578,7 @@ export function CaptionsView({
           srtData: converted,
           id: "custom-caption",
         });
-      } catch (err) {
+      } catch (_err) {
         // Silently fail on drop - user can use the upload button for better error feedback
       }
     });
@@ -598,7 +596,7 @@ export function CaptionsView({
         <div
           className={classNames(
             "absolute inset-0 flex items-center justify-center text-white z-10 pointer-events-none transition-opacity duration-300",
-            dragging ? "opacity-100" : "opacity-0",
+            dragging ? "opacity-100" : "opacity-0"
           )}
         >
           <div className="flex flex-col items-center">
@@ -701,7 +699,7 @@ export function CaptionsView({
                         "text-video-context-type-accent": matchScore >= 80,
                         "text-yellow-500": matchScore >= 50 && matchScore < 80,
                         "text-video-context-error": matchScore < 50,
-                      },
+                      }
                     )}
                   >
                     ~{matchScore}% match
@@ -767,7 +765,7 @@ export function CaptionsView({
                     router.navigate(
                       backLink
                         ? "/captions/languages"
-                        : "/captionsOverlay/languagesOverlay",
+                        : "/captionsOverlay/languagesOverlay"
                     );
                   }}
                 >
@@ -776,7 +774,7 @@ export function CaptionsView({
                     <span className="ml-3">{languageName}</span>
                   </span>
                 </Menu.ChevronLink>
-              ),
+              )
             )}
         </Menu.ScrollToActiveSection>
       </FileDropHandler>

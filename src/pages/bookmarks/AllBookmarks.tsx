@@ -23,7 +23,7 @@ import { useBookmarkStore } from "@/stores/bookmarks";
 import { useGroupOrderStore } from "@/stores/groupOrder";
 import { useOverlayStack } from "@/stores/interface/overlayStack";
 import { useProgressStore } from "@/stores/progress";
-import { MediaItem } from "@/utils/mediaTypes";
+import type { MediaItem } from "@/utils/mediaTypes";
 
 function parseGroupString(group: string): { icon: UserIcons; name: string } {
   const match = group.match(/^\[([a-zA-Z0-9_]+)\](.*)$/);
@@ -168,7 +168,7 @@ export function AllBookmarks({ onShowDetails }: AllBookmarksProps) {
       });
     } else {
       const orderMap = new Map(
-        groupOrder.map((group, index) => [group, index]),
+        groupOrder.map((group, index) => [group, index])
       );
 
       Array.from(allSections.entries())
@@ -294,7 +294,7 @@ export function AllBookmarks({ onShowDetails }: AllBookmarksProps) {
                           id="edit-group-order-button"
                           text={t("home.bookmarks.groups.reorder.button")}
                           secondaryText={t(
-                            "home.bookmarks.groups.reorder.done",
+                            "home.bookmarks.groups.reorder.done"
                           )}
                         />
                       )}

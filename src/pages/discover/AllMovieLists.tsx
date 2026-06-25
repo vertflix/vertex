@@ -6,7 +6,7 @@ import {
   getCuratedMovieLists,
   getMovieDetailsForIds,
 } from "@/backend/metadata/traktApi";
-import { TMDBMovieData } from "@/backend/metadata/types/tmdb";
+import type { TMDBMovieData } from "@/backend/metadata/types/tmdb";
 import type { CuratedMovieList } from "@/backend/metadata/types/trakt";
 import { Icon, Icons } from "@/components/Icon";
 import { WideContainer } from "@/components/layout/WideContainer";
@@ -17,7 +17,7 @@ import { CarouselNavButtons } from "@/pages/discover/components/CarouselNavButto
 import { SubPageLayout } from "@/pages/layouts/SubPageLayout";
 import { useDiscoverStore } from "@/stores/discover";
 import { useOverlayStack } from "@/stores/interface/overlayStack";
-import { MediaItem } from "@/utils/mediaTypes";
+import type { MediaItem } from "@/utils/mediaTypes";
 
 import { LazyMediaCarousel } from "./components/LazyMediaCarousel";
 
@@ -50,7 +50,7 @@ export function DiscoverMore() {
           } catch (error) {
             console.error(
               `Failed to fetch movies for list ${list.listSlug}:`,
-              error,
+              error
             );
           }
         }

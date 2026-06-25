@@ -1,7 +1,7 @@
 import { MWMediaType } from "@/backend/metadata/types/mw";
-import { ProgressMediaItem } from "@/stores/progress";
+import type { ProgressMediaItem } from "@/stores/progress";
 
-import { WatchedStoreData } from "../types";
+import type { WatchedStoreData } from "../types";
 
 export function migrateV4Videos(old: WatchedStoreData) {
   // Convert items
@@ -29,7 +29,7 @@ export function migrateV4Videos(old: WatchedStoreData) {
       ) {
         // Find episode ID (barely ever works)
         const episodeTitle = oldItem.item.meta.seasonData.episodes.find(
-          (ep) => ep.number === oldItem.item.series?.episode,
+          (ep) => ep.number === oldItem.item.series?.episode
         )?.title;
 
         // Add season to season data
@@ -38,7 +38,7 @@ export function migrateV4Videos(old: WatchedStoreData) {
           number: oldItem.item.series.season,
           title:
             oldItem.item.meta.seasons.find(
-              (s) => s.number === oldItem.item.series?.season,
+              (s) => s.number === oldItem.item.series?.season
             )?.title || "Unknown season",
         };
 

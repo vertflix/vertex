@@ -4,7 +4,7 @@ import { immer } from "zustand/middleware/immer";
 
 import {
   DEFAULT_KEYBOARD_SHORTCUTS,
-  KeyboardShortcuts,
+  type KeyboardShortcuts,
 } from "@/utils/keyboardShortcuts";
 
 export interface PreferencesStore {
@@ -286,6 +286,6 @@ export const usePreferencesStore = create(
     })),
     {
       name: "__MW::preferences",
-    },
-  ),
+    }
+  )
 );

@@ -18,7 +18,7 @@ import { Heading1 } from "@/components/utils/Text";
 import { Transition } from "@/components/utils/Transition";
 import { usePlayerStore } from "@/stores/player/store";
 import { usePreferencesStore } from "@/stores/preferences";
-import { SubtitleStyling, useSubtitleStore } from "@/stores/subtitles";
+import { type SubtitleStyling, useSubtitleStore } from "@/stores/subtitles";
 import { isFirefox } from "@/utils/detectFeatures";
 
 export function CaptionPreview(props: {
@@ -153,7 +153,7 @@ export function CaptionsPart(props: {
                 enabled={enableNativeSubtitles}
                 onClick={() =>
                   preferencesStore.setEnableNativeSubtitles(
-                    !enableNativeSubtitles,
+                    !enableNativeSubtitles
                   )
                 }
               />
@@ -257,7 +257,7 @@ export function CaptionsPart(props: {
                       id: props.styling.fontStyle,
                       name:
                         t(
-                          `settings.subtitles.textStyle.${props.styling.fontStyle}`,
+                          `settings.subtitles.textStyle.${props.styling.fontStyle}`
                         ) || props.styling.fontStyle,
                     }}
                     setSelectedItem={(item) =>
@@ -350,7 +350,7 @@ export function CaptionsPart(props: {
                       "px-3 py-1 rounded transition-colors duration-100",
                       props.styling.verticalPosition === 1
                         ? "bg-video-context-buttonFocus"
-                        : "bg-video-context-buttonFocus bg-opacity-0 hover:bg-opacity-50",
+                        : "bg-video-context-buttonFocus bg-opacity-0 hover:bg-opacity-50"
                     )}
                     onClick={() =>
                       handleStylingChange({
@@ -367,7 +367,7 @@ export function CaptionsPart(props: {
                       "px-3 py-1 rounded transition-colors duration-100",
                       props.styling.verticalPosition === 3
                         ? "bg-video-context-buttonFocus"
-                        : "bg-video-context-buttonFocus bg-opacity-0 hover:bg-opacity-50",
+                        : "bg-video-context-buttonFocus bg-opacity-0 hover:bg-opacity-50"
                     )}
                     onClick={() =>
                       handleStylingChange({

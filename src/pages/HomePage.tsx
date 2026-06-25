@@ -1,14 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { useTranslation } from "react-i18next";
-import { To, useNavigate } from "react-router-dom";
+import { type To, useNavigate } from "react-router-dom";
 
 import { WideContainer } from "@/components/layout/WideContainer";
 import { useDebounce } from "@/hooks/useDebounce";
 import { useRandomTranslation } from "@/hooks/useRandomTranslation";
 import { useSearchQuery } from "@/hooks/useSearchQuery";
-import { FeaturedCarousel } from "@/pages/discover/components/FeaturedCarousel";
 import type { FeaturedMedia } from "@/pages/discover/components/FeaturedCarousel";
+import { FeaturedCarousel } from "@/pages/discover/components/FeaturedCarousel";
 import DiscoverContent from "@/pages/discover/discoverContent";
 import { HomeLayout } from "@/pages/layouts/HomeLayout";
 import { BookmarksCarousel } from "@/pages/parts/home/BookmarksCarousel";
@@ -21,7 +21,7 @@ import { SearchLoadingPart } from "@/pages/parts/search/SearchLoadingPart";
 import { conf } from "@/setup/config";
 import { useOverlayStack } from "@/stores/interface/overlayStack";
 import { usePreferencesStore } from "@/stores/preferences";
-import { MediaItem } from "@/utils/mediaTypes";
+import type { MediaItem } from "@/utils/mediaTypes";
 
 import { Button } from "./About";
 import { AdsPart } from "./parts/home/AdsPart";
@@ -67,13 +67,13 @@ export function HomePage() {
   const enableFeatured = usePreferencesStore((state) => state.enableFeatured);
   const carouselRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
   const enableCarouselView = usePreferencesStore(
-    (state) => state.enableCarouselView,
+    (state) => state.enableCarouselView
   );
   const enableLowPerformanceMode = usePreferencesStore(
-    (state) => state.enableLowPerformanceMode,
+    (state) => state.enableLowPerformanceMode
   );
   const homeSectionOrder = usePreferencesStore(
-    (state) => state.homeSectionOrder,
+    (state) => state.homeSectionOrder
   );
 
   const handleClick = (path: To) => {

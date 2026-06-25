@@ -15,7 +15,7 @@ import {
 import { AuthInputBox } from "@/components/text-inputs/AuthInputBox";
 import { useAuth } from "@/hooks/auth/useAuth";
 import { useBackendUrl } from "@/hooks/auth/useBackendUrl";
-import { AccountProfile } from "@/pages/parts/auth/AccountCreatePart";
+import type { AccountProfile } from "@/pages/parts/auth/AccountCreatePart";
 import { useBookmarkStore } from "@/stores/bookmarks";
 import { useLanguageStore } from "@/stores/language";
 import { usePreferencesStore } from "@/stores/preferences";
@@ -41,7 +41,7 @@ export function VerifyPassphrase(props: VerifyPassphraseProps) {
 
   const applicationLanguage = useLanguageStore((store) => store.language);
   const defaultSubtitleLanguage = useSubtitleStore(
-    (store) => store.lastSelectedLanguage,
+    (store) => store.lastSelectedLanguage
   );
   const applicationTheme = useThemeStore((store) => store.theme);
 
@@ -90,7 +90,7 @@ export function VerifyPassphrase(props: VerifyPassphraseProps) {
       props.credentialId.length === 0
     ) {
       throw new Error(
-        t("auth.verify.invalidData") ?? "Invalid passkey credential",
+        t("auth.verify.invalidData") ?? "Invalid passkey credential"
       );
     }
 
@@ -107,7 +107,7 @@ export function VerifyPassphrase(props: VerifyPassphraseProps) {
     // Verify the credential ID matches
     if (assertion.id !== props.credentialId) {
       throw new Error(
-        t("auth.verify.noMatch") ?? "Passkey verification failed",
+        t("auth.verify.noMatch") ?? "Passkey verification failed"
       );
     }
 
@@ -177,7 +177,7 @@ export function VerifyPassphrase(props: VerifyPassphraseProps) {
 
       props.onNext?.();
     },
-    [props, register, restore, executeRecaptcha],
+    [props, register, restore, executeRecaptcha]
   );
 
   if (props.authMethod === "passkey") {

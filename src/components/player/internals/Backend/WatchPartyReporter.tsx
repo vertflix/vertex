@@ -13,7 +13,7 @@ import { useWatchPartyStore } from "@/stores/watchParty";
 const VALIDATION_EVENT = "watchparty:validation";
 export const emitValidationStatus = (success: boolean) => {
   window.dispatchEvent(
-    new CustomEvent(VALIDATION_EVENT, { detail: { success } }),
+    new CustomEvent(VALIDATION_EVENT, { detail: { success } })
   );
 };
 
@@ -69,7 +69,7 @@ export function WatchPartyReporter() {
         const users = Object.values(roomData.users).flat();
         const hostUser = users.find((user) => user.isHost);
 
-        if (hostUser && hostUser.content.tmdbId) {
+        if (hostUser?.content.tmdbId) {
           const hostTmdbId = hostUser.content.tmdbId;
           const currentTmdbId = parseInt(meta.tmdbId, 10);
 
@@ -122,7 +122,7 @@ export function WatchPartyReporter() {
                     seasonId: currentSeasonId,
                     episodeId: currentEpisodeId,
                   },
-                },
+                }
               );
               disable();
               emitValidationStatus(false);
@@ -174,7 +174,7 @@ export function WatchPartyReporter() {
         const users = Object.values(roomData.users).flat();
         const hostUser = users.find((user) => user.isHost);
 
-        if (!hostUser || hostUser.content.type !== "TV Show") return;
+        if (hostUser?.content.type !== "TV Show") return;
 
         const hostSeasonId = hostUser.content.seasonId;
         const hostEpisodeId = hostUser.content.episodeId;
@@ -228,7 +228,7 @@ export function WatchPartyReporter() {
 
           const url = new URL(
             `/media/tmdb-tv-${meta.tmdbId}/${hostSeasonId}/${hostEpisodeId}`,
-            window.location.origin,
+            window.location.origin
           );
           url.searchParams.set("watchparty", roomCode);
 
@@ -266,8 +266,7 @@ export function WatchPartyReporter() {
     // Skip if watch party is not enabled
     if (
       !watchPartyEnabled ||
-      !latestStatus ||
-      !latestStatus.hasPlayedOnce ||
+      !latestStatus?.hasPlayedOnce ||
       !roomCode ||
       (!isHost && !contentValidatedRef.current) // Don't send updates until content is validated for non-hosts
     )

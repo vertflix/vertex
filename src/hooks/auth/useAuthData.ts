@@ -1,14 +1,14 @@
 import { useCallback } from "react";
 
-import { LoginResponse, SessionResponse } from "@/backend/accounts/auth";
-import { SettingsResponse } from "@/backend/accounts/settings";
+import type { LoginResponse, SessionResponse } from "@/backend/accounts/auth";
+import type { SettingsResponse } from "@/backend/accounts/settings";
 import {
-  BookmarkResponse,
-  ProgressResponse,
-  UserResponse,
-  WatchHistoryResponse,
+  type BookmarkResponse,
   bookmarkResponsesToEntries,
+  type ProgressResponse,
   progressResponsesToEntries,
+  type UserResponse,
+  type WatchHistoryResponse,
   watchHistoryResponsesToEntries,
 } from "@/backend/accounts/user";
 import { useAuthStore } from "@/stores/auth";
@@ -33,7 +33,7 @@ export function useAuthData() {
   const setTheme = useThemeStore((s) => s.setTheme);
   const setAppLanguage = useLanguageStore((s) => s.setLanguage);
   const importSubtitleLanguage = useSubtitleStore(
-    (s) => s.importSubtitleLanguage,
+    (s) => s.importSubtitleLanguage
   );
   const setFebboxKey = usePreferencesStore((s) => s.setFebboxKey);
   const setdebridToken = usePreferencesStore((s) => s.setdebridToken);
@@ -46,29 +46,29 @@ export function useAuthData() {
   const setEnableThumbnails = usePreferencesStore((s) => s.setEnableThumbnails);
   const setEnableAutoplay = usePreferencesStore((s) => s.setEnableAutoplay);
   const setEnableSkipCredits = usePreferencesStore(
-    (s) => s.setEnableSkipCredits,
+    (s) => s.setEnableSkipCredits
   );
   const setEnableDiscover = usePreferencesStore((s) => s.setEnableDiscover);
   const setEnableFeatured = usePreferencesStore((s) => s.setEnableFeatured);
   const setEnableDetailsModal = usePreferencesStore(
-    (s) => s.setEnableDetailsModal,
+    (s) => s.setEnableDetailsModal
   );
   const setEnableImageLogos = usePreferencesStore((s) => s.setEnableImageLogos);
   const setEnableCarouselView = usePreferencesStore(
-    (s) => s.setEnableCarouselView,
+    (s) => s.setEnableCarouselView
   );
   const setForceCompactEpisodeView = usePreferencesStore(
-    (s) => s.setForceCompactEpisodeView,
+    (s) => s.setForceCompactEpisodeView
   );
   const setSourceOrder = usePreferencesStore((s) => s.setSourceOrder);
   const setEnableSourceOrder = usePreferencesStore(
-    (s) => s.setEnableSourceOrder,
+    (s) => s.setEnableSourceOrder
   );
   const setLastSuccessfulSource = usePreferencesStore(
-    (s) => s.setLastSuccessfulSource,
+    (s) => s.setLastSuccessfulSource
   );
   const setEnableLastSuccessfulSource = usePreferencesStore(
-    (s) => s.setEnableLastSuccessfulSource,
+    (s) => s.setEnableLastSuccessfulSource
   );
   const setEmbedOrder = usePreferencesStore((s) => s.setEmbedOrder);
   const setEnableEmbedOrder = usePreferencesStore((s) => s.setEnableEmbedOrder);
@@ -76,32 +76,32 @@ export function useAuthData() {
   const setProxyTmdb = usePreferencesStore((s) => s.setProxyTmdb);
 
   const setEnableLowPerformanceMode = usePreferencesStore(
-    (s) => s.setEnableLowPerformanceMode,
+    (s) => s.setEnableLowPerformanceMode
   );
   const setEnableNativeSubtitles = usePreferencesStore(
-    (s) => s.setEnableNativeSubtitles,
+    (s) => s.setEnableNativeSubtitles
   );
   const setEnableHoldToBoost = usePreferencesStore(
-    (s) => s.setEnableHoldToBoost,
+    (s) => s.setEnableHoldToBoost
   );
   const setHomeSectionOrder = usePreferencesStore((s) => s.setHomeSectionOrder);
   const setEnableDoubleClickToSeek = usePreferencesStore(
-    (s) => s.setEnableDoubleClickToSeek,
+    (s) => s.setEnableDoubleClickToSeek
   );
   const setManualSourceSelection = usePreferencesStore(
-    (s) => s.setManualSourceSelection,
+    (s) => s.setManualSourceSelection
   );
   const setEnableAutoResumeOnPlaybackError = usePreferencesStore(
-    (s) => s.setEnableAutoResumeOnPlaybackError,
+    (s) => s.setEnableAutoResumeOnPlaybackError
   );
   const setEnableNumberKeySeeking = usePreferencesStore(
-    (s) => s.setEnableNumberKeySeeking,
+    (s) => s.setEnableNumberKeySeeking
   );
   const setKeyboardShortcuts = usePreferencesStore(
-    (s) => s.setKeyboardShortcuts,
+    (s) => s.setKeyboardShortcuts
   );
   const setEnableMinimalCards = usePreferencesStore(
-    (s) => s.setEnableMinimalCards,
+    (s) => s.setEnableMinimalCards
   );
 
   const login = useCallback(
@@ -109,7 +109,7 @@ export function useAuthData() {
       loginResponse: LoginResponse,
       user: UserResponse,
       session: SessionResponse,
-      seed: string,
+      seed: string
     ) => {
       const account = {
         token: loginResponse.token,
@@ -123,7 +123,7 @@ export function useAuthData() {
       setAccount(account);
       return account;
     },
-    [setAccount],
+    [setAccount]
   );
 
   const logout = useCallback(async () => {
@@ -150,7 +150,7 @@ export function useAuthData() {
       bookmarks: BookmarkResponse[],
       watchHistory: WatchHistoryResponse[],
       settings: SettingsResponse,
-      groupOrder: { groupOrder: string[] },
+      groupOrder: { groupOrder: string[] }
     ) => {
       replaceBookmarks(bookmarkResponsesToEntries(bookmarks));
       replaceItems(progressResponsesToEntries(progress));
@@ -266,7 +266,7 @@ export function useAuthData() {
 
       if (settings.homeSectionOrder !== undefined) {
         setHomeSectionOrder(
-          settings.homeSectionOrder ?? ["watching", "bookmarks"],
+          settings.homeSectionOrder ?? ["watching", "bookmarks"]
         );
       }
 
@@ -280,7 +280,7 @@ export function useAuthData() {
 
       if (settings.enableAutoResumeOnPlaybackError !== undefined) {
         setEnableAutoResumeOnPlaybackError(
-          settings.enableAutoResumeOnPlaybackError,
+          settings.enableAutoResumeOnPlaybackError
         );
       }
 
@@ -333,7 +333,7 @@ export function useAuthData() {
       setEnableNumberKeySeeking,
       setKeyboardShortcuts,
       setEnableMinimalCards,
-    ],
+    ]
   );
 
   return {

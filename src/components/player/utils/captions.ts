@@ -1,9 +1,9 @@
-import { RunOutput } from "@p-stream/providers";
+import type { RunOutput } from "@p-stream/providers";
 import DOMPurify from "dompurify";
 import { convert, detect, parse } from "subsrt-ts";
-import { ContentCaption } from "subsrt-ts/dist/types/handler";
+import type { ContentCaption } from "subsrt-ts/dist/types/handler";
 
-import { CaptionListItem } from "@/stores/player/slices/source";
+import type { CaptionListItem } from "@/stores/player/slices/source";
 
 export type CaptionCueType = ContentCaption;
 export const sanitize = DOMPurify.sanitize;
@@ -12,7 +12,7 @@ export function captionIsVisible(
   start: number,
   end: number,
   delay: number,
-  currentTime: number,
+  currentTime: number
 ) {
   const delayedStart = start / 1000 + delay;
   const delayedEnd = end / 1000 + delay;
@@ -70,7 +70,7 @@ export function parseVttSubtitles(vtt: string) {
 
 export function parseSubtitles(
   text: string,
-  _language?: string,
+  _language?: string
 ): CaptionCueType[] {
   const vtt = convertSubtitlesToVtt(text);
   return parseVttSubtitles(vtt);
@@ -82,7 +82,7 @@ function stringToBase64(input: string): string {
 
 export function convertSubtitlesToSrtDataurl(text: string): string {
   return `data:application/x-subrip;base64,${stringToBase64(
-    convertSubtitlesToSrt(text),
+    convertSubtitlesToSrt(text)
   )}`;
 }
 
@@ -90,12 +90,12 @@ export function convertSubtitlesToObjectUrl(text: string): string {
   return URL.createObjectURL(
     new Blob([convertSubtitlesToVtt(text)], {
       type: "text/vtt",
-    }),
+    })
   );
 }
 
 export function convertProviderCaption(
-  captions: RunOutput["stream"]["captions"],
+  captions: RunOutput["stream"]["captions"]
 ): CaptionListItem[] {
   return captions.map((v) => ({
     id: v.id,

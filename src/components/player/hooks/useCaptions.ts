@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo } from "react";
 import subsrt from "subsrt-ts";
 
 import { downloadCaption, downloadWebVTT } from "@/backend/helpers/subs";
-import { Caption, CaptionListItem } from "@/stores/player/slices/source";
+import type { Caption, CaptionListItem } from "@/stores/player/slices/source";
 import { usePlayerStore } from "@/stores/player/store";
 import { usePreferencesStore } from "@/stores/preferences";
 import { useSubtitleStore } from "@/stores/subtitles";
@@ -16,13 +16,13 @@ export function useCaptions() {
   const setSubtitle = useSubtitleStore((s) => s.setSubtitle);
   const enabled = useSubtitleStore((s) => s.enabled);
   const resetSubtitleSpecificSettings = useSubtitleStore(
-    (s) => s.resetSubtitleSpecificSettings,
+    (s) => s.resetSubtitleSpecificSettings
   );
   const setCaption = usePlayerStore((s) => s.setCaption);
   const currentTranslateTask = usePlayerStore((s) => s.caption.translateTask);
   const lastSelectedLanguage = useSubtitleStore((s) => s.lastSelectedLanguage);
   const lastSelectedSubtitleId = useSubtitleStore(
-    (s) => s.lastSelectedSubtitleId,
+    (s) => s.lastSelectedSubtitleId
   );
   const setIsOpenSubtitles = useSubtitleStore((s) => s.setIsOpenSubtitles);
 
@@ -33,17 +33,17 @@ export function useCaptions() {
 
   const getSubtitleTracks = usePlayerStore((s) => s.display?.getSubtitleTracks);
   const setSubtitlePreference = usePlayerStore(
-    (s) => s.display?.setSubtitlePreference,
+    (s) => s.display?.setSubtitlePreference
   );
   const setCaptionAsTrack = usePlayerStore((s) => s.setCaptionAsTrack);
   const enableNativeSubtitles = usePreferencesStore(
-    (s) => s.enableNativeSubtitles,
+    (s) => s.enableNativeSubtitles
   );
 
   const captions = useMemo(
     () =>
       captionList.length !== 0 ? captionList : (getHlsCaptionList?.() ?? []),
-    [captionList, getHlsCaptionList],
+    [captionList, getHlsCaptionList]
   );
 
   const setDirectCaption = useCallback(
@@ -75,7 +75,7 @@ export function useCaptions() {
       setCaptionAsTrack,
       enableNativeSubtitles,
       selectedCaption,
-    ],
+    ]
   );
 
   const selectCaptionById = useCallback(
@@ -97,13 +97,13 @@ export function useCaptions() {
         // request a language change to hls, so it can load the subtitles
         await setSubtitlePreference?.(caption.language);
         const track = getSubtitleTracks?.().find(
-          (t) => t.id.toString() === caption.id && t.details !== undefined,
+          (t) => t.id.toString() === caption.id && t.details !== undefined
         );
         if (!track) return;
 
         const fragments =
           track.details?.fragments?.filter(
-            (frag) => frag !== null && frag.url !== null,
+            (frag) => frag !== null && frag.url !== null
           ) ?? [];
 
         const vttCaptions = (
@@ -111,7 +111,7 @@ export function useCaptions() {
             fragments.map(async (frag) => {
               const vtt = await downloadWebVTT(frag.url);
               return parseVttSubtitles(vtt);
-            }),
+            })
           )
         ).flat();
 
@@ -123,7 +123,7 @@ export function useCaptions() {
 
       setDirectCaption(captionToSet, caption);
     },
-    [captions, getSubtitleTracks, setSubtitlePreference, setDirectCaption],
+    [captions, getSubtitleTracks, setSubtitlePreference, setDirectCaption]
   );
 
   const selectLanguage = useCallback(
@@ -132,7 +132,7 @@ export function useCaptions() {
       if (!caption) return;
       return selectCaptionById(caption.id);
     },
-    [captions, selectCaptionById],
+    [captions, selectCaptionById]
   );
 
   const disable = useCallback(async () => {
@@ -172,7 +172,7 @@ export function useCaptions() {
 
     // Filter captions by language
     const languageCaptions = captions.filter(
-      (caption) => caption.language === language,
+      (caption) => caption.language === language
     );
 
     // If no captions exist for that language, return early
@@ -180,7 +180,7 @@ export function useCaptions() {
 
     // Filter out the currently selected caption if possible
     const availableCaptions = languageCaptions.filter(
-      (caption) => caption.id !== selectedCaption?.id,
+      (caption) => caption.id !== selectedCaption?.id
     );
 
     // If we filtered out all captions (only one caption available), use all captions
@@ -212,7 +212,7 @@ export function useCaptions() {
         (currentTranslateTask
           ? currentTranslateTask.targetCaption
           : selectedCaption
-        ).id,
+        ).id
     );
 
     if (!isSelectedCaptionStillAvailable) {
@@ -223,7 +223,7 @@ export function useCaptions() {
           (currentTranslateTask
             ? currentTranslateTask.targetCaption
             : selectedCaption
-          ).language,
+          ).language
       );
 
       if (sameLanguageCaption) {

@@ -1,4 +1,4 @@
-import { ReactNode, RefObject, useEffect, useRef } from "react";
+import { type ReactNode, type RefObject, useEffect, useRef } from "react";
 
 import { OverlayDisplay } from "@/components/overlays/OverlayDisplay";
 import { AutoSkipSegments } from "@/components/player/internals/AutoSkipSegments";
@@ -27,7 +27,7 @@ export interface PlayerProps {
 function useHovering(containerEl: RefObject<HTMLDivElement>) {
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const updateInterfaceHovering = usePlayerStore(
-    (s) => s.updateInterfaceHovering,
+    (s) => s.updateInterfaceHovering
   );
   const hovering = usePlayerStore((s) => s.interface.hovering);
 

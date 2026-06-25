@@ -2,15 +2,15 @@ import { useMemo } from "react";
 
 import { getProgressPercentage, useProgressStore } from "@/stores/progress";
 import {
-  ShowProgressResult,
+  type ShowProgressResult,
   shouldShowProgress,
 } from "@/stores/progress/utils";
-import { MediaItem } from "@/utils/mediaTypes";
+import type { MediaItem } from "@/utils/mediaTypes";
 
 import { MediaCard } from "./MediaCard";
 
 function formatSeries(series?: ShowProgressResult | null) {
-  if (!series || !series.episode || !series.season) return undefined;
+  if (!series?.episode || !series.season) return undefined;
   return {
     episode: series.episode?.number,
     season: series.season?.number,
@@ -35,12 +35,12 @@ export function WatchedMediaCard(props: WatchedMediaCardProps) {
   }, [progressItems, props.media]);
   const itemToDisplay = useMemo(
     () => (item ? shouldShowProgress(item) : null),
-    [item],
+    [item]
   );
   const percentage = itemToDisplay?.show
     ? getProgressPercentage(
         itemToDisplay.progress.watched,
-        itemToDisplay.progress.duration,
+        itemToDisplay.progress.duration
       )
     : undefined;
 

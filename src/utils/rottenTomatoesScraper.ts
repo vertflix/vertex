@@ -61,7 +61,7 @@ function findBestMatch(searchTitle: string, movies: any[], year?: number): any {
 
 export async function scrapeRottenTomatoes(
   title: string,
-  year?: number,
+  year?: number
 ): Promise<RTMovie | null> {
   // Check if we have a proxy or extension
   const hasExtension = await isExtensionActive();
@@ -70,13 +70,13 @@ export async function scrapeRottenTomatoes(
   if (!hasExtension && !hasProxy) {
     throw new Error(
       "Rotten Tomatoes scraping requires either the browser extension or a custom proxy to be set up. " +
-        "Please install the extension or set up a proxy in the settings.",
+        "Please install the extension or set up a proxy in the settings."
     );
   }
 
   // eslint-disable-next-line no-console
   console.log(
-    `[RT Scraper] Using ${hasExtension ? "browser extension" : "custom proxy"} for requests`,
+    `[RT Scraper] Using ${hasExtension ? "browser extension" : "custom proxy"} for requests`
   );
 
   // Construct search URL with cleaned title
@@ -115,7 +115,7 @@ export async function scrapeRottenTomatoes(
   try {
     // Extract movie data from the new HTML structure
     const searchResultsDiv = response.match(
-      /<div id="search-results"[^>]*>(.*?)<\/div>/s,
+      /<div id="search-results"[^>]*>(.*?)<\/div>/s
     );
     if (!searchResultsDiv) {
       console.error("Could not find search results in RT response");
@@ -124,7 +124,7 @@ export async function scrapeRottenTomatoes(
 
     // Extract movie rows from search results
     const movieRows = searchResultsDiv[1].match(
-      /<search-page-media-row[^>]*>(.*?)<\/search-page-media-row>/gs,
+      /<search-page-media-row[^>]*>(.*?)<\/search-page-media-row>/gs
     );
     if (!movieRows || movieRows.length === 0) return null;
 
@@ -136,7 +136,7 @@ export async function scrapeRottenTomatoes(
       const sentimentMatch = row.match(/tomatometer-sentiment="([^"]+)"/);
       const yearMatch = row.match(/release-year="([^"]+)"/);
       const tomatometeriscertified = row.match(
-        /tomatometer-is-certified="([^"]+)"/,
+        /tomatometer-is-certified="([^"]+)"/
       );
 
       return {
@@ -178,7 +178,7 @@ export async function scrapeRottenTomatoes(
 }
 
 export function getRTIcon(
-  type: "certified_fresh" | "fresh" | "rotten",
+  type: "certified_fresh" | "fresh" | "rotten"
 ): string {
   switch (type) {
     case "certified_fresh":

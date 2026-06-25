@@ -1,17 +1,17 @@
 import {
-  Dispatch,
-  SetStateAction,
+  type Dispatch,
+  type SetStateAction,
   useCallback,
   useEffect,
   useMemo,
   useState,
 } from "react";
 
-import { SubtitleStyling } from "@/stores/subtitles";
+import type { SubtitleStyling } from "@/stores/subtitles";
 import { usePreviewThemeStore, useThemeStore } from "@/stores/theme";
 
 export function useDerived<T>(
-  initial: T,
+  initial: T
 ): [T, Dispatch<SetStateAction<T>>, () => void, boolean] {
   const [overwrite, setOverwrite] = useState<T | undefined>(undefined);
   useEffect(() => {
@@ -21,14 +21,14 @@ export function useDerived<T>(
     () =>
       JSON.stringify(overwrite) !== JSON.stringify(initial) &&
       overwrite !== undefined,
-    [overwrite, initial],
+    [overwrite, initial]
   );
   const setter = useCallback<Dispatch<SetStateAction<T>>>(
     (inp) => {
       if (!(inp instanceof Function)) setOverwrite(inp);
       else setOverwrite((s) => inp(s !== undefined ? s : initial));
     },
-    [initial, setOverwrite],
+    [initial, setOverwrite]
   );
   const data = overwrite === undefined ? initial : overwrite;
 
@@ -86,7 +86,7 @@ export function useSettingsState(
     primary: string;
     secondary: string;
     tertiary: string;
-  },
+  }
 ) {
   const [proxyUrlsState, setProxyUrls, resetProxyUrls, proxyUrlsChanged] =
     useDerived(proxyUrls);
@@ -112,7 +112,7 @@ export function useSettingsState(
   const setPreviewTheme = usePreviewThemeStore((s) => s.setPreviewTheme);
   const resetPreviewTheme = useCallback(
     () => setPreviewTheme(theme),
-    [setPreviewTheme, theme],
+    [setPreviewTheme, theme]
   );
   const [
     appLanguageState,

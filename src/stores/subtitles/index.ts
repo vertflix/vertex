@@ -70,7 +70,7 @@ export interface SubtitleStore {
   setSubtitle(
     enabled: boolean,
     language?: string | null,
-    subtitleId?: string | null,
+    subtitleId?: string | null
   ): void;
   setIsOpenSubtitles(isOpenSubtitles: boolean): void;
   setOverrideCasing(enabled: boolean): void;
@@ -120,12 +120,12 @@ export const useSubtitleStore = create(
           if (newStyling.backgroundOpacity !== undefined)
             s.styling.backgroundOpacity = Math.min(
               1,
-              Math.max(0, newStyling.backgroundOpacity),
+              Math.max(0, newStyling.backgroundOpacity)
             );
           if (newStyling.backgroundBlur !== undefined)
             s.styling.backgroundBlur = Math.min(
               1,
-              Math.max(0, newStyling.backgroundBlur),
+              Math.max(0, newStyling.backgroundBlur)
             );
           if (newStyling.backgroundBlurEnabled !== undefined)
             s.styling.backgroundBlurEnabled = newStyling.backgroundBlurEnabled;
@@ -137,14 +137,14 @@ export const useSubtitleStore = create(
           if (newStyling.verticalPosition !== undefined)
             s.styling.verticalPosition = Math.min(
               100,
-              Math.max(0, newStyling.verticalPosition),
+              Math.max(0, newStyling.verticalPosition)
             );
           if (newStyling.fontStyle !== undefined)
             s.styling.fontStyle = newStyling.fontStyle;
           if (newStyling.borderThickness !== undefined)
             s.styling.borderThickness = Math.min(
               10,
-              Math.max(0, newStyling.borderThickness),
+              Math.max(0, newStyling.borderThickness)
             );
         });
       },
@@ -200,6 +200,6 @@ export const useSubtitleStore = create(
     {
       name: "__MW::subtitles",
       merge: (persisted, current) => merge({}, current, persisted),
-    },
-  ),
+    }
+  )
 );

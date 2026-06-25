@@ -1,11 +1,12 @@
 import { Listbox } from "@headlessui/react";
-import React, { useEffect, useMemo, useState } from "react";
+import type React from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
 import { EditButton } from "@/components/buttons/EditButton";
 import { EditButtonWithText } from "@/components/buttons/EditButtonWithText";
-import { Dropdown, OptionItem } from "@/components/form/Dropdown";
+import { Dropdown, type OptionItem } from "@/components/form/Dropdown";
 import { Icon, Icons } from "@/components/Icon";
 import { SectionHeading } from "@/components/layout/SectionHeading";
 import { WatchedMediaCard } from "@/components/media/WatchedMediaCard";
@@ -19,8 +20,8 @@ import { CarouselNavButtons } from "@/pages/discover/components/CarouselNavButto
 import { useBookmarkStore } from "@/stores/bookmarks";
 import { useGroupOrderStore } from "@/stores/groupOrder";
 import { useProgressStore } from "@/stores/progress";
-import { SortOption, sortMediaItems } from "@/utils/mediaSorting";
-import { MediaItem } from "@/utils/mediaTypes";
+import { type SortOption, sortMediaItems } from "@/utils/mediaSorting";
+import type { MediaItem } from "@/utils/mediaTypes";
 
 function parseGroupString(group: string): { icon: UserIcons; name: string } {
   const match = group.match(/^\[([a-zA-Z0-9_]+)\](.*)$/);
@@ -107,18 +108,18 @@ export function BookmarksCarousel({
   const editBookmarkModal = useModal("bookmark-edit-carousel");
   const editGroupModal = useModal("bookmark-edit-group-carousel");
   const [editingBookmarkId, setEditingBookmarkId] = useState<string | null>(
-    null,
+    null
   );
   const [editingGroupName, setEditingGroupName] = useState<string | null>(null);
   const modifyBookmarks = useBookmarkStore((s) => s.modifyBookmarks);
   const modifyBookmarksByGroup = useBookmarkStore(
-    (s) => s.modifyBookmarksByGroup,
+    (s) => s.modifyBookmarksByGroup
   );
 
   const { isMobile } = useIsMobile();
 
   const bookmarksLength = useBookmarkStore(
-    (state) => Object.keys(state.bookmarks).length,
+    (state) => Object.keys(state.bookmarks).length
   );
 
   const progressItems = useProgressStore((state) => state.items);
@@ -160,7 +161,7 @@ export function BookmarksCarousel({
         grouped[group],
         sortBy,
         bookmarks,
-        progressItems,
+        progressItems
       );
     });
 
@@ -169,7 +170,7 @@ export function BookmarksCarousel({
       regular,
       sortBy,
       bookmarks,
-      progressItems,
+      progressItems
     );
 
     return { groupedItems: grouped, regularItems: sortedRegular };
@@ -208,7 +209,7 @@ export function BookmarksCarousel({
     } else {
       // Use the saved order
       const orderMap = new Map(
-        groupOrder.map((group, index) => [group, index]),
+        groupOrder.map((group, index) => [group, index])
       );
 
       Array.from(allSections.entries())
@@ -325,7 +326,7 @@ export function BookmarksCarousel({
                       id="edit-group-button"
                       text={t("home.bookmarks.groups.editGroup.title")}
                       secondaryText={t(
-                        "home.bookmarks.groups.editGroup.cancel",
+                        "home.bookmarks.groups.editGroup.cancel"
                       )}
                     />
                   )}
@@ -533,7 +534,7 @@ export function BookmarksCarousel({
                         <div
                           key={media.id}
                           onContextMenu={(
-                            e: React.MouseEvent<HTMLDivElement>,
+                            e: React.MouseEvent<HTMLDivElement>
                           ) => e.preventDefault()}
                           className="relative mt-4 group cursor-pointer rounded-xl p-2 bg-transparent transition-colors duration-300 w-[10rem] md:w-[11.5rem] h-auto"
                         >

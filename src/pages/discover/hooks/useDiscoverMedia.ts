@@ -3,7 +3,6 @@ import { useTranslation } from "react-i18next";
 
 import { get, getMediaDetails } from "@/backend/metadata/tmdb";
 import {
-  PROVIDER_TO_TRAKT_MAP,
   getAppleMovieReleases,
   getAppleTVReleases,
   getDisneyMovies,
@@ -22,22 +21,17 @@ import {
   getPrimeMovies,
   getPrimeTVShows,
   getTop10Movies,
+  PROVIDER_TO_TRAKT_MAP,
 } from "@/backend/metadata/traktApi";
 import { paginateResults } from "@/backend/metadata/traktFunctions";
-import { TMDBContentTypes } from "@/backend/metadata/types/tmdb";
 import type {
   TMDBMovieData,
   TMDBMovieSearchResult,
   TMDBShowData,
   TMDBShowSearchResult,
 } from "@/backend/metadata/types/tmdb";
+import { TMDBContentTypes } from "@/backend/metadata/types/tmdb";
 import type { TraktListResponse } from "@/backend/metadata/types/trakt";
-import {
-  EDITOR_PICKS_MOVIES,
-  EDITOR_PICKS_TV_SHOWS,
-  MOVIE_PROVIDERS,
-  TV_PROVIDERS,
-} from "@/pages/discover/types/discover";
 import type {
   DiscoverContentType,
   DiscoverMedia,
@@ -46,6 +40,12 @@ import type {
   Provider,
   UseDiscoverMediaProps,
   UseDiscoverMediaReturn,
+} from "@/pages/discover/types/discover";
+import {
+  EDITOR_PICKS_MOVIES,
+  EDITOR_PICKS_TV_SHOWS,
+  MOVIE_PROVIDERS,
+  TV_PROVIDERS,
 } from "@/pages/discover/types/discover";
 import { conf } from "@/setup/config";
 import { useLanguageStore } from "@/stores/language";
@@ -180,7 +180,7 @@ export function useDiscoverMedia({
         throw err;
       }
     },
-    [formattedLanguage, page, mediaType, isCarouselView],
+    [formattedLanguage, page, mediaType, isCarouselView]
   );
 
   const fetchTraktMedia = useCallback(
@@ -205,7 +205,7 @@ export function useDiscoverMedia({
           response,
           page,
           pageSize,
-          mediaType === "movie" ? "movie" : mediaType === "tv" ? "tv" : "both",
+          mediaType === "movie" ? "movie" : mediaType === "tv" ? "tv" : "both"
         );
 
         // For carousel views, we only need to fetch details for displayed items
@@ -236,7 +236,7 @@ export function useDiscoverMedia({
         const results = settledResults
           .filter(
             (result): result is PromiseFulfilledResult<any> =>
-              result.status === "fulfilled" && result.value !== null,
+              result.status === "fulfilled" && result.value !== null
           )
           .map((result) => result.value);
 
@@ -249,7 +249,7 @@ export function useDiscoverMedia({
         throw err;
       }
     },
-    [mediaType, formattedLanguage, page, isCarouselView],
+    [mediaType, formattedLanguage, page, isCarouselView]
   );
 
   // Get Trakt function for provider
@@ -296,7 +296,7 @@ export function useDiscoverMedia({
           return null;
       }
     },
-    [mediaType],
+    [mediaType]
   );
 
   const fetchEditorPicks = useCallback(async () => {
@@ -347,7 +347,7 @@ export function useDiscoverMedia({
             .map((tmdbId) => getMediaDetails(tmdbId, type));
 
           const fedSimilarDetails = await Promise.allSettled(
-            fedSimilarDetailPromises,
+            fedSimilarDetailPromises
           );
 
           const results: any[] = [];
@@ -404,7 +404,7 @@ export function useDiscoverMedia({
           const minResults = isCarouselView ? 5 : 10;
           if (results.length >= minResults) {
             console.info(
-              `Using fed-similar API results (${results.length} items)`,
+              `Using fed-similar API results (${results.length} items)`
             );
             return {
               results: results.map((item) => ({
@@ -418,10 +418,10 @@ export function useDiscoverMedia({
 
         // Fall back to TMDB recommendations
         console.info(
-          "Fed-similar API returned insufficient or no results, falling back to TMDB",
+          "Fed-similar API returned insufficient or no results, falling back to TMDB"
         );
         const data = await fetchTMDBMedia(
-          `/${mediaType}/${mediaId}/recommendations`,
+          `/${mediaType}/${mediaId}/recommendations`
         );
         return data;
       } catch (err) {
@@ -432,7 +432,7 @@ export function useDiscoverMedia({
         return fetchTMDBMedia(`/${mediaType}/${mediaId}/recommendations`);
       }
     },
-    [mediaType, isCarouselView, fetchTMDBMedia],
+    [mediaType, isCarouselView, fetchTMDBMedia]
   );
 
   const fetchMedia = useCallback(async () => {
@@ -449,8 +449,8 @@ export function useDiscoverMedia({
     setError(null);
 
     const attemptFetch = async (type: DiscoverContentType) => {
-      let data;
-      let traktProviderFunction;
+      let data: any;
+      let traktProviderFunction: ReturnType<typeof getTraktProviderFunction>;
 
       // Map content types to their endpoints and handling logic
       switch (type) {
@@ -512,7 +512,7 @@ export function useDiscoverMedia({
           setSectionTitle(
             mediaType === "movie"
               ? t("discover.carousel.title.movies", { category: genreName })
-              : t("discover.carousel.title.tvshows", { category: genreName }),
+              : t("discover.carousel.title.tvshows", { category: genreName })
           );
           break;
 
@@ -531,12 +531,12 @@ export function useDiscoverMedia({
                     })
                   : t("discover.carousel.title.tvshowsOn", {
                       provider: providerName,
-                    }),
+                    })
               );
             } catch (traktErr) {
               console.error(
                 "Trakt provider fetch failed, falling back to TMDB:",
-                traktErr,
+                traktErr
               );
               // Fall back to TMDB
               data = await fetchTMDBMedia(`/discover/${mediaType}`, {
@@ -550,7 +550,7 @@ export function useDiscoverMedia({
                     })
                   : t("discover.carousel.title.tvshowsOn", {
                       provider: providerName,
-                    }),
+                    })
               );
             }
           } else {
@@ -566,7 +566,7 @@ export function useDiscoverMedia({
                   })
                 : t("discover.carousel.title.tvshowsOn", {
                     provider: providerName,
-                  }),
+                  })
             );
           }
           break;
@@ -575,7 +575,7 @@ export function useDiscoverMedia({
           if (!id) throw new Error("Media ID is required for recommendations");
           data = await fetchRecommendationsWithFedSimilar(id);
           setSectionTitle(
-            t("discover.carousel.title.recommended", { title: mediaTitle }),
+            t("discover.carousel.title.recommended", { title: mediaTitle })
           );
           break;
 
@@ -584,7 +584,7 @@ export function useDiscoverMedia({
           setSectionTitle(
             mediaType === "movie"
               ? t("discover.carousel.title.editorPicksMovies")
-              : t("discover.carousel.title.editorPicksShows"),
+              : t("discover.carousel.title.editorPicksShows")
           );
           break;
 

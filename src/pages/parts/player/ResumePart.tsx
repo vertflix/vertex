@@ -6,7 +6,7 @@ import { NextEpisodeButton } from "@/components/player/atoms/NextEpisodeButton";
 import { Paragraph } from "@/components/text/Paragraph";
 import { Title } from "@/components/text/Title";
 import { ErrorContainer, ErrorLayout } from "@/pages/layouts/ErrorLayout";
-import { PlayerMeta } from "@/stores/player/slices/source";
+import type { PlayerMeta } from "@/stores/player/slices/source";
 import { usePlayerStore } from "@/stores/player/store";
 import { getProgressPercentage, useProgressStore } from "@/stores/progress";
 
@@ -32,7 +32,7 @@ export function ResumePart(props: ResumePartProps) {
       if (!item.progress) return 0;
       return getProgressPercentage(
         item.progress.watched,
-        item.progress.duration,
+        item.progress.duration
       );
     }
 
@@ -41,7 +41,7 @@ export function ResumePart(props: ResumePartProps) {
       if (!episode) return 0;
       return getProgressPercentage(
         episode.progress.watched,
-        episode.progress.duration,
+        episode.progress.duration
       );
     }
 

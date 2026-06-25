@@ -1,5 +1,5 @@
-import { DisplayError } from "@/components/player/display/displayInterface";
-import { MakeSlice } from "@/stores/player/slices/types";
+import type { DisplayError } from "@/components/player/display/displayInterface";
+import type { MakeSlice } from "@/stores/player/slices/types";
 
 export enum VideoPlayerTimeFormat {
   REGULAR = 0,

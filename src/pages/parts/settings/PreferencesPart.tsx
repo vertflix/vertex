@@ -49,7 +49,7 @@ export function PreferencesPart(props: {
   const [isSourceListExpanded, setIsSourceListExpanded] = useState(false);
   const sorted = sortLangCodes(
     appLanguageOptions.map((item) => item.code),
-    props.language,
+    props.language
   );
 
   const allowAutoplay = isAutoplayAllowed();
@@ -63,7 +63,7 @@ export function PreferencesPart(props: {
     }));
 
   const selected = options.find(
-    (item) => item.id === getLocaleInfo(props.language)?.code,
+    (item) => item.id === getLocaleInfo(props.language)?.code
   );
 
   const allSources = getAllProviders().listSources();
@@ -123,7 +123,7 @@ export function PreferencesPart(props: {
                 "bg-dropdown-background hover:bg-dropdown-hoverBackground select-none my-4 cursor-pointer space-x-3 flex items-center max-w-[25rem] py-3 px-4 rounded-lg",
                 props.enableLowPerformanceMode
                   ? "cursor-not-allowed opacity-50 pointer-events-none"
-                  : "cursor-pointer opacity-100 pointer-events-auto",
+                  : "cursor-pointer opacity-100 pointer-events-auto"
               )}
             >
               <Toggle enabled={props.enableThumbnails} />
@@ -151,7 +151,7 @@ export function PreferencesPart(props: {
                 "bg-dropdown-background hover:bg-dropdown-hoverBackground select-none my-4 cursor-pointer space-x-3 flex items-center max-w-[25rem] py-3 px-4 rounded-lg",
                 allowAutoplay && !props.enableLowPerformanceMode
                   ? "cursor-pointer opacity-100 pointer-events-auto"
-                  : "cursor-not-allowed opacity-50 pointer-events-none",
+                  : "cursor-not-allowed opacity-50 pointer-events-none"
               )}
             >
               <Toggle enabled={props.enableAutoplay && allowAutoplay} />
@@ -194,7 +194,7 @@ export function PreferencesPart(props: {
                     <div
                       onClick={() =>
                         props.setEnableAutoSkipSegments(
-                          !props.enableAutoSkipSegments,
+                          !props.enableAutoSkipSegments
                         )
                       }
                       className="bg-dropdown-background hover:bg-dropdown-hoverBackground select-none my-4 cursor-pointer space-x-3 flex items-center max-w-[25rem] py-3 px-4 rounded-lg"
@@ -321,7 +321,7 @@ export function PreferencesPart(props: {
               <div
                 onClick={() =>
                   props.setEnableAutoResumeOnPlaybackError(
-                    !props.enableAutoResumeOnPlaybackError,
+                    !props.enableAutoResumeOnPlaybackError
                   )
                 }
                 className="bg-dropdown-background hover:bg-dropdown-hoverBackground select-none my-4 cursor-pointer space-x-3 flex items-center max-w-[25rem] py-3 px-4 rounded-lg"
@@ -344,7 +344,7 @@ export function PreferencesPart(props: {
               <div
                 onClick={() =>
                   props.setEnableLastSuccessfulSource(
-                    !props.enableLastSuccessfulSource,
+                    !props.enableLastSuccessfulSource
                   )
                 }
                 className="bg-dropdown-background hover:bg-dropdown-hoverBackground select-none my-4 cursor-pointer space-x-3 flex items-center max-w-[25rem] py-3 px-4 rounded-lg"
@@ -391,7 +391,7 @@ export function PreferencesPart(props: {
                     "overflow-hidden transition-all duration-300",
                     sourceItems.length > 10 && !isSourceListExpanded
                       ? "max-h-[400px]"
-                      : "max-h-none",
+                      : "max-h-none"
                   )}
                 >
                   <SortableList

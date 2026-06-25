@@ -1,4 +1,4 @@
-import { MakeSlice } from "@/stores/player/slices/types";
+import type { MakeSlice } from "@/stores/player/slices/types";
 
 export interface CastingSlice {
   casting: {

@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 
 import { get } from "@/backend/metadata/tmdb";
-import { Category, Genre, Movie, TVShow } from "@/pages/discover/common";
+import type { Category, Genre, Movie, TVShow } from "@/pages/discover/common";
 import { conf } from "@/setup/config";
 import { useLanguageStore } from "@/stores/language";
 import { getTmdbLanguageCode } from "@/utils/language";
@@ -12,7 +12,7 @@ export function useTMDBData(
   genres: Genre[],
   categories: Category[],
   mediaType: MediaType,
-  shouldLoad = true,
+  shouldLoad = true
 ) {
   const [genreMedia, setGenreMedia] = useState<{
     [id: number]: Movie[] | TVShow[];
@@ -50,12 +50,12 @@ export function useTMDBData(
       } catch (error) {
         console.error(
           `Error fetching ${mediaType} for ${isGenre ? "genre" : "category"} ${key}:`,
-          error,
+          error
         );
         return [];
       }
     },
-    [mediaType, formattedLanguage],
+    [mediaType, formattedLanguage]
   );
 
   // Fetch media for each genre
@@ -68,7 +68,7 @@ export function useTMDBData(
         const media = await fetchMedia(
           `/discover/${mediaType}`,
           genre.id.toString(),
-          true,
+          true
         );
         setGenreMedia((prev) => ({ ...prev, [genre.id]: media }));
       });
@@ -104,7 +104,7 @@ export function useLazyTMDBData(
   genre: Genre | null,
   category: Category | null,
   mediaType: MediaType,
-  shouldLoad = false,
+  shouldLoad = false
 ) {
   const [media, setMedia] = useState<Movie[] | TVShow[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -130,13 +130,13 @@ export function useLazyTMDBData(
       } catch (error) {
         console.error(
           `Error fetching ${mediaType} for ${isGenre ? "genre" : "category"}:`,
-          error,
+          error
         );
         setIsLoading(false);
         return [];
       }
     },
-    [mediaType, formattedLanguage],
+    [mediaType, formattedLanguage]
   );
 
   useEffect(() => {

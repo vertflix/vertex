@@ -35,7 +35,7 @@ export function TranscriptView({ id }: { id: string }) {
 
   const parsedCaptions = useMemo(
     () => (srtData ? parseSubtitles(srtData, language) : []),
-    [srtData, language],
+    [srtData, language]
   );
 
   const showHours = useMemo(() => {
@@ -64,7 +64,7 @@ export function TranscriptView({ id }: { id: string }) {
           raw: textWithNewlines,
         };
       }),
-    [parsedCaptions, delay],
+    [parsedCaptions, delay]
   );
 
   const filteredItems = useMemo(() => {
@@ -88,7 +88,7 @@ export function TranscriptView({ id }: { id: string }) {
       };
 
     const visibleIdx = parsedCaptions.findIndex(({ start, end }) =>
-      captionIsVisible(start, end, delay, time),
+      captionIsVisible(start, end, delay, time)
     );
 
     // Next upcoming caption (first with start > now)
@@ -100,7 +100,7 @@ export function TranscriptView({ id }: { id: string }) {
         ? makeQueId(
             visibleIdx,
             parsedCaptions[visibleIdx]!.start,
-            parsedCaptions[visibleIdx]!.end,
+            parsedCaptions[visibleIdx]!.end
           )
         : null; // Show nothing during gaps
 
@@ -132,8 +132,8 @@ export function TranscriptView({ id }: { id: string }) {
     setIsAtTop(container.scrollTop <= 0);
     setIsAtBottom(
       Math.abs(
-        container.scrollHeight - container.scrollTop - container.clientHeight,
-      ) < 2,
+        container.scrollHeight - container.scrollTop - container.clientHeight
+      ) < 2
     );
   };
 
@@ -174,7 +174,7 @@ export function TranscriptView({ id }: { id: string }) {
 
       const maxScrollTop = Math.max(
         0,
-        container.scrollHeight - containerHeight,
+        container.scrollHeight - containerHeight
       );
       nextScrollTop = Math.max(0, Math.min(nextScrollTop, maxScrollTop));
 
@@ -183,7 +183,7 @@ export function TranscriptView({ id }: { id: string }) {
 
     const doScroll = () => {
       const el = document.querySelector<HTMLElement>(
-        `[data-que-id="${scrollTargetKey}"]`,
+        `[data-que-id="${scrollTargetKey}"]`
       );
       if (el) scrollToStablePoint(el);
     };
@@ -218,7 +218,7 @@ export function TranscriptView({ id }: { id: string }) {
           {
             "hide-top-gradient": isAtTop,
             "hide-bottom-gradient": isAtBottom,
-          },
+          }
         )}
       >
         <div className="flex flex-col gap-1 pb-4">

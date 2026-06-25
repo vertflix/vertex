@@ -7,12 +7,11 @@ import { Icon, Icons } from "@/components/Icon";
 import { useCaptions } from "@/components/player/hooks/useCaptions";
 import { Menu } from "@/components/player/internals/ContextMenu";
 import { useOverlayRouter } from "@/hooks/useOverlayRouter";
-import { CaptionListItem } from "@/stores/player/slices/source";
+import type { CaptionListItem } from "@/stores/player/slices/source";
 import { usePlayerStore } from "@/stores/player/store";
 import { getPrettyLanguageNameFromLocale } from "@/utils/language";
-
-import { CaptionOption } from "./CaptionsView";
 import { useCaptionMatchScore } from "../../hooks/useCaptionMatchScore";
+import { CaptionOption } from "./CaptionsView";
 
 export interface LanguageSubtitlesViewProps {
   id: string;
@@ -59,20 +58,20 @@ export function LanguageSubtitlesView({
 
   const getHlsCaptionList = usePlayerStore((s) => s.display?.getCaptionList);
   const isLoadingExternalSubtitles = usePlayerStore(
-    (s) => s.isLoadingExternalSubtitles,
+    (s) => s.isLoadingExternalSubtitles
   );
 
   // Get combined caption list
   const captions = useMemo(
     () =>
       captionList.length !== 0 ? captionList : (getHlsCaptionList?.() ?? []),
-    [captionList, getHlsCaptionList],
+    [captionList, getHlsCaptionList]
   );
 
   // Filter captions for this specific language
   const languageCaptions = useMemo(
     () => captions.filter((caption) => caption.language === language),
-    [captions, language],
+    [captions, language]
   );
 
   // Download handler
@@ -81,7 +80,7 @@ export function LanguageSubtitlesView({
       setCurrentlyDownloading(captionId);
       return selectCaptionById(captionId);
     },
-    [selectCaptionById, setCurrentlyDownloading],
+    [selectCaptionById, setCurrentlyDownloading]
   );
 
   // Random subtitle selection
@@ -161,7 +160,7 @@ export function LanguageSubtitlesView({
           router.navigate(
             overlayBackLink
               ? "/captionsOverlay/languagesOverlay/translateSubtitleOverlay"
-              : "/captions/languages/translateSubtitleOverlay",
+              : "/captions/languages/translateSubtitleOverlay"
           );
         }}
         isTranslatedTarget={

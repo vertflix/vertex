@@ -1,13 +1,11 @@
 /* eslint-disable no-console */
-import { PlayerMeta } from "@/stores/player/slices/source";
-
-import { scrapeFebboxCaptions as _scrapeFebboxCaptions } from "./febbox";
+import type { PlayerMeta } from "@/stores/player/slices/source";
 import { scrapeOpenSubtitlesCaptions } from "./opensubtitles";
 import { scrapeVdrkCaptions } from "./vdrk";
 import { scrapeWyzieCaptions } from "./wyzie";
 
 export async function scrapeExternalSubtitles(
-  meta: PlayerMeta,
+  meta: PlayerMeta
 ): Promise<import("@/stores/player/slices/source").CaptionListItem[]> {
   try {
     // Extract IMDb ID from meta
@@ -29,7 +27,7 @@ export async function scrapeExternalSubtitles(
     const openSubsPromise = scrapeOpenSubtitlesCaptions(
       imdbId,
       season,
-      episode,
+      episode
     );
     // const febboxPromise = scrapeFebboxCaptions(imdbId, season, episode);
     const vdrkPromise = scrapeVdrkCaptions(tmdbId, season, episode);
@@ -50,12 +48,12 @@ export async function scrapeExternalSubtitles(
     // Helper function to handle individual source completion
     const handleSourceCompletion = (
       sourceName: string,
-      captions: import("@/stores/player/slices/source").CaptionListItem[],
+      captions: import("@/stores/player/slices/source").CaptionListItem[]
     ) => {
       allCaptions.push(...captions);
       completedSources += 1;
       console.log(
-        `${sourceName} completed with ${captions.length} captions (${completedSources}/${totalSources} sources done)`,
+        `${sourceName} completed with ${captions.length} captions (${completedSources}/${totalSources} sources done)`
       );
     };
 
@@ -83,7 +81,7 @@ export async function scrapeExternalSubtitles(
     await Promise.allSettled(promises);
 
     console.log(
-      `Found ${allCaptions.length} total external captions from all sources`,
+      `Found ${allCaptions.length} total external captions from all sources`
     );
 
     return allCaptions;
@@ -93,8 +91,8 @@ export async function scrapeExternalSubtitles(
   }
 }
 
+export { scrapeFebboxCaptions } from "./febbox";
+export { scrapeOpenSubtitlesCaptions } from "./opensubtitles";
+export { scrapeVdrkCaptions } from "./vdrk";
 // Re-export individual functions for direct access if needed
 export { scrapeWyzieCaptions } from "./wyzie";
-export { scrapeOpenSubtitlesCaptions } from "./opensubtitles";
-export { scrapeFebboxCaptions } from "./febbox";
-export { scrapeVdrkCaptions } from "./vdrk";

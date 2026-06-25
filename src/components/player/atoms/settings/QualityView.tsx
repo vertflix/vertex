@@ -9,9 +9,9 @@ import { SelectableLink } from "@/components/player/internals/ContextMenu/Links"
 import { useOverlayRouter } from "@/hooks/useOverlayRouter";
 import { usePlayerStore } from "@/stores/player/store";
 import {
-  SourceQuality,
   allQualities,
   qualityToString,
+  type SourceQuality,
 } from "@/stores/player/utils/qualities";
 import { useQualityStore } from "@/stores/quality";
 import { canPlayHlsNatively } from "@/utils/detectFeatures";
@@ -45,7 +45,7 @@ export function QualityView({ id }: { id: string }) {
   const currentQuality = usePlayerStore((s) => s.currentQuality);
   const switchQuality = usePlayerStore((s) => s.switchQuality);
   const enableAutomaticQuality = usePlayerStore(
-    (s) => s.enableAutomaticQuality,
+    (s) => s.enableAutomaticQuality
   );
   const setAutomaticQuality = useQualityStore((s) => s.setAutomaticQuality);
   const setLastChosenQuality = useQualityStore((s) => s.setLastChosenQuality);
@@ -62,7 +62,7 @@ export function QualityView({ id }: { id: string }) {
       switchQuality(q);
       router.close();
     },
-    [router, switchQuality, setLastChosenQuality],
+    [router, switchQuality, setLastChosenQuality]
   );
 
   const changeAutomatic = useCallback(() => {

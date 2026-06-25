@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
 export function ErrorContainer(props: {
   children: React.ReactNode;
@@ -9,7 +9,7 @@ export function ErrorContainer(props: {
     <div
       className={classNames(
         "w-full p-6 text-center flex flex-col items-center",
-        props.maxWidth ?? "max-w-[28rem]",
+        props.maxWidth ?? "max-w-[28rem]"
       )}
     >
       {props.children}

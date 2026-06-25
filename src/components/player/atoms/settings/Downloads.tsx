@@ -60,7 +60,7 @@ export function DownloadView({ id }: { id: string }) {
 
     // Check if the URL contains the m3u8-proxy and the ?url= parameter
     const match = downloadUrl.match(/m3u8-proxy\?url=(.*)$/);
-    if (match && match[1]) {
+    if (match?.[1]) {
       // Decode the URL component
       return decodeURIComponent(match[1]);
     }

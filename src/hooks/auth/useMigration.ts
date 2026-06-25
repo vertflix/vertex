@@ -35,13 +35,16 @@ import { watchHistoryItemsToInputs } from "@/backend/accounts/watchHistory";
 // } from "@/backend/accounts/user";
 import { useAuthData } from "@/hooks/auth/useAuthData";
 // import { useBackendUrl } from "@/hooks/auth/useBackendUrl";
-import { AccountWithToken, useAuthStore } from "@/stores/auth";
-import { BookmarkMediaItem, useBookmarkStore } from "@/stores/bookmarks";
+import { type AccountWithToken, useAuthStore } from "@/stores/auth";
+import { type BookmarkMediaItem, useBookmarkStore } from "@/stores/bookmarks";
 import { useGroupOrderStore } from "@/stores/groupOrder";
 import { usePreferencesStore } from "@/stores/preferences";
-import { ProgressMediaItem, useProgressStore } from "@/stores/progress";
+import { type ProgressMediaItem, useProgressStore } from "@/stores/progress";
 import { useSubtitleStore } from "@/stores/subtitles";
-import { WatchHistoryItem, useWatchHistoryStore } from "@/stores/watchHistory";
+import {
+  useWatchHistoryStore,
+  type WatchHistoryItem,
+} from "@/stores/watchHistory";
 
 export interface RegistrationData {
   recaptchaToken?: string;
@@ -83,7 +86,7 @@ export function useMigration() {
         progressItems: Record<string, ProgressMediaItem>,
         watchHistoryItems: Record<string, WatchHistoryItem>,
         bookmarkItems: Record<string, BookmarkMediaItem>,
-        groupOrderItems: string[],
+        groupOrderItems: string[]
       ) => {
         if (
           Object.keys(progressItems).length === 0 &&
@@ -95,13 +98,13 @@ export function useMigration() {
         }
 
         const progressInputs = Object.entries(progressItems).flatMap(
-          ([tmdbId, item]) => progressMediaItemToInputs(tmdbId, item),
+          ([tmdbId, item]) => progressMediaItemToInputs(tmdbId, item)
         );
 
         const watchHistoryInputs = watchHistoryItemsToInputs(watchHistoryItems);
 
         const bookmarkInputs = Object.entries(bookmarkItems).map(
-          ([tmdbId, item]) => bookmarkMediaToInput(tmdbId, item),
+          ([tmdbId, item]) => bookmarkMediaToInput(tmdbId, item)
         );
 
         const importPromises = [
@@ -113,7 +116,7 @@ export function useMigration() {
         // Import group order if it exists
         if (groupOrderItems.length > 0) {
           importPromises.push(
-            importGroupOrder(backendUrlInner, account, groupOrderItems),
+            importGroupOrder(backendUrlInner, account, groupOrderItems)
           );
         }
 
@@ -157,7 +160,7 @@ export function useMigration() {
             enableDoubleClickToSeek: preferences.enableDoubleClickToSeek,
             enableAutoResumeOnPlaybackError:
               preferences.enableAutoResumeOnPlaybackError,
-          }),
+          })
         );
 
         await Promise.all(importPromises);
@@ -165,7 +168,7 @@ export function useMigration() {
 
       const { challenge } = await getRegisterChallengeToken(
         backendUrl,
-        recaptchaToken || undefined, // Pass undefined if token is not provided
+        recaptchaToken || undefined // Pass undefined if token is not provided
       );
       const keys = await keysFromSeed(base64ToBuffer(currentAccount.seed));
       const signature = await signChallenge(keys, challenge);
@@ -183,7 +186,7 @@ export function useMigration() {
         registerResult,
         registerResult.user,
         registerResult.session,
-        bytesToBase64(keys.seed),
+        bytesToBase64(keys.seed)
       );
 
       await importData(
@@ -192,7 +195,7 @@ export function useMigration() {
         progress,
         watchHistory,
         bookmarks,
-        groupOrder,
+        groupOrder
       );
 
       return account;
@@ -206,7 +209,7 @@ export function useMigration() {
       groupOrder,
       preferences,
       subtitleLanguage,
-    ],
+    ]
   );
 
   return {

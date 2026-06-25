@@ -11,7 +11,7 @@ export const getAllFeeds = (): string[] => {
       const customFeeds = JSON.parse(savedCustomFeeds);
       return [...DEFAULT_FEEDS, ...customFeeds];
     }
-  } catch (e) {
+  } catch (_e) {
     // Silently fail and return default feeds
   }
   return DEFAULT_FEEDS;
@@ -162,7 +162,7 @@ export function formatNotificationDescription(description: string): string {
       // Style bullet points
       .replace(
         /<p>• /g,
-        '<p class="flex items-start gap-2"><span class="text-type-link">•</span><span>',
+        '<p class="flex items-start gap-2"><span class="text-type-link">•</span><span>'
       )
       .replace(/<\/p>/g, "</span></p>")
   );

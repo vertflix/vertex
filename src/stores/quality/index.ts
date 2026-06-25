@@ -3,7 +3,7 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { immer } from "zustand/middleware/immer";
 
-import { SourceQuality } from "@/stores/player/utils/qualities";
+import type { SourceQuality } from "@/stores/player/utils/qualities";
 
 export interface QualityStore {
   quality: {
@@ -35,6 +35,6 @@ export const useQualityStore = create(
     {
       name: "__MW::quality",
       merge: (persisted, current) => merge({}, current, persisted),
-    },
-  ),
+    }
+  )
 );

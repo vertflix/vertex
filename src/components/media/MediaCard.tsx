@@ -11,11 +11,10 @@ import { Flare } from "@/components/utils/Flare";
 import { useSearchQuery } from "@/hooks/useSearchQuery";
 import { useOverlayStack } from "@/stores/interface/overlayStack";
 import { usePreferencesStore } from "@/stores/preferences";
-import { MediaItem } from "@/utils/mediaTypes";
-
-import { MediaBookmarkButton } from "./MediaBookmark";
+import type { MediaItem } from "@/utils/mediaTypes";
 import { IconPatch } from "../buttons/IconPatch";
 import { Icon, Icons } from "../Icon";
+import { MediaBookmarkButton } from "./MediaBookmark";
 
 // Simple Intersection Observer Hook
 function useIntersectionObserver(options: IntersectionObserverInit = {}) {
@@ -30,7 +29,7 @@ function useIntersectionObserver(options: IntersectionObserverInit = {}) {
       {
         ...options,
         rootMargin: options.rootMargin || "300px",
-      },
+      }
     );
 
     const currentTarget = targetRef.current;
@@ -66,7 +65,7 @@ export function MediaCardSkeleton() {
           <div
             className={classNames(
               "relative pb-[150%] w-full overflow-hidden rounded-xl bg-mediaCard-hoverBackground",
-              enableMinimalCards ? "" : "mb-4",
+              enableMinimalCards ? "" : "mb-4"
             )}
           />
 
@@ -113,10 +112,10 @@ export interface MediaCardProps {
 
 function checkReleased(media: MediaItem): boolean {
   const isReleasedYear = Boolean(
-    media.year && media.year <= new Date().getFullYear(),
+    media.year && media.year <= new Date().getFullYear()
   );
   const isReleasedDate = Boolean(
-    media.release_date && media.release_date <= new Date(),
+    media.release_date && media.release_date <= new Date()
   );
 
   // If the media has a release date, use that, otherwise use the year
@@ -201,7 +200,7 @@ function MediaCardContent({
               {
                 "group-hover:rounded-lg": canLink,
               },
-              enableMinimalCards ? "" : "mb-4",
+              enableMinimalCards ? "" : "mb-4"
             )}
             style={{
               backgroundImage: isIntersecting
@@ -342,12 +341,12 @@ export function MediaCard(props: MediaCardProps) {
   const { media, onShowDetails, forceSkeleton } = props;
   const { showModal } = useOverlayStack();
   const enableDetailsModal = usePreferencesStore(
-    (state) => state.enableDetailsModal,
+    (state) => state.enableDetailsModal
   );
 
   const isReleased = useCallback(
     () => checkReleased(props.media),
-    [props.media],
+    [props.media]
   );
 
   const canLink = props.linkable && !props.closable && isReleased();
@@ -360,7 +359,7 @@ export function MediaCard(props: MediaCardProps) {
       link += `/${encodeURIComponent(props.series.seasonId)}`;
     } else {
       link += `/${encodeURIComponent(
-        props.series.seasonId,
+        props.series.seasonId
       )}/${encodeURIComponent(props.series.episodeId)}`;
     }
   }
@@ -420,7 +419,7 @@ export function MediaCard(props: MediaCardProps) {
       tabIndex={-1}
       className={classNames(
         "tabbable",
-        props.closable ? "hover:cursor-default" : "",
+        props.closable ? "hover:cursor-default" : ""
       )}
       onClick={handleCardClick}
       onContextMenu={handleCardContextMenu}

@@ -1,5 +1,5 @@
 import type { SegmentData } from "@/components/player/hooks/useSkipTime";
-import { MakeSlice } from "@/stores/player/slices/types";
+import type { MakeSlice } from "@/stores/player/slices/types";
 
 export interface SkipSegmentsSlice {
   skipSegmentsCacheKey: string | null;

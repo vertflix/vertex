@@ -1,4 +1,4 @@
-import { ProviderControls, ScrapeMedia } from "@p-stream/providers";
+import type { ProviderControls, ScrapeMedia } from "@p-stream/providers";
 import classNames from "classnames";
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -16,8 +16,8 @@ import {
   ScrapeItem,
 } from "@/components/player/internals/ScrapeCard";
 import {
-  ScrapingItems,
-  ScrapingSegment,
+  type ScrapingItems,
+  type ScrapingSegment,
   useListCenter,
   useScrape,
 } from "@/hooks/useProviderScrape";
@@ -29,7 +29,7 @@ export interface ScrapingProps {
   onGetStream?: (stream: AsyncReturnType<ProviderControls["runAll"]>) => void;
   onResult?: (
     sources: Record<string, ScrapingSegment>,
-    sourceOrder: ScrapingItems[],
+    sourceOrder: ScrapingItems[]
   ) => void;
   startFromSourceId?: string;
 }
@@ -50,7 +50,7 @@ export function ScrapingPart(props: ScrapingProps) {
     containerRef,
     listRef,
     sourceOrder,
-    currentSource,
+    currentSource
   );
 
   const resultRef = useRef({
@@ -78,14 +78,14 @@ export function ScrapingPart(props: ScrapingProps) {
       if (!isMounted()) return;
       props.onResult?.(
         resultRef.current.sources,
-        resultRef.current.sourceOrder,
+        resultRef.current.sourceOrder
       );
       report(
         scrapePartsToProviderMetric(
           props.media,
           resultRef.current.sourceOrder,
-          resultRef.current.sources,
-        ),
+          resultRef.current.sources
+        )
       );
       props.onGetStream?.(output);
     })().catch((error) => {
@@ -120,7 +120,7 @@ export function ScrapingPart(props: ScrapingProps) {
   ]);
 
   let currentProviderIndex = sourceOrder.findIndex(
-    (s) => s.id === currentSource || s.children.includes(currentSource ?? ""),
+    (s) => s.id === currentSource || s.children.includes(currentSource ?? "")
   );
   if (currentProviderIndex === -1)
     currentProviderIndex = sourceOrder.length - 1;
@@ -147,7 +147,7 @@ export function ScrapingPart(props: ScrapingProps) {
           const source = sources[order.id];
           const distance = Math.abs(
             sourceOrder.findIndex((o) => o.id === order.id) -
-              currentProviderIndex,
+              currentProviderIndex
           );
           return (
             <div

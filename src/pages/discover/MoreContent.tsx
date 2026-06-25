@@ -4,15 +4,15 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useWindowSize } from "react-use";
 
 import { Button } from "@/components/buttons/Button";
-import { Dropdown, OptionItem } from "@/components/form/Dropdown";
+import { Dropdown, type OptionItem } from "@/components/form/Dropdown";
 import { Icon, Icons } from "@/components/Icon";
 import { WideContainer } from "@/components/layout/WideContainer";
 import { MediaCard } from "@/components/media/MediaCard";
 import { MediaGrid } from "@/components/media/MediaGrid";
 import { Heading1 } from "@/components/utils/Text";
 import {
-  DiscoverContentType,
-  MediaType,
+  type DiscoverContentType,
+  type MediaType,
   useDiscoverMedia,
   useDiscoverOptions,
 } from "@/pages/discover/hooks/useDiscoverMedia";
@@ -20,7 +20,7 @@ import { SubPageLayout } from "@/pages/layouts/SubPageLayout";
 import { useDiscoverStore } from "@/stores/discover";
 import { useOverlayStack } from "@/stores/interface/overlayStack";
 import { useProgressStore } from "@/stores/progress";
-import { MediaItem } from "@/utils/mediaTypes";
+import type { MediaItem } from "@/utils/mediaTypes";
 
 interface MoreContentProps {
   onShowDetails?: (media: MediaItem) => void;
@@ -30,7 +30,7 @@ export function MoreContent({ onShowDetails }: MoreContentProps) {
   const { mediaType = "movie", contentType, id, category } = useParams();
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedProvider, setSelectedProvider] = useState<OptionItem | null>(
-    null,
+    null
   );
   const [selectedGenre, setSelectedGenre] = useState<OptionItem | null>(null);
   const [selectedRecommendationId, setSelectedRecommendationId] =
@@ -49,8 +49,7 @@ export function MoreContent({ onShowDetails }: MoreContentProps) {
   // Get recommendation sources from progress store
   const recommendationSources = Object.entries(progressStore.items || {})
     .filter(
-      ([_itemId, item]) =>
-        item.type === (mediaType === "tv" ? "show" : "movie"),
+      ([_itemId, item]) => item.type === (mediaType === "tv" ? "show" : "movie")
     )
     .map(([itemId, item]) => ({
       id: itemId,
@@ -60,7 +59,7 @@ export function MoreContent({ onShowDetails }: MoreContentProps) {
   // Find selected recommendation source (used in multiple places)
   const selectedRecommendationSource = React.useMemo(
     () => recommendationSources.find((s) => s.id === selectedRecommendationId),
-    [recommendationSources, selectedRecommendationId],
+    [recommendationSources, selectedRecommendationId]
   );
 
   // Determine the actual content type and ID from URL parameters
@@ -151,13 +150,13 @@ export function MoreContent({ onShowDetails }: MoreContentProps) {
   useEffect(() => {
     if (contentType === "provider" && selectedProvider) {
       navigate(
-        `/discover/more/provider/${selectedProvider.id}/${actualMediaType}`,
+        `/discover/more/provider/${selectedProvider.id}/${actualMediaType}`
       );
     } else if (contentType === "genre" && selectedGenre) {
       navigate(`/discover/more/genre/${selectedGenre.id}/${actualMediaType}`);
     } else if (contentType === "recommendations" && selectedRecommendationId) {
       navigate(
-        `/discover/more/recommendations/${selectedRecommendationId}/${actualMediaType}`,
+        `/discover/more/recommendations/${selectedRecommendationId}/${actualMediaType}`
       );
     }
   }, [

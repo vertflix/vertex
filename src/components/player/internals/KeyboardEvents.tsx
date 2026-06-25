@@ -16,8 +16,8 @@ import { useWatchPartyStore } from "@/stores/watchParty";
 import {
   DEFAULT_KEYBOARD_SHORTCUTS,
   LOCKED_SHORTCUTS,
-  ShortcutId,
   matchesShortcut,
+  ShortcutId,
 } from "@/utils/keyboardShortcuts";
 
 export function KeyboardEvents() {
@@ -33,12 +33,12 @@ export function KeyboardEvents() {
   const meta = usePlayerStore((s) => s.meta);
   const { setDirectMeta } = usePlayerMeta();
   const setShouldStartFromBeginning = usePlayerStore(
-    (s) => s.setShouldStartFromBeginning,
+    (s) => s.setShouldStartFromBeginning
   );
   const updateItem = useProgressStore((s) => s.updateItem);
   const sourceId = usePlayerStore((s) => s.sourceId);
   const setLastSuccessfulSource = usePreferencesStore(
-    (s) => s.setLastSuccessfulSource,
+    (s) => s.setLastSuccessfulSource
   );
 
   const { toggleLastUsed, selectRandomCaptionFromLastUsedLanguage } =
@@ -47,11 +47,11 @@ export function KeyboardEvents() {
   const setDelay = useSubtitleStore((s) => s.setDelay);
   const delay = useSubtitleStore((s) => s.delay);
   const setShowDelayIndicator = useSubtitleStore(
-    (s) => s.setShowDelayIndicator,
+    (s) => s.setShowDelayIndicator
   );
   const enableHoldToBoost = usePreferencesStore((s) => s.enableHoldToBoost);
   const storedKeyboardShortcuts = usePreferencesStore(
-    (s) => s.keyboardShortcuts,
+    (s) => s.keyboardShortcuts
   );
   // Merge defaults with stored shortcuts to ensure new shortcuts are available
   const keyboardShortcuts = useMemo(
@@ -59,16 +59,16 @@ export function KeyboardEvents() {
       ...DEFAULT_KEYBOARD_SHORTCUTS,
       ...storedKeyboardShortcuts,
     }),
-    [storedKeyboardShortcuts],
+    [storedKeyboardShortcuts]
   );
   const enableNativeSubtitles = usePreferencesStore(
-    (s) => s.enableNativeSubtitles,
+    (s) => s.enableNativeSubtitles
   );
   const setEnableNativeSubtitles = usePreferencesStore(
-    (s) => s.setEnableNativeSubtitles,
+    (s) => s.setEnableNativeSubtitles
   );
   const enableNumberKeySeeking = usePreferencesStore(
-    (s) => s.enableNumberKeySeeking,
+    (s) => s.enableNumberKeySeeking
   );
 
   const [isRolling, setIsRolling] = useState(false);
@@ -90,7 +90,7 @@ export function KeyboardEvents() {
 
   // Episode navigation functions
   const navigateToNextEpisode = useCallback(async () => {
-    if (!meta || meta.type !== "show" || !meta.episode) return;
+    if (meta?.type !== "show" || !meta.episode) return;
 
     // Check if we're at the last episode of the current season
     const isLastEpisode =
@@ -99,7 +99,7 @@ export function KeyboardEvents() {
     if (!isLastEpisode) {
       // Navigate to next episode in current season
       const nextEp = meta.episodes?.find(
-        (v) => v.number === meta.episode!.number + 1,
+        (v) => v.number === meta.episode!.number + 1
       );
       if (nextEp) {
         if (sourceId) {
@@ -124,14 +124,14 @@ export function KeyboardEvents() {
         if (data?.meta.type !== MWMediaType.SERIES) return;
 
         const nextSeason = data.meta.seasons?.find(
-          (season) => season.number === (meta.season?.number ?? 0) + 1,
+          (season) => season.number === (meta.season?.number ?? 0) + 1
         );
 
         if (nextSeason) {
           const seasonData = await getMetaFromId(
             MWMediaType.SERIES,
             meta.tmdbId,
-            nextSeason.id,
+            nextSeason.id
           );
 
           if (seasonData?.meta.type === MWMediaType.SERIES) {
@@ -188,7 +188,7 @@ export function KeyboardEvents() {
   ]);
 
   const navigateToPreviousEpisode = useCallback(async () => {
-    if (!meta || meta.type !== "show" || !meta.episode) return;
+    if (meta?.type !== "show" || !meta.episode) return;
 
     // Check if we're at the first episode of the current season
     const isFirstEpisode = meta.episode.number === meta.episodes?.[0]?.number;
@@ -196,7 +196,7 @@ export function KeyboardEvents() {
     if (!isFirstEpisode) {
       // Navigate to previous episode in current season
       const prevEp = meta.episodes?.find(
-        (v) => v.number === meta.episode!.number - 1,
+        (v) => v.number === meta.episode!.number - 1
       );
       if (prevEp) {
         if (sourceId) {
@@ -221,14 +221,14 @@ export function KeyboardEvents() {
         if (data?.meta.type !== MWMediaType.SERIES) return;
 
         const prevSeason = data.meta.seasons?.find(
-          (season) => season.number === (meta.season?.number ?? 0) - 1,
+          (season) => season.number === (meta.season?.number ?? 0) - 1
         );
 
         if (prevSeason) {
           const seasonData = await getMetaFromId(
             MWMediaType.SERIES,
             meta.tmdbId,
-            prevSeason.id,
+            prevSeason.id
           );
 
           if (seasonData?.meta.type === MWMediaType.SERIES) {
@@ -408,11 +408,11 @@ export function KeyboardEvents() {
       }
       if (k === LOCKED_SHORTCUTS.ARROW_UP)
         dataRef.current.setVolume(
-          (dataRef.current.mediaPlaying?.volume || 0) + 0.15,
+          (dataRef.current.mediaPlaying?.volume || 0) + 0.15
         );
       if (k === LOCKED_SHORTCUTS.ARROW_DOWN)
         dataRef.current.setVolume(
-          (dataRef.current.mediaPlaying?.volume || 0) - 0.15,
+          (dataRef.current.mediaPlaying?.volume || 0) - 0.15
         );
       // Mute - check customizable shortcut
       if (
@@ -569,7 +569,7 @@ export function KeyboardEvents() {
       if (
         matchesShortcut(
           evt,
-          dataRef.current.keyboardShortcuts[ShortcutId.SKIP_FORWARD_10],
+          dataRef.current.keyboardShortcuts[ShortcutId.SKIP_FORWARD_10]
         )
       ) {
         evt.preventDefault();
@@ -579,7 +579,7 @@ export function KeyboardEvents() {
       if (
         matchesShortcut(
           evt,
-          dataRef.current.keyboardShortcuts[ShortcutId.SKIP_BACKWARD_10],
+          dataRef.current.keyboardShortcuts[ShortcutId.SKIP_BACKWARD_10]
         )
       ) {
         evt.preventDefault();
@@ -591,7 +591,7 @@ export function KeyboardEvents() {
       if (
         matchesShortcut(
           evt,
-          dataRef.current.keyboardShortcuts[ShortcutId.SKIP_FORWARD_1],
+          dataRef.current.keyboardShortcuts[ShortcutId.SKIP_FORWARD_1]
         )
       ) {
         evt.preventDefault();
@@ -601,7 +601,7 @@ export function KeyboardEvents() {
       if (
         matchesShortcut(
           evt,
-          dataRef.current.keyboardShortcuts[ShortcutId.SKIP_BACKWARD_1],
+          dataRef.current.keyboardShortcuts[ShortcutId.SKIP_BACKWARD_1]
         )
       ) {
         evt.preventDefault();
@@ -639,7 +639,7 @@ export function KeyboardEvents() {
       if (
         matchesShortcut(
           evt,
-          dataRef.current.keyboardShortcuts[ShortcutId.TOGGLE_FULLSCREEN],
+          dataRef.current.keyboardShortcuts[ShortcutId.TOGGLE_FULLSCREEN]
         )
       ) {
         dataRef.current.display?.toggleFullscreen();
@@ -667,7 +667,7 @@ export function KeyboardEvents() {
       if (
         matchesShortcut(
           evt,
-          dataRef.current.keyboardShortcuts[ShortcutId.NEXT_EPISODE],
+          dataRef.current.keyboardShortcuts[ShortcutId.NEXT_EPISODE]
         )
       ) {
         dataRef.current.navigateToNextEpisode();
@@ -675,7 +675,7 @@ export function KeyboardEvents() {
       if (
         matchesShortcut(
           evt,
-          dataRef.current.keyboardShortcuts[ShortcutId.PREVIOUS_EPISODE],
+          dataRef.current.keyboardShortcuts[ShortcutId.PREVIOUS_EPISODE]
         )
       ) {
         dataRef.current.navigateToPreviousEpisode();
@@ -685,7 +685,7 @@ export function KeyboardEvents() {
       if (
         matchesShortcut(
           evt,
-          dataRef.current.keyboardShortcuts[ShortcutId.TOGGLE_CAPTIONS],
+          dataRef.current.keyboardShortcuts[ShortcutId.TOGGLE_CAPTIONS]
         )
       ) {
         dataRef.current.toggleLastUsed().catch(() => {}); // ignore errors
@@ -694,7 +694,7 @@ export function KeyboardEvents() {
       if (
         matchesShortcut(
           evt,
-          dataRef.current.keyboardShortcuts[ShortcutId.RANDOM_CAPTION],
+          dataRef.current.keyboardShortcuts[ShortcutId.RANDOM_CAPTION]
         )
       ) {
         dataRef.current
@@ -706,7 +706,7 @@ export function KeyboardEvents() {
       if (
         matchesShortcut(
           evt,
-          dataRef.current.keyboardShortcuts[ShortcutId.BARREL_ROLL],
+          dataRef.current.keyboardShortcuts[ShortcutId.BARREL_ROLL]
         )
       ) {
         if (dataRef.current.isRolling || evt.ctrlKey || evt.metaKey) return;
@@ -726,7 +726,7 @@ export function KeyboardEvents() {
       if (
         matchesShortcut(
           evt,
-          dataRef.current.keyboardShortcuts[ShortcutId.SYNC_SUBTITLES_EARLIER],
+          dataRef.current.keyboardShortcuts[ShortcutId.SYNC_SUBTITLES_EARLIER]
         )
       ) {
         dataRef.current.setDelay(dataRef.current.delay - 0.5);
@@ -742,7 +742,7 @@ export function KeyboardEvents() {
       if (
         matchesShortcut(
           evt,
-          dataRef.current.keyboardShortcuts[ShortcutId.SYNC_SUBTITLES_LATER],
+          dataRef.current.keyboardShortcuts[ShortcutId.SYNC_SUBTITLES_LATER]
         )
       ) {
         dataRef.current.setDelay(dataRef.current.delay + 0.5);
@@ -766,7 +766,7 @@ export function KeyboardEvents() {
         evt.preventDefault();
         evt.stopPropagation();
         dataRef.current.setEnableNativeSubtitles(
-          !dataRef.current.enableNativeSubtitles,
+          !dataRef.current.enableNativeSubtitles
         );
       }
     };
@@ -795,7 +795,7 @@ export function KeyboardEvents() {
         } else if (dataRef.current.isSpaceHeldRef.current) {
           // We were in boost mode, restore previous rate
           dataRef.current.display?.setPlaybackRate(
-            dataRef.current.previousRateRef.current,
+            dataRef.current.previousRateRef.current
           );
           dataRef.current.isSpaceHeldRef.current = false;
 

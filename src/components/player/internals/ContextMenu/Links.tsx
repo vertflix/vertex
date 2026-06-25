@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
 import { Icon, Icons } from "@/components/Icon";
 import { Spinner } from "@/components/layout/Spinner";
@@ -96,7 +96,7 @@ export function Link(props: {
       "bg-video-context-light bg-opacity-20": props.active,
       "-ml-3 px-3 w-full": !props.box,
       "opacity-50 pointer-events-none": props.disabled,
-    },
+    }
   );
   const styles = { width: "calc(100% + 1.5rem)" };
 

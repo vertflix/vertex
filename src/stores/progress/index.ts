@@ -2,12 +2,12 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { immer } from "zustand/middleware/immer";
 
-import { PlayerMeta } from "@/stores/player/slices/source";
+import type { PlayerMeta } from "@/stores/player/slices/source";
 import { useWatchHistoryStore } from "@/stores/watchHistory";
 import {
-  ProgressModificationOptions,
-  ProgressModificationResult,
   modifyProgressItems,
+  type ProgressModificationOptions,
+  type ProgressModificationResult,
 } from "@/utils/progressModifications";
 
 export { getProgressPercentage } from "./utils";
@@ -71,7 +71,7 @@ export interface ProgressStore {
   replaceItems(items: Record<string, ProgressMediaItem>): void;
   modifyProgressItems(
     progressIds: string[],
-    options: ProgressModificationOptions,
+    options: ProgressModificationOptions
   ): ProgressModificationResult;
   clear(): void;
   clearUpdateQueue(): void;
@@ -210,7 +210,7 @@ export const useProgressStore = create(
       },
       modifyProgressItems(
         progressIds: string[],
-        options: ProgressModificationOptions,
+        options: ProgressModificationOptions
       ): ProgressModificationResult {
         let result: ProgressModificationResult = {
           modifiedIds: [],
@@ -249,6 +249,6 @@ export const useProgressStore = create(
     })),
     {
       name: "__MW::progress",
-    },
-  ),
+    }
+  )
 );

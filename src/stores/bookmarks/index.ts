@@ -2,11 +2,11 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { immer } from "zustand/middleware/immer";
 
-import { PlayerMeta } from "@/stores/player/slices/source";
+import type { PlayerMeta } from "@/stores/player/slices/source";
 import {
-  BookmarkModificationOptions,
-  BookmarkModificationResult,
-  BulkGroupModificationOptions,
+  type BookmarkModificationOptions,
+  type BookmarkModificationResult,
+  type BulkGroupModificationOptions,
   modifyBookmarks,
   modifyBookmarksByGroup,
 } from "@/utils/bookmarkModifications";
@@ -46,16 +46,16 @@ export interface BookmarkStore {
   toggleFavoriteEpisode(
     showId: string,
     episodeId: string,
-    showMeta?: { title: string; poster?: string; year?: number },
+    showMeta?: { title: string; poster?: string; year?: number }
   ): void;
   isEpisodeFavorited(showId: string, episodeId: string): boolean;
   getFavoriteEpisodes(showId: string): string[];
   modifyBookmarks(
     bookmarkIds: string[],
-    options: BookmarkModificationOptions,
+    options: BookmarkModificationOptions
   ): BookmarkModificationResult;
   modifyBookmarksByGroup(
-    options: BulkGroupModificationOptions,
+    options: BulkGroupModificationOptions
   ): BookmarkModificationResult;
   clear(): void;
   clearUpdateQueue(): void;
@@ -178,7 +178,7 @@ export const useBookmarkStore = create(
       toggleFavoriteEpisode(
         showId: string,
         episodeId: string,
-        showMeta?: { title: string; poster?: string; year?: number },
+        showMeta?: { title: string; poster?: string; year?: number }
       ) {
         set((s) => {
           if (!s.bookmarks[showId]) {
@@ -239,7 +239,7 @@ export const useBookmarkStore = create(
       },
       modifyBookmarks(
         bookmarkIds: string[],
-        options: BookmarkModificationOptions,
+        options: BookmarkModificationOptions
       ): BookmarkModificationResult {
         let result: BookmarkModificationResult = {
           modifiedIds: [],
@@ -282,7 +282,7 @@ export const useBookmarkStore = create(
         return result;
       },
       modifyBookmarksByGroup(
-        options: BulkGroupModificationOptions,
+        options: BulkGroupModificationOptions
       ): BookmarkModificationResult {
         let result: BookmarkModificationResult = {
           modifiedIds: [],
@@ -327,6 +327,6 @@ export const useBookmarkStore = create(
     })),
     {
       name: "__MW::bookmarks",
-    },
-  ),
+    }
+  )
 );

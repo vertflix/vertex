@@ -30,7 +30,7 @@ export function EditButton(props: EditButtonProps) {
           "h-12 items-center overflow-hidden rounded-full bg-background-secondary px-4 py-2 text-white transition-[background-color,transform] hover:bg-background-secondaryHover active:scale-105",
           {
             "hidden sm:flex": props.editing,
-          },
+          }
         )}
         id={props.id} // Assign id to the button
       >

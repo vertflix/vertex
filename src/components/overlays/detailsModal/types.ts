@@ -1,4 +1,4 @@
-import { ShowProgressResult } from "@/stores/progress/utils";
+import type { ShowProgressResult } from "@/stores/progress/utils";
 
 export interface DetailsContent {
   title: string;

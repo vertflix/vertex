@@ -1,4 +1,10 @@
-import { ReactNode, useCallback, useEffect, useMemo, useState } from "react";
+import {
+  type ReactNode,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { Trans, useTranslation } from "react-i18next";
 import { useAsyncFn, useInterval } from "react-use";
 
@@ -18,11 +24,11 @@ import { Card, Link } from "@/pages/onboarding/utils";
 import { PageTitle } from "@/pages/parts/util/PageTitle";
 import { conf } from "@/setup/config";
 import {
-  ExtensionDetectionResult,
   detectExtensionInstall,
+  type ExtensionDetectionResult,
 } from "@/utils/detectFeatures";
+import type { ExtensionStatus as ExtensionStatusType } from "@/utils/extension";
 import { getExtensionState } from "@/utils/extension";
-import type { ExtensionStatus } from "@/utils/extension";
 
 function RefreshBar() {
   const { t } = useTranslation();
@@ -42,7 +48,7 @@ function RefreshBar() {
 }
 
 export function ExtensionStatus(props: {
-  status: ExtensionStatus;
+  status: ExtensionStatusType;
   loading: boolean;
   showHelp?: boolean;
 }) {
@@ -118,7 +124,7 @@ export function ExtensionStatus(props: {
 }
 
 interface ExtensionPageProps {
-  status: ExtensionStatus;
+  status: ExtensionStatusType;
   loading: boolean;
 }
 
@@ -247,7 +253,7 @@ export function OnboardingExtensionPage() {
       if (status === "success" && triggeredManually) completeAndRedirect();
       return status;
     },
-    [completeAndRedirect],
+    [completeAndRedirect]
   );
   useInterval(exec, 1000);
 

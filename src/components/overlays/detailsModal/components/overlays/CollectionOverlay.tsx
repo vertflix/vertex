@@ -12,7 +12,7 @@ import { useIsMobile } from "@/hooks/useIsMobile";
 import { CarouselNavButtons } from "@/pages/discover/components/CarouselNavButtons";
 import { useBookmarkStore } from "@/stores/bookmarks";
 import { useOverlayStack } from "@/stores/interface/overlayStack";
-import { MediaItem } from "@/utils/mediaTypes";
+import type { MediaItem } from "@/utils/mediaTypes";
 
 // Simple carousel component for collection overlay
 interface SimpleCarouselProps {
@@ -114,7 +114,7 @@ export function CollectionOverlay({
   const bookmarks = useBookmarkStore((s) => s.bookmarks);
   const modifyBookmarks = useBookmarkStore((s) => s.modifyBookmarks);
   const addBookmarkWithGroups = useBookmarkStore(
-    (s) => s.addBookmarkWithGroups,
+    (s) => s.addBookmarkWithGroups
   );
   const [collection, setCollection] = useState<CollectionData | null>(null);
   const [loading, setLoading] = useState(true);
@@ -232,7 +232,7 @@ export function CollectionOverlay({
         className={classNames(
           "group -m-[0.705em] rounded-3xl bg-background-main transition-colors duration-300 focus:relative focus:z-10",
           "w-full mx-4 p-6 bg-mediaCard-hoverBackground bg-opacity-60 backdrop-filter backdrop-blur-lg shadow-lg",
-          "max-w-7xl max-h-[90vh]",
+          "max-w-7xl max-h-[90vh]"
         )}
       >
         <div className="transition-transform duration-300 overflow-hidden rounded-3xl">
@@ -291,7 +291,7 @@ export function CollectionOverlay({
                               "px-3 py-1 rounded-md text-xs font-medium transition-colors",
                               sortOrder === "release"
                                 ? "bg-white/20 text-white"
-                                : "bg-white/10 hover:bg-white/20 text-white/70",
+                                : "bg-white/10 hover:bg-white/20 text-white/70"
                             )}
                           >
                             {t("details.collection.releaseDate")}
@@ -303,7 +303,7 @@ export function CollectionOverlay({
                               "px-3 py-1 rounded-md text-xs font-medium transition-colors",
                               sortOrder === "rating"
                                 ? "bg-white/20 text-white"
-                                : "bg-white/10 hover:bg-white/20 text-white/70",
+                                : "bg-white/10 hover:bg-white/20 text-white/70"
                             )}
                           >
                             {t("details.collection.rating")}

@@ -1,13 +1,13 @@
 /* eslint-disable no-console */
 import { type SubtitleData, searchSubtitles } from "wyzie-lib";
 
-import { CaptionListItem } from "@/stores/player/slices/source";
+import type { CaptionListItem } from "@/stores/player/slices/source";
 
 export async function scrapeWyzieCaptions(
   tmdbId: string | number,
   imdbId: string,
   season?: number,
-  episode?: number,
+  episode?: number
 ): Promise<CaptionListItem[]> {
   try {
     const searchParams: any = {

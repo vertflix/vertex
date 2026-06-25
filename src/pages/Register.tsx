@@ -3,7 +3,7 @@ import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
-import { MetaResponse } from "@/backend/accounts/meta";
+import type { MetaResponse } from "@/backend/accounts/meta";
 import { Button } from "@/components/buttons/Button";
 import { BackendSelector } from "@/components/form/BackendSelector";
 import {
@@ -14,7 +14,7 @@ import {
 import { SubPageLayout } from "@/pages/layouts/SubPageLayout";
 import {
   AccountCreatePart,
-  AccountProfile,
+  type AccountProfile,
 } from "@/pages/parts/auth/AccountCreatePart";
 import { PassphraseGeneratePart } from "@/pages/parts/auth/PassphraseGeneratePart";
 import { TrustBackendPart } from "@/pages/parts/auth/TrustBackendPart";
@@ -54,17 +54,17 @@ export function RegisterPage() {
     (availableBackends.length === 1 ? availableBackends[0] : null);
 
   const [step, setStep] = useState(
-    availableBackends.length > 1 || !defaultBackend ? -1 : 0,
+    availableBackends.length > 1 || !defaultBackend ? -1 : 0
   );
   const [mnemonic, setMnemonic] = useState<null | string>(null);
   const [credentialId, setCredentialId] = useState<null | string>(null);
   const [authMethod, setAuthMethod] = useState<"mnemonic" | "passkey">(
-    "mnemonic",
+    "mnemonic"
   );
   const [account, setAccount] = useState<null | AccountProfile>(null);
   const [siteKey, setSiteKey] = useState<string | null>(null);
   const [selectedBackendUrl, setSelectedBackendUrl] = useState<string | null>(
-    currentBackendUrl ?? defaultBackend ?? null,
+    currentBackendUrl ?? defaultBackend ?? null
   );
 
   const handleBackendSelect = (url: string | null) => {
@@ -114,7 +114,7 @@ export function RegisterPage() {
               setSiteKey(
                 meta.hasCaptcha && meta.captchaClientKey
                   ? meta.captchaClientKey
-                  : null,
+                  : null
               );
               setStep(1);
             }}

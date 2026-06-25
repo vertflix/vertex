@@ -1,6 +1,6 @@
-import { Qualities, Stream } from "@p-stream/providers";
+import type { Qualities, Stream } from "@p-stream/providers";
 
-import { QualityStore } from "@/stores/quality";
+import type { QualityStore } from "@/stores/quality";
 
 export type SourceQuality = Qualities;
 
@@ -46,7 +46,7 @@ const sortedQualities: SourceQuality[] = Object.entries(qualitySorting)
 
 export function getPreferredQuality(
   availableQualites: SourceQuality[],
-  qualityPreferences: QualityStore["quality"],
+  qualityPreferences: QualityStore["quality"]
 ) {
   if (
     qualityPreferences.automaticQuality ||
@@ -60,7 +60,7 @@ export function getPreferredQuality(
 
   // get preferred quality - not automatic or unknown
   const chosenQualityIndex = sortedQualities.indexOf(
-    qualityPreferences.lastChosenQuality,
+    qualityPreferences.lastChosenQuality
   );
   let nearestChoseQuality: undefined | SourceQuality;
 
@@ -85,7 +85,7 @@ export function getPreferredQuality(
 
 export function selectQuality(
   source: SourceSliceSource,
-  qualityPreferences: QualityStore["quality"],
+  qualityPreferences: QualityStore["quality"]
 ): {
   stream: LoadableSource;
   quality: null | SourceQuality;
@@ -106,7 +106,7 @@ export function selectQuality(
     };
     const quality = getPreferredQuality(
       availableQualities,
-      manualQualityPreferences,
+      manualQualityPreferences
     );
     if (quality) {
       const stream = source.qualities[quality];

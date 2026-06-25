@@ -1,6 +1,6 @@
-import { Stream } from "@p-stream/providers";
+import type { Stream } from "@p-stream/providers";
 
-import {
+import type {
   SourceFileStream,
   SourceQuality,
   SourceSliceSource,

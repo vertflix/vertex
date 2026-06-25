@@ -3,10 +3,9 @@ import React, { useRef } from "react";
 import { MediaCard } from "@/components/media/MediaCard";
 import { useIsMobile } from "@/hooks/useIsMobile";
 import type { DiscoverMedia } from "@/pages/discover/types/discover";
-import { MediaItem } from "@/utils/mediaTypes";
-
-import { CarouselNavButtons } from "./CarouselNavButtons";
+import type { MediaItem } from "@/utils/mediaTypes";
 import { usePersonalRecommendations } from "../hooks/usePersonalRecommendations";
+import { CarouselNavButtons } from "./CarouselNavButtons";
 
 interface PersonalRecommendationsCarouselProps {
   isTVShow: boolean;
@@ -24,7 +23,7 @@ function getPosterUrl(posterPath: string): string {
 
 function discoverMediaToCardMedia(
   item: DiscoverMedia,
-  isTVShow: boolean,
+  isTVShow: boolean
 ): MediaItem {
   return {
     id: item.id.toString(),
@@ -71,7 +70,7 @@ export function PersonalRecommendationsCarousel({
         isScrollingRef.current = false;
       }
     },
-    [browser],
+    [browser]
   );
 
   if (!hasRecommendations) return null;
@@ -113,7 +112,7 @@ export function PersonalRecommendationsCarousel({
                       forceSkeleton
                     />
                   </div>
-                ),
+                )
               )
             : media.map((item) => (
                 <div

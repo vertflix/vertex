@@ -1,8 +1,7 @@
 import { useLanguageStore } from "@/stores/language";
 import { useSubtitleStore } from "@/stores/subtitles";
-
-import { MWSettingsData, MWSettingsDataV1 } from "./types";
 import { createVersionedStore } from "../migrations";
+import type { MWSettingsData, MWSettingsDataV1 } from "./types";
 
 export const SettingsStore = createVersionedStore<Record<never, never>>()
   .setKey("mw-settings")
@@ -53,7 +52,7 @@ export const SettingsStore = createVersionedStore<Record<never, never>>()
       subtitleStore.importSubtitleLanguage(
         old.captionSettings.language === "none"
           ? null
-          : old.captionSettings.language,
+          : old.captionSettings.language
       );
 
       return {};

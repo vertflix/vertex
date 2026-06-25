@@ -1,9 +1,9 @@
 import classNames from "classnames";
-import { ReactNode, useEffect, useMemo } from "react";
+import { type ReactNode, useEffect, useMemo } from "react";
 
 import {
   Transition,
-  TransitionAnimations,
+  type TransitionAnimations,
 } from "@/components/utils/Transition";
 import { useIsMobile } from "@/hooks/useIsMobile";
 import { useInternalOverlayRouter } from "@/hooks/useOverlayRouter";

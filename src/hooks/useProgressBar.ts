@@ -1,4 +1,5 @@
-import React, { RefObject, useCallback, useEffect, useState } from "react";
+import type React from "react";
+import { type RefObject, useCallback, useEffect, useState } from "react";
 
 export type MouseActivity = React.MouseEvent<HTMLElement> | MouseEvent;
 
@@ -13,7 +14,7 @@ export function makePercentage(num: number) {
 }
 
 function isClickEvent(
-  evt: ActivityEvent,
+  evt: ActivityEvent
 ): evt is React.MouseEvent<HTMLElement> | MouseEvent {
   return (
     evt.type === "mousedown" ||
@@ -29,7 +30,7 @@ const getEventX = (evt: ActivityEvent) => {
 export function useProgressBar(
   barRef: RefObject<HTMLElement>,
   commit: (percentage: number) => void,
-  commitImmediately = false,
+  commitImmediately = false
 ) {
   const [mouseDown, setMouseDown] = useState<boolean>(false);
   const [progress, setProgress] = useState<number>(0);
@@ -78,7 +79,7 @@ export function useProgressBar(
         ((getEventX(ev) - rect.left) / barRef.current.offsetWidth) * 100;
       setProgress(pos);
     },
-    [setProgress, barRef],
+    [setProgress, barRef]
   );
 
   return {

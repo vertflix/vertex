@@ -1,4 +1,4 @@
-export interface ExtensionBaseRequest {}
+export type ExtensionBaseRequest = Record<string, unknown>;
 
 export type ExtensionBaseResponse<T = object> =
   | ({
@@ -63,7 +63,7 @@ export interface MmMetadata {
   };
 }
 
-interface MpMetadata {}
+type MpMetadata = Record<string, unknown>;
 
 declare module "@plasmohq/messaging" {
   interface MessagesMetadata extends MmMetadata {}

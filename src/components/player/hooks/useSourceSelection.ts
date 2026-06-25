@@ -1,7 +1,7 @@
 import {
-  EmbedOutput,
+  type EmbedOutput,
   NotFoundError,
-  SourcererOutput,
+  type SourcererOutput,
 } from "@p-stream/providers";
 import { useAsyncFn } from "react-use";
 
@@ -37,7 +37,7 @@ export function useEmbedScraping(
   routerId: string,
   sourceId: string,
   url: string,
-  embedId: string,
+  embedId: string
 ) {
   const setSource = usePlayerStore((s) => s.setSource);
   const setCaption = usePlayerStore((s) => s.setCaption);
@@ -48,10 +48,10 @@ export function useEmbedScraping(
   const router = useOverlayRouter(routerId);
   const { report } = useReportProviders();
   const setLastSuccessfulSource = usePreferencesStore(
-    (s) => s.setLastSuccessfulSource,
+    (s) => s.setLastSuccessfulSource
   );
   const enableLastSuccessfulSource = usePreferencesStore(
-    (s) => s.enableLastSuccessfulSource,
+    (s) => s.enableLastSuccessfulSource
   );
 
   const [request, run] = useAsyncFn(async () => {
@@ -72,7 +72,7 @@ export function useEmbedScraping(
           sourceId,
           embedId,
           status,
-          err,
+          err
         ),
       ]);
       throw err;
@@ -87,7 +87,7 @@ export function useEmbedScraping(
     setSource(
       convertRunoutputToSource({ stream: result.stream[0] }),
       convertProviderCaption(result.stream[0].captions),
-      getSavedProgress(progressItems, meta),
+      getSavedProgress(progressItems, meta)
     );
     // Save the last successful source when manually selected
     if (enableLastSuccessfulSource) {
@@ -123,10 +123,10 @@ export function useSourceScraping(sourceId: string | null, routerId: string) {
   const router = useOverlayRouter(routerId);
   const { report } = useReportProviders();
   const setLastSuccessfulSource = usePreferencesStore(
-    (s) => s.setLastSuccessfulSource,
+    (s) => s.setLastSuccessfulSource
   );
   const enableLastSuccessfulSource = usePreferencesStore(
-    (s) => s.enableLastSuccessfulSource,
+    (s) => s.enableLastSuccessfulSource
   );
 
   const [request, run] = useAsyncFn(async () => {
@@ -160,7 +160,7 @@ export function useSourceScraping(sourceId: string | null, routerId: string) {
       setSource(
         convertRunoutputToSource({ stream: result.stream[0] }),
         convertProviderCaption(result.stream[0].captions),
-        getSavedProgress(progressItems, meta),
+        getSavedProgress(progressItems, meta)
       );
       setSourceId(sourceId);
       // Save the last successful source when manually selected
@@ -188,7 +188,7 @@ export function useSourceScraping(sourceId: string | null, routerId: string) {
             sourceId,
             result.embeds[0].embedId,
             status,
-            err,
+            err
           ),
         ]);
         throw err;
@@ -199,7 +199,7 @@ export function useSourceScraping(sourceId: string | null, routerId: string) {
           sourceId,
           result.embeds[0].embedId,
           "success",
-          null,
+          null
         ),
       ]);
       setSourceId(sourceId);
@@ -209,7 +209,7 @@ export function useSourceScraping(sourceId: string | null, routerId: string) {
       setSource(
         convertRunoutputToSource({ stream: embedResult.stream[0] }),
         convertProviderCaption(embedResult.stream[0].captions),
-        getSavedProgress(progressItems, meta),
+        getSavedProgress(progressItems, meta)
       );
       // Save the last successful source when manually selected
       if (enableLastSuccessfulSource) {

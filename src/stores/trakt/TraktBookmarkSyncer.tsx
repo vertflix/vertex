@@ -5,7 +5,7 @@ import { getPosterForMedia } from "@/backend/metadata/tmdb";
 import { useBookmarkStore } from "@/stores/bookmarks";
 import { useTraktAuthStore } from "@/stores/trakt/store";
 import { traktService } from "@/utils/trakt";
-import { TraktContentData } from "@/utils/traktTypes";
+import type { TraktContentData } from "@/utils/traktTypes";
 
 const TRAKT_SYNC_INTERVAL_MS = 5 * 60 * 1000; // 5 min
 const INITIAL_SYNC_DELAY_MS = 2000; // Re-sync after backend restore
@@ -121,7 +121,7 @@ export function TraktBookmarkSyncer() {
           if (!retryTimeoutId) {
             retryTimeoutId = setTimeout(
               () => setRetryTrigger((n) => n + 1),
-              QUEUE_RETRY_DELAY_MS,
+              QUEUE_RETRY_DELAY_MS
             );
           }
         }

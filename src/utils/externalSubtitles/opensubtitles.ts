@@ -1,12 +1,12 @@
 /* eslint-disable no-console */
 import { labelToLanguageCode } from "@p-stream/providers";
 
-import { CaptionListItem } from "@/stores/player/slices/source";
+import type { CaptionListItem } from "@/stores/player/slices/source";
 
 export async function scrapeOpenSubtitlesCaptions(
   imdbId: string,
   season?: number,
-  episode?: number,
+  episode?: number
 ): Promise<CaptionListItem[]> {
   try {
     const url = `https://rest.opensubtitles.org/search/${
@@ -29,7 +29,7 @@ export async function scrapeOpenSubtitlesCaptions(
     for (const caption of data) {
       const downloadUrl = caption.SubDownloadLink.replace(".gz", "").replace(
         "download/",
-        "download/subencoding-utf8/",
+        "download/subencoding-utf8/"
       );
       const language = labelToLanguageCode(caption.LanguageName) || "";
 

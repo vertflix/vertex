@@ -1,9 +1,10 @@
 import { Listbox } from "@headlessui/react";
-import React, { useEffect, useMemo, useState } from "react";
+import type React from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { EditButton } from "@/components/buttons/EditButton";
-import { Dropdown, OptionItem } from "@/components/form/Dropdown";
+import { Dropdown, type OptionItem } from "@/components/form/Dropdown";
 import { Icon, Icons } from "@/components/Icon";
 import { SectionHeading } from "@/components/layout/SectionHeading";
 import { WatchedMediaCard } from "@/components/media/WatchedMediaCard";
@@ -11,8 +12,8 @@ import { useIsMobile } from "@/hooks/useIsMobile";
 import { CarouselNavButtons } from "@/pages/discover/components/CarouselNavButtons";
 import { useProgressStore } from "@/stores/progress";
 import { shouldShowProgress } from "@/stores/progress/utils";
-import { SortOption, sortMediaItems } from "@/utils/mediaSorting";
-import { MediaItem } from "@/utils/mediaTypes";
+import { type SortOption, sortMediaItems } from "@/utils/mediaSorting";
+import type { MediaItem } from "@/utils/mediaTypes";
 
 interface WatchingCarouselProps {
   carouselRefs: React.MutableRefObject<{
@@ -54,7 +55,7 @@ export function WatchingCarousel({
 
   const itemsLength = useProgressStore((state) => {
     return Object.entries(state.items).filter(
-      (entry) => shouldShowProgress(entry[1]).show,
+      (entry) => shouldShowProgress(entry[1]).show
     ).length;
   });
 

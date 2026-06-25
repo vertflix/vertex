@@ -11,7 +11,7 @@ import { Icon, Icons } from "@/components/Icon";
 import { MediaBookmarkButton } from "@/components/media/MediaBookmark";
 import { useBookmarkStore } from "@/stores/bookmarks";
 
-import { DetailsBodyProps } from "../../types";
+import type { DetailsBodyProps } from "../../types";
 
 export function DetailsBody({
   data,
@@ -25,10 +25,10 @@ export function DetailsBody({
   imdbData,
 }: DetailsBodyProps) {
   const [releaseInfo, setReleaseInfo] = useState<TraktReleaseResponse | null>(
-    null,
+    null
   );
   const addBookmarkWithGroups = useBookmarkStore(
-    (s) => s.addBookmarkWithGroups,
+    (s) => s.addBookmarkWithGroups
   );
 
   const bookmarks = useBookmarkStore((s) => s.bookmarks);
@@ -38,8 +38,8 @@ export function DetailsBody({
     new Set(
       Object.values(bookmarks)
         .flatMap((b) => b.group || [])
-        .filter(Boolean),
-    ),
+        .filter(Boolean)
+    )
   ) as string[];
 
   const handleSelectGroups = (groups: string[]) => {
@@ -110,7 +110,7 @@ export function DetailsBody({
 
     if (hasTheatricalRelease) {
       const theatricalReleaseDate = new Date(
-        releaseInfo.theatrical_release_date!,
+        releaseInfo.theatrical_release_date!
       );
 
       if (new Date() >= theatricalReleaseDate) {
@@ -207,7 +207,7 @@ export function DetailsBody({
             className={classNames(
               "flex-1 sm:flex-initial sm:w-auto",
               "gap-2 h-12 rounded-lg px-4 py-2 my-1 transition-transform hover:scale-105 duration-100",
-              "text-md text-white flex items-center justify-center",
+              "text-md text-white flex items-center justify-center"
             )}
           >
             <Icon icon={Icons.PLAY} className="text-white" />

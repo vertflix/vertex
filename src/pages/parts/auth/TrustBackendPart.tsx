@@ -3,7 +3,7 @@ import { Trans, useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { useAsync } from "react-use";
 
-import { MetaResponse, getBackendMeta } from "@/backend/accounts/meta";
+import { getBackendMeta, type MetaResponse } from "@/backend/accounts/meta";
 import { Button } from "@/components/buttons/Button";
 import { Icon, Icons } from "@/components/Icon";
 import {
@@ -26,7 +26,7 @@ export function TrustBackendPart(props: TrustBackendPartProps) {
   const backendUrl = props.backendUrl ?? defaultBackendUrl;
   const hostname = useMemo(
     () => (backendUrl ? new URL(backendUrl).hostname : undefined),
-    [backendUrl],
+    [backendUrl]
   );
   const result = useAsync(() => {
     if (!backendUrl) return Promise.resolve(null);

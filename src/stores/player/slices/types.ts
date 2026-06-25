@@ -1,13 +1,13 @@
-import { StateCreator } from "zustand";
+import type { StateCreator } from "zustand";
 
-import { CastingSlice } from "@/stores/player/slices/casting";
-import { DisplaySlice } from "@/stores/player/slices/display";
-import { InterfaceSlice } from "@/stores/player/slices/interface";
-import { PlayingSlice } from "@/stores/player/slices/playing";
-import { ProgressSlice } from "@/stores/player/slices/progress";
-import { SkipSegmentsSlice } from "@/stores/player/slices/skipSegments";
-import { SourceSlice } from "@/stores/player/slices/source";
-import { ThumbnailSlice } from "@/stores/player/slices/thumbnails";
+import type { CastingSlice } from "@/stores/player/slices/casting";
+import type { DisplaySlice } from "@/stores/player/slices/display";
+import type { InterfaceSlice } from "@/stores/player/slices/interface";
+import type { PlayingSlice } from "@/stores/player/slices/playing";
+import type { ProgressSlice } from "@/stores/player/slices/progress";
+import type { SkipSegmentsSlice } from "@/stores/player/slices/skipSegments";
+import type { SourceSlice } from "@/stores/player/slices/source";
+import type { ThumbnailSlice } from "@/stores/player/slices/thumbnails";
 
 export type AllSlices = InterfaceSlice &
   PlayingSlice &

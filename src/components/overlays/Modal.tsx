@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import { ReactNode, useCallback, useEffect } from "react";
+import { type ReactNode, useCallback, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 
 import { IconPatch } from "@/components/buttons/IconPatch";
@@ -29,7 +29,7 @@ export function ModalCard(props: {
     <div
       className={classNames(
         "w-full max-w-[30rem] m-4 pointer-events-auto",
-        props.className,
+        props.className
       )}
     >
       <div className="w-full bg-modal-background rounded-xl p-8">
@@ -99,7 +99,7 @@ export function FancyModal(props: {
               "group rounded-3xl bg-background-main transition-colors duration-300 focus:relative focus:z-10",
               "w-full p-6 bg-mediaCard-hoverBackground bg-opacity-60 backdrop-filter backdrop-blur-lg shadow-lg",
               props.size === "md" ? "max-w-md" : "max-w-2xl",
-              props.size === "xl" ? "max-w-7xl" : "max-w-2xl",
+              props.size === "xl" ? "max-w-7xl" : "max-w-2xl"
             )}
           >
             <div className="overflow-y-auto overflow-x-hidden max-h-[85vh]">

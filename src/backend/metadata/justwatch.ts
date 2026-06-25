@@ -1,10 +1,10 @@
 import {
-  JWContentTypes,
-  JWMediaResult,
-  JWSeasonMetaResult,
   JW_IMAGE_BASE,
+  type JWContentTypes,
+  type JWMediaResult,
+  type JWSeasonMetaResult,
 } from "./types/justwatch";
-import { MWMediaMeta, MWMediaType, MWSeasonMeta } from "./types/mw";
+import { type MWMediaMeta, MWMediaType, type MWSeasonMeta } from "./types/mw";
 
 export function mediaTypeToJW(type: MWMediaType): JWContentTypes {
   if (type === MWMediaType.MOVIE) return "movie";
@@ -20,7 +20,7 @@ export function JWMediaToMediaType(type: string): MWMediaType {
 
 export function formatJWMeta(
   media: JWMediaResult,
-  season?: JWSeasonMetaResult,
+  season?: JWSeasonMetaResult
 ): MWMediaMeta {
   const type = JWMediaToMediaType(media.object_type);
   let seasons: undefined | MWSeasonMeta[];
@@ -32,7 +32,7 @@ export function formatJWMeta(
           id: v.id.toString(),
           number: v.season_number,
           title: v.title,
-        }),
+        })
       );
   }
 
@@ -67,11 +67,11 @@ export function JWMediaToId(media: MWMediaMeta): string {
 }
 
 export function decodeJWId(
-  paramId: string,
+  paramId: string
 ): { id: string; type: MWMediaType } | null {
   const [prefix, type, id] = paramId.split("-", 3);
   if (prefix !== "JW") return null;
-  let mediaType;
+  let mediaType: MWMediaType;
   try {
     mediaType = JWMediaToMediaType(type);
   } catch {

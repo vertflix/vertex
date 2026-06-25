@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 
-import { SessionResponse } from "@/backend/accounts/auth";
+import type { SessionResponse } from "@/backend/accounts/auth";
 import { bookmarkMediaToInput } from "@/backend/accounts/bookmarks";
 import {
   bytesToBase64,
@@ -23,17 +23,17 @@ import {
 import { removeSession } from "@/backend/accounts/sessions";
 import { getSettings } from "@/backend/accounts/settings";
 import {
-  UserResponse,
   getBookmarks,
   getProgress,
   getUser,
   getWatchHistory,
+  type UserResponse,
 } from "@/backend/accounts/user";
 import { useAuthData } from "@/hooks/auth/useAuthData";
 import { useBackendUrl } from "@/hooks/auth/useBackendUrl";
-import { AccountWithToken, useAuthStore } from "@/stores/auth";
-import { BookmarkMediaItem } from "@/stores/bookmarks";
-import { ProgressMediaItem } from "@/stores/progress";
+import { type AccountWithToken, useAuthStore } from "@/stores/auth";
+import type { BookmarkMediaItem } from "@/stores/bookmarks";
+import type { ProgressMediaItem } from "@/stores/progress";
 
 export interface RegistrationData {
   recaptchaToken?: string;
@@ -90,7 +90,7 @@ export function useAuth() {
 
       const { challenge } = await getLoginChallengeToken(
         backendUrl,
-        publicKeyBase64Url,
+        publicKeyBase64Url
       );
       const signature = await signChallenge(keys, challenge);
       const loginResult = await loginAccount(backendUrl, {
@@ -112,7 +112,7 @@ export function useAuth() {
 
       return userDataLogin(loginResult, user.user, user.session, seedBase64);
     },
-    [userDataLogin, backendUrl],
+    [userDataLogin, backendUrl]
   );
 
   const logout = useCallback(async () => {
@@ -121,7 +121,7 @@ export function useAuth() {
       await removeSession(
         backendUrl,
         currentAccount.token,
-        currentAccount.sessionId,
+        currentAccount.sessionId
       );
     } catch {
       // we dont care about failing to delete session
@@ -135,7 +135,7 @@ export function useAuth() {
       await removeSession(
         backendUrl,
         currentAccount.token,
-        currentAccount.sessionId,
+        currentAccount.sessionId
       );
     } catch {
       // we dont care about failing to delete session
@@ -153,7 +153,7 @@ export function useAuth() {
 
       const { challenge } = await getRegisterChallengeToken(
         backendUrl,
-        registerData.recaptchaToken,
+        registerData.recaptchaToken
       );
       const keys = registerData.credentialId
         ? await keysFromCredentialId(registerData.credentialId)
@@ -175,7 +175,7 @@ export function useAuth() {
         storeCredentialMapping(
           backendUrl,
           publicKeyBase64Url,
-          registerData.credentialId,
+          registerData.credentialId
         );
       }
 
@@ -183,17 +183,17 @@ export function useAuth() {
         registerResult,
         registerResult.user,
         registerResult.session,
-        bytesToBase64(keys.seed),
+        bytesToBase64(keys.seed)
       );
     },
-    [backendUrl, userDataLogin],
+    [backendUrl, userDataLogin]
   );
 
   const importData = useCallback(
     async (
       account: AccountWithToken,
       progressItems: Record<string, ProgressMediaItem>,
-      bookmarks: Record<string, BookmarkMediaItem>,
+      bookmarks: Record<string, BookmarkMediaItem>
     ) => {
       if (!backendUrl) return;
       if (
@@ -204,11 +204,11 @@ export function useAuth() {
       }
 
       const progressInputs = Object.entries(progressItems).flatMap(
-        ([tmdbId, item]) => progressMediaItemToInputs(tmdbId, item),
+        ([tmdbId, item]) => progressMediaItemToInputs(tmdbId, item)
       );
 
       const bookmarkInputs = Object.entries(bookmarks).map(([tmdbId, item]) =>
-        bookmarkMediaToInput(tmdbId, item),
+        bookmarkMediaToInput(tmdbId, item)
       );
 
       await Promise.all([
@@ -216,7 +216,7 @@ export function useAuth() {
         importBookmarks(backendUrl, account, bookmarkInputs),
       ]);
     },
-    [backendUrl],
+    [backendUrl]
   );
 
   const restore = useCallback(
@@ -265,10 +265,10 @@ export function useAuth() {
         bookmarks,
         watchHistory,
         settings,
-        groupOrder,
+        groupOrder
       );
     },
-    [backendUrl, syncData, logout],
+    [backendUrl, syncData, logout]
   );
 
   return {

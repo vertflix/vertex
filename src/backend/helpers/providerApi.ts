@@ -1,4 +1,4 @@
-import { MetaOutput } from "@p-stream/providers";
+import type { MetaOutput } from "@p-stream/providers";
 import { jwtDecode } from "jwt-decode";
 
 let metaDataCache: MetaOutput[] | null = null;
@@ -22,7 +22,7 @@ function getTokenIfValid(): null | string {
     const body = jwtDecode(token);
     if (!body.exp) return `jwt|${token}`;
     if (Date.now() / 1000 < body.exp) return `jwt|${token}`;
-  } catch (err) {
+  } catch (_err) {
     // we dont care about parse errors
   }
   return null;

@@ -8,7 +8,7 @@ import { Icon, Icons } from "@/components/Icon";
 import { Box } from "@/components/layout/Box";
 import { Heading2 } from "@/components/utils/Text";
 import { useBackendUrl } from "@/hooks/auth/useBackendUrl";
-import { AccountWithToken, useAuthStore } from "@/stores/auth";
+import { type AccountWithToken, useAuthStore } from "@/stores/auth";
 
 interface CleanupResponse {
   deletedCount: number;
@@ -17,7 +17,7 @@ interface CleanupResponse {
 
 async function cleanupProgressItems(
   backendUrl: string,
-  account: AccountWithToken,
+  account: AccountWithToken
 ) {
   return ofetch<CleanupResponse>(`/users/${account.userId}/progress/cleanup`, {
     method: "DELETE",

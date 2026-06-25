@@ -4,9 +4,9 @@ import { useTranslation } from "react-i18next";
 import { Button } from "@/components/buttons/Button";
 import { GroupDropdown } from "@/components/form/GroupDropdown";
 import { Modal, ModalCard } from "@/components/overlays/Modal";
-import { UserIcons } from "@/components/UserIcon";
+import type { UserIcons } from "@/components/UserIcon";
 import { Heading2, Paragraph } from "@/components/utils/Text";
-import { BookmarkMediaItem, useBookmarkStore } from "@/stores/bookmarks";
+import { type BookmarkMediaItem, useBookmarkStore } from "@/stores/bookmarks";
 
 interface EditBookmarkModalProps {
   id: string;
@@ -130,7 +130,7 @@ export function EditBookmarkModal({
               value={year || ""}
               onChange={(e) =>
                 setYear(
-                  e.target.value ? parseInt(e.target.value, 10) : undefined,
+                  e.target.value ? parseInt(e.target.value, 10) : undefined
                 )
               }
               placeholder={t("home.bookmarks.edit.yearPlaceholder")}
