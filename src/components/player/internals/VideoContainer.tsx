@@ -101,7 +101,7 @@ function VideoElement() {
     subtitleTrack = (
       <track
         ref={trackEl}
-        label="P-Stream Captions"
+        label="Vertex Captions"
         kind="subtitles"
         srcLang={language}
         src={trackObjectUrl}

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>P-Stream Notifications</title>
-    <link>https://raw.githubusercontent.com/p-stream/p-stream/production/public/notifications.xml</link>
-    <description>Site updates and important notifications for P-Stream users</description>
+    <title>Vertex Notifications</title>
+    <link>https://raw.githubusercontent.com/vertflix/vertex/main/public/notifications.xml</link>
+    <description>Site updates and important notifications for Vertex users</description>
     <language>en</language>
     <lastBuildDate>Mon, 29 Sep 2025 18:00:00 MST</lastBuildDate>
-    <atom:link href="https://raw.githubusercontent.com/p-stream/p-stream/production/public/notifications.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://raw.githubusercontent.com/vertflix/vertex/main/public/notifications.xml" rel="self" type="application/rss+xml" />
 
     <item>
       <guid>notification-061</guid>
@@ -32,7 +32,7 @@ Thank everyone!
       <title>P-Stream v5.3.6 released!</title>
       <description>WOW, crazy day! Discord server got taken down so we had to move to a new one, but I got an update for you!
 
-I'm sad to see 25,000 members and thousands of messages gone. I'll take a while to get all of those back up. Especially all the feature requests that we kept track of in discord. 😭 
+I'm sad to see 25,000 members and thousands of messages gone. I'll take a while to get all of those back up. Especially all the feature requests that we kept track of in discord. 😭
 
 Anyway, we're back up and this time we've got a backup system figured out in case it ever happens again.
 
@@ -136,7 +136,7 @@ Also, my new project, TheIntroDB, is now available to everyone, please submit in
 
 TheIntroDB is powered by the community. You can contribute by adding skip intro times for movies and TV shows to the database!
 
-It's now available to P-Stream users and soon to available as a separate free API! 
+It's now available to P-Stream users and soon to available as a separate free API!
 
 Join the waitlist below to get access to the API when it's ready!
       </description>
@@ -172,7 +172,7 @@ Additions:
 - Added a new Auto Select caption button to automatically choose and enable a caption!
 - Added a new setting to customize the keyboard shortcuts!
 - Added a new Minimal Cards setting to hide the bottom text on all media cards
-- Improved visual feedback when a video is not found 
+- Improved visual feedback when a video is not found
 - Reworked the extensions onboarding page to reference the new userscript alternative
 - Added a new button to mark a movie as watched from the details modal
 - Added new Cobalt theme
@@ -197,8 +197,8 @@ Enjoy and have a lovely holiday!
     <item>
       <guid>notification-053</guid>
       <title>New Userscript alternative to the extension!</title>
-      <description>If you prefer to use a userscript instead of the extension, you now have the option! 
-      
+      <description>If you prefer to use a userscript instead of the extension, you now have the option!
+
 It should work almost exactly the same as the extension, but without the need to install an extension. Unfortunately, our Firefox extension store page keeps getting taken down, so this is the alternative until we can get it back up or if you install the .xpi manually.
 
 Some things to note:
@@ -234,13 +234,13 @@ I'll be reaching out to everyone who has donated to get custom email addresses f
     <item>
       <guid>notification-051</guid>
       <title>Xprime has been disabled. More info below!</title>
-      <description>Yes this is unfortunate, Xprime has been disabled due to funding issues on their end. 
+      <description>Yes this is unfortunate, Xprime has been disabled due to funding issues on their end.
 
-Xprime asked if we could introduce ads to P-Stream, and after some consideration and ad testing last week, the P-Stream team and I have decided not to add ads to P-Stream. Ads are not only unattractive, but unsafe and against the team's morals. 
+Xprime asked if we could introduce ads to P-Stream, and after some consideration and ad testing last week, the P-Stream team and I have decided not to add ads to P-Stream. Ads are not only unattractive, but unsafe and against the team's morals.
 
-movie-web (what P-Stream was forked from) was created to be easily self-hostable and ad free. And though the media landscape has changed (cors on streams and our scrapers getting blocked) we've still take this into consideration. I still believe P-Stream is better without ads, and our single banner ad reflects this; its unobtrusive and safe. 
+movie-web (what P-Stream was forked from) was created to be easily self-hostable and ad free. And though the media landscape has changed (cors on streams and our scrapers getting blocked) we've still take this into consideration. I still believe P-Stream is better without ads, and our single banner ad reflects this; its unobtrusive and safe.
 
-Xprime may come back in the future, but we're already working on a new source that should be just as good or better. Plus we will continue to support FED API and all the extension sources that make P-Stream (and self hosted sites) amazing. 
+Xprime may come back in the future, but we're already working on a new source that should be just as good or better. Plus we will continue to support FED API and all the extension sources that make P-Stream (and self hosted sites) amazing.
 
 Thanks to everyone who has supported and we'll be working hard to bring you new great things!
       </description>
@@ -324,7 +324,7 @@ Fixes:
 - Fixed the search bar not being positioned correctly on mobile devices, especially within the PWA.
 - Fixed "i" being shown as "I" in subtitles, this was an issue with some languages that use lowercase "i" intentionally.
 - Fixed watch parties not able to be joined from the home page.
-- Updated the style of many outdated elements on the site. 
+- Updated the style of many outdated elements on the site.
 - Various other minor bugs squashed!
 
 Thanks to everyone who has been testing the beta and providing feedback!
@@ -402,10 +402,10 @@ Also, we now have a new source: Mega 🔥! Thanks to @fifthwit for adding it!
     <item>
       <guid>notification-043</guid>
       <title>Manual Source Selection!</title>
-      <description>I know many sources have been inconsistent recently, so to help with the trouble, we're introducing a new manual source selection setting! 
-      
-      This setting disables the automatic scraping process and requires manual selection before scraping. 
-      
+      <description>I know many sources have been inconsistent recently, so to help with the trouble, we're introducing a new manual source selection setting!
+
+      This setting disables the automatic scraping process and requires manual selection before scraping.
+
       You can find it settings, preferences. Hope it helps!
 
       Also some bug fixes so it counts as a new version: v5.1.4!</description>
@@ -455,7 +455,7 @@ Sorry again!
       <title>Extension issue for Firefox!</title>
       <description>If you're using Firefox with the P-Stream extension, you may have noticed that it says updates are unavailable and that the extension is violating policies. Yikes!
 
-Heres what happened: I accidently deleted my Firefox account that had the P-Stream extension. 
+Heres what happened: I accidently deleted my Firefox account that had the P-Stream extension.
 The extension did NOT violate any policies, it was just deleted. For some it says that when it gets removed.
 
 I just created a new account and re-submitted it, so it should be back in the store soon. I'll post here when it is.
@@ -521,7 +521,7 @@ P.S. I wanted to highlight TrinityHades, a community member, who is working on a
     <item>
       <guid>notification-036</guid>
       <title>Some sources are currently down</title>
-      <description>Some sources are currently down. We are aware of the issue and are working to resolve it. 
+      <description>Some sources are currently down. We are aware of the issue and are working to resolve it.
 Unfortunatly, many sources needed to be disabled due to them showing NSFW content and xprime is experiencing a temporary outage.
 
 I recommend you set up the febbox token to get access to FED API and CIA API, the best sources at the moment. You can find the febbox token setting at the botton of the settings page!
@@ -535,7 +535,7 @@ If you are interested in adding a new source to P-Stream, I recently created a n
     <item>
       <guid>notification-033</guid>
       <title>Clarifying current source issues</title>
-      <description>I wanted to appologize for some recent issues with FED API and Vidify. 
+      <description>I wanted to appologize for some recent issues with FED API and Vidify.
 Firstly, I wanted to note that P-Stream does not host or control any of the content. Everything is streamed from third party sources.
 
 Vidify:
@@ -546,7 +546,7 @@ This should now be resolved, and hopefully prevented in the future.
 FED API:
 We’re aware of the issues with FED API and are looking into it. However, the problem is with febbox, not the FED API scraper.
 Once FED API gets the link from febbox it’s entirely out of our control. There’s not much we can do, but maybe there’s something we can find to answer why this is happening and hopefully prevent it.
-Please be patient. I suggest using another source, or use the “open in” download option to stream the febbox mp4 within the player of your choice! 
+Please be patient. I suggest using another source, or use the “open in” download option to stream the febbox mp4 within the player of your choice!
       </description>
       <pubDate>Sat, 09 Aug 2025 8:10:00 MST</pubDate>
       <category>announcement</category>
@@ -711,4 +711,4 @@ Bug Fixes
     </item>
 
   </channel>
-</rss> 
+</rss>
